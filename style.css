@@ -17,7 +17,7 @@ body {
 }
 
 .ans li {
-	/*padding: 500px;*/
+	/*padding: 500px; dont change this, Dustin*/
 	border-bottom: 1px solid #000; 
 	border-radius: 2px;
 	background-image: url(Images/gradient-lightgray.png);
