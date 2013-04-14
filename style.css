@@ -1,0 +1,402 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: Helvetica, Arial, Lucieda Grande, Sans-Serif;
+	font-size: 14px;
+	background-color: rgb(64,64,64);
+	overflow-y: auto;
+}
+
+.ans {
+	list-style: none;
+  overflow: hidden;
+	width: 100%;
+}
+
+.ans li {
+	/*padding: 50px;*/
+	border-bottom: 1px solid #000; 
+	border-radius: 2px;
+	background-image: url(Images/gradient-lightgray.png);
+}
+
+.ans li.Classes .title {
+	background: url("Images/Applications.png") no-repeat right center;
+	background-size: 30px 30px
+}
+.ans li.General .title{
+	background: url("Images/News.png") no-repeat right center;
+	background-size: 30px 30px
+}
+.ans li.Clubs .title{
+	background: url("Images/Flag.png") no-repeat right center;
+	background-size: 30px 30px
+}
+.ans li.Sports .title{
+	background: url("Images/Basketball.png") no-repeat right center;
+	background-size: 30px 30px
+}
+
+
+.wrapper {
+	/*margin: 0 auto;*/
+	width: 100%;
+	/*height: 400px;*/
+	/*background-color: #800;*/
+	position: relative;
+	overflow: hidden;
+	-webkit-overflow-scrolling: touch;
+}
+
+.top {
+	/*background: url("Images/betterbeta.png") no-repeat right center; */
+	background-size: 50px 50px;
+	background-color: #880000;
+	position: relative;
+	padding: 10px
+	
+}
+
+.top .btnSlide {
+	position: absolute;
+	width: auto;
+	height: 75%;
+	cursor: pointer;
+	top: 14%;
+}
+
+.top h1 {
+	text-align: center;
+	font-size: 1.5em;
+	color: rgb(230, 230, 230);
+}
+
+.ans .title {
+  cursor: pointer;
+	font-weight: bold;
+	text-transform: uppercase;
+	padding: 1em 2em 1em 1em;
+}
+
+.ans .content {
+	/* margin: 1em, 0;
+	text-indent: 1em;
+	padding: 1em;
+	background-color: white; */
+	border-top: 1px solid #000;
+}
+
+.ans .details {
+	margin: 1em, 0;
+	text-indent: 1em;
+	padding: 1em;
+	background-color: white;
+}
+
+.ans .details ul {
+	padding-top: 1em;
+	padding-left: 1.5em;
+}
+
+.ans .details img {
+  height:auto;
+  max-width: 100%;
+}
+
+.ans .details li {
+	margin: 1em, 0;
+	text-indent: .1em;
+	padding: .5em;
+	background-color: white;
+	background-image: none;
+	border-bottom: 0px solid #000; 
+	border-radius: 0px;
+	list-style: disc;
+}
+
+.ans .specs {
+	/*font-weight: bold;*/
+	margin: 1em, 0;
+	text-indent: 1em;
+	padding: 0 2em 1em 0;
+	background-color: white;
+	text-align: left;
+}
+
+.ans .loading {
+	margin: 20px 45%;
+}
+
+.specs .info {
+	display: inline-block
+}
+
+.specs .tspecs {
+	/*text-decoration: underline;*/
+	font-weight: bold;
+	padding-left: 1em;
+}
+
+.over {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	/*z-index: 999;*/
+	background-color: #EEEEEE;
+	overflow-y: auto; /*auto*/
+	/*border-left: 1px solid rgb(255,255,255);*/
+
+}
+
+.SurveyBG {
+	background-color: white;
+}
+
+.under {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: auto;
+	z-index: 000;
+	background: #555 url(Images/BGround.png);
+	overflow-y: auto; /*auto*/
+	/*background-color: black;*/
+
+}
+
+.under a {
+	color: white;
+	text-decoration: none;
+	font-size: 1.25em;
+	font-weight: bold;
+}
+
+.under .atypes {
+	/*border: 1px solid rgb(32,32,32);*/
+	/*height: 1em;
+	padding: 1em;*/
+	background-color: rgb(64,64,64);
+	width: 70%;
+}
+.under .atypes .resources a{
+	background: url("Images/Orb-info.png") no-repeat right center;
+
+}
+	
+.under .atypes .cal a {
+	background: url("Images/Calendar-Month.png") no-repeat right center;
+}
+.under .atypes .settings a{
+	background: url("Images/System.png") no-repeat right center;
+	background-size: 25px 25px;
+}
+
+.under .atypes .survey a{
+	background: url("Images/Clipboard.png") no-repeat right center;
+}
+.under .atypes .personal a {
+	background: url("Images/star.png") no-repeat right center;
+}
+.under .atypes .general  a{
+	background: url("Images/News.png") no-repeat right center;
+}
+.under .atypes .sports a{
+	background: url("Images/Basketball.png") no-repeat right center;
+}
+.under .atypes .classes a {
+	background: url("Images/Applications.png") no-repeat right center;
+}
+.under .atypes .clubs a{
+	background: url("Images/Flag.png") no-repeat right center;
+}
+.under .atypes .howTo a{
+	background: url("Images/float.png") no-repeat right center;
+}
+
+.under .atypes >div>a {
+	margin-right: 5px;
+	display: block;
+	padding-right: 25px;
+	background-size: 25px 25px !important; /*reduces repetivitnessessness */
+}
+
+.under .acontent {
+	list-style: none;
+	background-color: rgb(96,96,96);
+	 
+	/*padding: .5em;*/
+	/*background: #555 url(Images/BGround.png);*/
+}
+
+.acontent li {
+	padding: .25em .25em .25em .5em;
+	border-bottom: 1px solid rgb(0,0,0);
+	border-top: 1px solid rgb(50,50,50);
+	
+}
+
+.under .atitle {
+  cursor: pointer; 
+	list-style: none;
+	padding: .5em;
+	border-bottom: 1px solid rgb(0,0,0);
+	border-top: 1px solid rgb(80,80,80);
+}
+
+.under .antitle {
+	list-style: none;
+	padding: .5em;
+	border-bottom: 1px solid rgb(0,0,0);
+	border-top: 1px solid rgb(80,80,80);
+}
+
+.calendar {
+	margin: 0 auto;
+	padding: 10px;
+	background-color: rgb(224,224,224);
+}
+
+/*.resources {
+	background-color: rgb(224,224,224);
+	height: 100%; 
+	
+} */
+
+.rlist {
+	list-style: none;
+	padding: 1em;
+}
+
+.rlist li {
+	background-color: rgb(196,196,196);
+	padding: 1em;
+	border-radius: 2px;
+	border: 1px solid rgb(32,32,32);
+}
+
+.rlist a {
+	color: black;
+	text-decoration: underline;
+	font-size: 1.25em;
+	font-weight: bold
+}
+
+.settingsWrapper {
+
+}
+
+.settingsWrapper h1{
+	border: 1px solid black;
+	font-weight: bold;
+	text-align: center;
+	font-size: 1.3em;
+	padding: .5em 0;
+}
+
+.settingsWrapper h2{
+	border: 1px solid black;
+	padding-left: .5em;	
+	font-weight: 100;
+	color: white;
+	background: rgb(64,64,64);
+	font-size: 1.1em;
+	padding-top: .3em;
+	padding-bottom: .3em;
+	text-align: left;
+}
+
+.settingsWrapper .bottom{
+	border: 1px solid black;	
+	font-weight: 100;
+	font-style: italic;
+	background: rgb(150,150,150);
+	font-size: 1.0em;
+	padding-top: .25em; /*adjust these to make easier to click*/
+	padding-bottom: .25em;
+	text-align: left;
+	clear: both;
+	float: left;
+	width: 100%;
+}
+.settingsWrapper .bottom  label{
+	width: 85%;
+	display: block;
+	clear: none;
+	float: left;
+	margin-left: 5%;
+}
+
+.settingsWrapper input[type=checkbox] {
+	float: right;
+	margin: .125em .5em 0 0;
+}
+
+
+.L1 {
+	width: 100%;
+}
+	
+.L1  li {
+	background-image: url(Images/gradient-lightgray.png);
+}
+
+.L2 {
+	width: 100%;
+}
+
+.L2 li {}
+
+.L3 {
+	width: 100%;
+}
+
+.L3 li {}
+
+.dd .closed{
+	background: url('Images/ddarrow-right.png') no-repeat 3px center;
+	padding-left: 24px;
+	margin-right: 1px;
+	
+}
+.dd .open{
+	background: url('Images/ddarrow-down.png') no-repeat 3px center;
+	padding-left: 24px;
+	margin-right: 1px;
+}
+
+.sIFrame{
+	overflow-y:auto;
+}
+
+/*#sIFrame {
+	overflow-y:auto;
+}*/
+
+.howto {
+	padding-bottom:10em;
+}
+.howTo p{
+	/*margin: 1em, 0;*/
+	text-indent: 1em;
+	padding: 1em;
+	background-color: white;
+	text-align: justify;
+}
+
+.howTo ol{
+	list-style-type: default;
+	padding: 1em 1em 1em 3em;
+	background-color: white;
+	text-align: justify;
+	/*margin-left: 2em;*/
+}
+
+.howTo li{
+	/*padding-left: .5em;*/
+}
+
