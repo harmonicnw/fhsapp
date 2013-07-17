@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.harmonicnw.techstart.fhsapp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>FHSApp</name>
+    <description>
+        FHS App
+    </description>
+    <author email="harmonicnw@gmail.com" href="http://www.harmonicnw.com">
+        Dustin Diep, Julian Weisbord, Griffin Drake, Joshua Hauser
+    </author>
+    <access origin="*" />
+    <preference name="fullscreen" value="true" />
+    <preference name="webviewbounce" value="true" />
+    
+    <!-- PLUGINS -->
+    <feature name="http://api.phonegap.com/1.0/file"/>
+    
+    <!-- SPLASH SCREENS -->
+    <gap:splash src="splash.png" />
+    
+    <!-- ICONS -->
+	<icon src="icon.png" />
+	
+</widget>
