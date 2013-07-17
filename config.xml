@@ -16,8 +16,25 @@
     
     <!-- SPLASH SCREENS -->
     <gap:splash src="splash.png" />
-    
-    <!-- ICONS -->
+
+    <!-- iOS -->
+    <gap:splash src="Images/app_splash/ios/Default~iphone.png" gap:platform="ios" width="320" height="480" />
+	<gap:splash src="Images/app_splash/ios/Default@2x~iphone.png" gap:platform="ios" width="640" height="960" />
+	<gap:splash src="Images/app_splash/ios/Default-568h@2x~iphone.png" gap:platform="ios" width="640" height="1136" />
+	<gap:splash src="Images/app_splash/ios/Default-Landscape~ipad.png" gap:platform="ios" width="1024" height="748" />
+	<gap:splash src="Images/app_splash/ios/Default-Portrait~ipad.png" gap:platform="ios" width="768" height="1004" />
+	<!-- retina iPad support: PhoneGap 2.5.0+ only -->
+	<gap:splash src="Images/app_splash/ios/Default-Landscape@2x~ipad.png" gap:platform="ios" width="2048" height="1496" />
+	<gap:splash src="Images/app_splash/ios/Default-Portrait@2x~ipad.png" gap:platform="ios" width="1536" height="2008" />
+	
+	<!-- ICONS -->
 	<icon src="icon.png" />
+	
+	<!-- iOS -->
+	<icon src="Images/app_icon/ios/icon.png" gap:platform="ios" width="57" height="57" />
+	<icon src="Images/app_icon/ios/icon-72.png" gap:platform="ios" width="72" height="72" />
+	<icon src="Images/app_icon/ios/icon@2x.png" gap:platform="ios" width="114" height="114" />
+	<!-- retina iPad support: PhoneGap 2.5.0+ only -->
+	<icon src="Images/app_icon/ios/icon-72@2x.png" gap:platform="ios" width="144" height="144" />
 	
 </widget>
