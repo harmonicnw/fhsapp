@@ -124,7 +124,11 @@ var cookieOptions = {
 }
 
 function getUserData() {                    //*Retrieves the data from the cookie
-	var ud = $.cookie("userData");          //*grabs the cookie -- IF IT EXISTS
+	if (isWebPage) {
+		var ud = $.cookie("userData");          //*grabs the cookie -- IF IT EXISTS
+	} else {
+		var ud = window.localStorage.getItem( "userData" );
+	}
 	if (ud && ud.hasOwnProperty("feeds")) { //*double checks existence of the user data cookie
 		return ud;                          //*returns the cookie (user) data
 	} else {                                //*if not, sends you nothing
@@ -830,7 +834,11 @@ function updateUserDataFromSettings() {
 	feedData.feedList = feedsArr
 	feedData.generalFeeds = generalFeedsArr;
 	
-	$.cookie( "userData", userData, cookieOptions ); //*makin' cookies or overwriting them 
+	if ( isWebPage ) {
+		$.cookie( "userData", userData, cookieOptions ); //*makin' cookies or overwriting them
+	} else {
+		window.localStorage.setItem( "userData", userData );
+	}
 	loadFeedList(feedData.feedList);
 } 
 
