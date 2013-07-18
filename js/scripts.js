@@ -67,6 +67,16 @@ var app = {
     onDeviceReady: fhsIndex
 };
 
+// test if string is valid JSON
+function IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
 /** SHARED ***************************************************************************************************************************************************/
 
 var userData;
@@ -124,16 +134,24 @@ var cookieOptions = {
 }
 
 function getUserData() {                    //*Retrieves the data from the cookie
-	if (isWebPage) {
-		var ud = $.cookie("userData");          //*grabs the cookie -- IF IT EXISTS
-	} else {
-		var ud = window.localStorage.getItem( "userData" );
-	}
+	/*//var ud = $.cookie("userData");          //*grabs the cookie -- IF IT EXISTS
 	if (ud && ud.hasOwnProperty("feeds")) { //*double checks existence of the user data cookie
 		return ud;                          //*returns the cookie (user) data
 	} else {                                //*if not, sends you nothing
 		return false;
-	}
+	}*/
+    var udString = window.localStorage.getItem( "userData" );
+    
+    if ( udString && IsJsonString( udString ) ) {
+        var ud = JSON.parse( udString );
+        if ( ud.hasOwnProperty("feeds") ) {
+            return ud;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
 }
 
 function showLoader() {                    //*Shows the cool loader thingy
@@ -686,7 +704,7 @@ function fhsSettings() {
 
 //*writes out all the checkboxes on the settings page
 //*Note: "cb" stands for checkbox
-function initSettingsList(data) {	
+function initSettingsList(data) {
 	var wrapper = $("<form id='feedSelections' class='settingsWrapper' />");
 	var container = $("<ul class='L1' />"); //*Container for adding feeds that are in the category
 	var html = '<div style="margin:.25em;"><p style="text-align:center;padding:.5em;font-style:italic;font-weight:bold;border:3px solid rgb(200,200,200);">Set your announcements here!</p></div>'; //*A nice little box that says "Set your announcements here!"
@@ -777,7 +795,7 @@ function initSettingsList(data) {
 	feedCbs = container.find('input[type=checkbox]');
 	
 	updateSettingsFromUserData();  //*Rechecks checkboxes based on data in the cookie
-	
+    
 	feedCbs.change( function(e) {  //*Runs the cookie updating function whenever a box is clicked/unclicked
 		updateUserDataFromSettings(); //*Updates the cookie
 	});
@@ -799,7 +817,7 @@ function initSettingsList(data) {
 
 //*Rechecks the checkboxes
 function updateSettingsFromUserData() { //*this cycles through the cookie to figure out which things were checked and rechecks thems on the page.
-	userData = getUserData();
+    userData = getUserData();
 	
 	if (userData) {
 		for (var i = 0; i < userData.feeds.length; i++) {
@@ -834,11 +852,9 @@ function updateUserDataFromSettings() {
 	feedData.feedList = feedsArr
 	feedData.generalFeeds = generalFeedsArr;
 	
-	if ( isWebPage ) {
-		$.cookie( "userData", userData, cookieOptions ); //*makin' cookies or overwriting them
-	} else {
-		window.localStorage.setItem( "userData", userData );
-	}
+	//$.cookie( "userData", userData, cookieOptions ); //*makin' cookies or overwriting them
+	window.localStorage.setItem( "userData", JSON.stringify(userData) );
+    
 	loadFeedList(feedData.feedList);
 } 
 

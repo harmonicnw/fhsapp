@@ -12,15 +12,16 @@
 	<script type="text/javascript" src="cordova.js"></script>
 	
 	<script type="text/javascript">
-		// determine if the app is running as a web page rather than web app
-		if ( document.location.toString().indexOf('192.168.1.100') != -1 || document.location.indexOf('localhost') ) {
-			var isWebPage = true;
-		} else {
-			var isWebPage = false;
+		function isWebPage() {
+			if ( document.location.toString().indexOf('192.168.1.100') != -1 || document.location.indexOf('localhost') != -1 || document.location.toString().indexOf('fhsapp.com') != -1 || document.location.toString().indexOf('66.206.84.132') != -1 ) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	
 		// include phonegap desktop javascript if on local dev server
-		if ( isWebPage ) {
+		if ( isWebPage() ) {
 			document.write('<script type="text/javascript" src="js/phonegap-desktop.js"><\/script>');
 		}
 	</script>
