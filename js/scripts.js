@@ -140,7 +140,7 @@ function getUserData() {                    //*Retrieves the data from the cooki
 	} else {                                //*if not, sends you nothing
 		return false;
 	}*/
-    var udString = window.localStorage.getItem( "userData" );
+    var udString = localStorage.getItem( "userData" );
     
     if ( udString && IsJsonString( udString ) ) {
         var ud = JSON.parse( udString );
@@ -853,7 +853,7 @@ function updateUserDataFromSettings() {
 	feedData.generalFeeds = generalFeedsArr;
 	
 	//$.cookie( "userData", userData, cookieOptions ); //*makin' cookies or overwriting them
-	window.localStorage.setItem( "userData", JSON.stringify(userData) );
+	localStorage.setItem( "userData", JSON.stringify(userData) );
     
 	loadFeedList(feedData.feedList);
 } 
