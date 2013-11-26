@@ -451,7 +451,8 @@ function displayAnnouncements(data){ //*This WRITES the page
 	var html = "<ul class='ans'>";
 	
 	if (feedData.entries.length == 0) { //If there are no entries (announcements), then it displays "No Current Announcements"
-		html += "<li><p class='title'>You Have No Announcements Currently :(</p><div class='content' style='display: block'><div class='details'><img src='Images/noanno.gif'/></div></div></li>";
+		var ran = Math.floor((Math.random()*8));
+		html += "<li><p class='title'>You Have No Announcements Currently :(</p><div class='content' style='display: block'><div class='details'><img src='Images/ran"+ran+".gif'/></div></div></li>";
 	} else {
 		//*this loop generates each announcement
 		for(var i = 0; i < feedData.entries.length; i++) {
