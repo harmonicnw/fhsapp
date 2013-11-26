@@ -125,7 +125,7 @@ function setTitle(title) {
 	//MAKE DYNAMIC //**//
 	//Probably take width of screen and divide by a certain number to get max characters.
 	
-	var maxChars = 17; //*This is the max number of characters that shows up on top before cutting off
+	var maxChars = 20; //*This is the max number of characters that shows up on top before cutting off
 	
 	if (title.length > maxChars) {
 		title = title.slice(0, maxChars) + "&hellip;"; //*slices and adds a dot dot dot through dicing
@@ -215,7 +215,7 @@ $(document).ready( function() {
 		
 	setAppHeight(); //*sets the height (see below)
 	$(window).bind("orientationchange",setAppHeight);  //*This detects orientation changes and "reloads" the height with each change so the things doesn't get thrown off.
-} );
+} ); 
 
 function setAppHeight() {
 	var timeout = setTimeout( //*There is a timeout here for it takes a little while for the orientation change to occur, thus this code must be delayed until after the orientation change, otherwise, the height isn't set properly.
@@ -250,7 +250,7 @@ function initializeHide() {//*Function for announcement list items toggle
 					/*var body = $('body'); body.css('height', 'auto'); body.css('height', body.height());*/
 				$(this).next(".content").slideDown(750); //*Slides down the announcement you just clicked
 			}
-		},
+		}, 
 		
 		function() {
 			if (!isSlid) {
@@ -322,6 +322,36 @@ function initializeL3Hide() {
 	);
 } 
 
+var date = new Date();
+var time = date.getHours();
+
+function makelogoimage() {
+
+if (time<6)
+  {
+  x="Images/nighttime.png" ;
+  }
+else if (time<8)
+  {
+  x="Images/sunrise.png";
+  }
+else if (time<18)
+  {
+  x="Images/daytime.png";
+  }
+else if (time<20)
+  {
+  x="Images/sunset.png";
+  }
+else 
+  {
+  x="Images/nighttime.png";
+  }
+  
+console.log("time="+time);
+$("#logo").append("<img src='"+x+"' class='timelogofull' /> ");
+
+}
 //*This is for dropdowns in the slideout menu
 function initializeSlideoutHide() {
 	//slideoutMenuDropDown
@@ -421,7 +451,7 @@ function displayAnnouncements(data){ //*This WRITES the page
 	var html = "<ul class='ans'>";
 	
 	if (feedData.entries.length == 0) { //If there are no entries (announcements), then it displays "No Current Announcements"
-		html += "<li><p class='title'>No Current Announcements</p></li>";
+		html += "<li><p class='title'>You Have No Announcements Currently :(</p><div class='content' style='display: block'><div class='details'><img src='Images/noanno.gif'/></div></div></li>";
 	} else {
 		//*this loop generates each announcement
 		for(var i = 0; i < feedData.entries.length; i++) {
@@ -857,7 +887,39 @@ setTitle("Feedback"); //*Change to "feedback"
 /** HOW-TO ***********/
 
 function loadHowTo() {
-	$("#dContent").load("howTo.html");
+	$("#dContent").load("howTo.html",function(){makelogoimage()});
 	setTitle("Getting Started");  
 	slideLeft2();
+	
+}
+
+var date = new Date();
+var time = date.getHours();
+
+function makelogoimage() {
+
+if (time<6)
+  {
+  x="Images/nighttime.png" ;
+  }
+else if (time<8)
+  {
+  x="Images/sunrise.png";
+  }
+else if (time<18)
+  {
+  x="Images/daytime.png";
+  }
+else if (time<20)
+  {
+  x="Images/sunset.png";
+  }
+else 
+  {
+  x="Images/nighttime.png";
+  }
+  
+console.log("time="+time);
+$("#logo").append("<img src='"+x+"' class='timelogo' /> ");
+
 }
