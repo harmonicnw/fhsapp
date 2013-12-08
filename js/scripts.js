@@ -77,8 +77,13 @@ var feedListItemsTotal;
 var feedListItemsLoaded;
 
 //*These two urls are used with the ajaxFeed() function (see below) to get the information with all the announcements.
-var annoListUrl= "http://www.fhsapp.com/host/feed/annolist/";   //*This Url goes to all the announcement lists.
-var annoQueryUrl= "http://www.fhsapp.com/host/feed/annoquery/"; //*This Url works with the catIds. When appended with ?catids="#", "#", "#"... it goes an gets all those categories with those catId numbers.
+//var annoListUrl= "http://www.fhsapp.com/host/feed/annolist/";   //*This Url goes to all the announcement lists.
+//var annoQueryUrl= "http://www.fhsapp.com/host/feed/annoquery/"; //*This Url works with the catIds. When appended with ?catids="#", "#", "#"... it goes an gets all those categories with those catId numbers.
+var annoListUrl= "http://localhost/fhsapp_v2/anno_list.php";
+var annoQueryUrl= "http://localhost/fhsapp_v2/anno_query.php";
+
+
+
 
 //*These are the loaders
 var LoadWB = $("<img class='loading' src='Images/LoadWB.gif' width='32' height='32' />"); 
@@ -427,7 +432,8 @@ function loadAnnouncements(feeds, title) {       //*The parameter "feeds" comes 
 }
 
 //**// Confused about where "data" parameter comes in. I know it's in the ajax callback(data) parameter somewhere...
-function addAnnouncements(data) {
+function addAnnouncements(data) { 
+	data = JSON.parse(data);
 	for (var i = 0; i < data.feed.entries.length; i++){
 		var  alreadyAdded = false //*checks for dupes by ID and refuses to add those that match 
 		for (var j=0; j < feedData.entries.length; j++) {
@@ -516,6 +522,7 @@ function sortAnnouncements(fd) {
 
 /** SLIDEOUT!MENU (aka FeedList) *********************************************************************************************************************/
 function addFeedsToList(data) {
+	data = JSON.parse(data);
 	for(var i=0; i < data.feed.feeds.length; i++){
 		//*feedData.feedList is up in the feeds array (line ~67)
 		feedData.feedList.push({
@@ -609,6 +616,7 @@ function displayFeedList() {
 //////////////////////FIX FIX FIX FIX////////////////////////////////////
 //Maybe make a master function for all this so it may all be passed in?//
 function addFeedsToListGeneral(data) {
+	data = JSON.parse(data);
 	for(var i=0; i < data.feed.feeds.length; i++){
 		feedData.generalFeedList.push({
 			'feedTitle':data.feed.feeds[i].title,
