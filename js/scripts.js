@@ -425,6 +425,7 @@ function fhsIndex(){
 }
 
 function loadAnnouncements(feeds, title) {       //*The parameter "feeds" comes in as a string of catIds, which are passed to makeQueryUrlString (see below).
+	console.log("Loading Announcements");
 	showLoader();
 	slideLeft2();
 	//*feedData is an object that holds a ton of stuff (see line ~49)	
@@ -437,7 +438,7 @@ function loadAnnouncements(feeds, title) {       //*The parameter "feeds" comes 
 
 //**// Confused about where "data" parameter comes in. I know it's in the ajax callback(data) parameter somewhere...
 function addAnnouncements(data) { 
-	data = JSON.parse(data);
+	//data = JSON.parse(data);
 	for (var i = 0; i < data.feed.entries.length; i++){
 		var  alreadyAdded = false //*checks for dupes by ID and refuses to add those that match 
 		for (var j=0; j < feedData.entries.length; j++) {
@@ -527,8 +528,10 @@ function sortAnnouncements(fd) {
 /** SLIDEOUT!MENU (aka FeedList) *********************************************************************************************************************/
 function addFeedsToList(data) {
 	console.log("now at addFeedsToList"); 
-	data = JSON.parse(data); //?DA PROBLEM!!!!! //REALLY REALLY HERE!!!!
-	console.log("This is where it says JSON.parse");
+	
+	console.dir(data);
+	//data = JSON.parse(data); //?DA PROBLEM!!!!! //REALLY REALLY HERE!!!!
+	//console.log("This is where it says JSON.parse");
 	for(var i=0; i < data.feed.feeds.length; i++){
 		//*feedData.feedList is up in the feeds array (line ~67)
 		feedData.feedList.push({
@@ -623,7 +626,7 @@ function displayFeedList() {
 //////////////////////FIX FIX FIX FIX////////////////////////////////////
 //Maybe make a master function for all this so it may all be passed in?//
 function addFeedsToListGeneral(data) {
-	data = JSON.parse(data);
+	//data = JSON.parse(data);
 	for(var i=0; i < data.feed.feeds.length; i++){
 		feedData.generalFeedList.push({
 			'feedTitle':data.feed.feeds[i].title,
