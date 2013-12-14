@@ -98,6 +98,10 @@ function ajaxFeed(url,callback) {
 		type: 'get',
 		success: function(data) {
 			callback(data);
+		},
+		error: function() {
+			console.log("something done broke yo ");
+			console.log(url);
 		}
 	} );
 }
@@ -522,7 +526,9 @@ function sortAnnouncements(fd) {
 
 /** SLIDEOUT!MENU (aka FeedList) *********************************************************************************************************************/
 function addFeedsToList(data) {
-	data = JSON.parse(data);
+	console.log("now at addFeedsToList"); 
+	data = JSON.parse(data); //?DA PROBLEM!!!!! //REALLY REALLY HERE!!!!
+	console.log("This is where it says JSON.parse");
 	for(var i=0; i < data.feed.feeds.length; i++){
 		//*feedData.feedList is up in the feeds array (line ~67)
 		feedData.feedList.push({
@@ -535,6 +541,7 @@ function addFeedsToList(data) {
 }
 
 function loadFeedList(feeds){   //*this runs everytime a setting is changed or the app is initially loaded.
+	//console.log("calling loadfeedlist"); //works up to this point
 	feedData.feedList = []; 	//*location of all your categories. Clears everytime.
 	var queryString = makeQueryUrlString(feeds); //*makes the string (the lump). The "makeQueryUrlString" returns a string of catIds, which the variable gets set to.
 	ajaxFeed(annoQueryUrl + queryString, addFeedsToList); //*Purges the old feeds in a ritualistic culling. (Translation: Everytime a setting is changed (checked), the ajaxFeed function runs and the "feedData.feedList" array is filled up with a new set of data.
@@ -708,8 +715,8 @@ function initSettingsList(data) {
 	feedData.allCats = data.allcats; //*allcats is the list of the big four "general, classes, clubs, and sports"
 	feedData.allTeachers = data.allteachers; //*All the teachers
 	feedData.surveyUrl = data.surveyUrl;
-	
 	for (var i = 0; i < feedData.allCats.length; i++) {//*This loop sifts through each of the big four categories in allcats and finds the categories that fit under it. Once it finds a category that fits under allcats, it pushes it into the feedArr.
+
 		var feedArr = [];
 		
 		for (var j = 0; j < data.feed.entries.length; j++) {
@@ -717,7 +724,7 @@ function initSettingsList(data) {
 				feedArr.push(data.feed.entries[j]); //*If true, pushes to array "feedArr" at top
 			}
 		}
-		
+		//console.dir(feedArr);
 		if (feedArr.length > 0) { //*This checks if there's something in the category
 			feedArr.sort( //*This sorts everything
 				function(a,b){
@@ -831,7 +838,7 @@ function updateSettingsFromUserData() { //*this cycles through the cookie to fig
 function updateUserDataFromSettings() {
 	var feedsArr =[];
 	var generalFeedsArr = [];
-	
+	//console.log("updatingUserDataFromSettings");
 	//if a feed is checked, add it to the cookie
 	feedCbs.each( function(i) {
 		if ( $(this).is(":checked") && $(this).parents("li.general").length > 0 ) { //checks if it does have a ancestor called General
@@ -840,16 +847,19 @@ function updateUserDataFromSettings() {
 			feedsArr.push( $(this).val() ); //pushes it into the porthole """porthole = feeds""" list if it's checked!
 		}
 	});
-	
+	//console.dir(generalFeedsArr);
+	//console.dir(feedsArr);
 	userData = { 
 		'feeds' : feedsArr,
 		'generalFeeds' : generalFeedsArr
 	};
-	feedData.feedList = feedsArr
+	feedData.feedList = feedsArr;
 	feedData.generalFeeds = generalFeedsArr;
 	
 	$.cookie( "userData", userData, cookieOptions ); //*makin' cookies or overwriting them 
 	loadFeedList(feedData.feedList);
+	console.dir(feedData);
+	console.dir(feedData.feedList);
 } 
 
 
