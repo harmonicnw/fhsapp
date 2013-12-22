@@ -107,8 +107,12 @@ function ajaxFeed(url,callback) {
 }
 
 var cookieOptions = {
-	'expires' : 999999999,              //* This is when the cookie ends (basically never)
+	'expires' : 9999999999,              //* This is when the cookie ends (basically never)
 	'domain' : window.location.hostname //* This means the cookie's only useable in FHS app
+}
+
+function cookieDebug() {
+	console.log($.cookie("userData"));
 }
 
 function getUserData() {                    //*Retrieves the data from the cookie
