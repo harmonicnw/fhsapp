@@ -473,11 +473,15 @@ function displayAnnouncements(data){ //*This WRITES the page
 			var category = feedData.entries[i]['category'];
 			var topCategory = feedData.entries[i]['topCategory'];
 			var eventDate = feedData.entries[i]['eventDate'];
+			console.log(eventDate);
+			
 			if (eventDate != ""){
+			if (eventDate != "0000-00-00"){
 				eventDate = new Date(eventDate);
 				var d = eventDate.getUTCDate();
 				var m = m_names[eventDate.getMonth()];
 				eventDate = m + " 	" + d;
+			}
 			}
 			var eventTime = feedData.entries[i]['eventTime'];
 			var eventLocation = feedData.entries[i]['eventLocation'];
@@ -492,7 +496,7 @@ function displayAnnouncements(data){ //*This WRITES the page
 					html += "<div class='specs'>";
 						html += "<p>";
 							html += "<span class='info'><span class='tspecs'>Category: </span>" + category + "</span>";
-							if (eventDate != "") html += "<span class='info'><span class='tspecs'>Date: </span>" + eventDate + "</span>";
+							if (eventDate != "" && eventDate != "0000-00-00") html += "<span class='info'><span class='tspecs'>Date: </span>" + eventDate + "</span>";
 							if (eventTime != "") html += "<span class='info'><span class='tspecs'>Time: </span>" + eventTime + "</span>";	
 							if (eventLocation != "") html += "<span class='info'><span class='tspecs'>Where: </span>" + eventLocation + "</span>"; 
 						html += "</p>";
