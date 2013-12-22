@@ -779,10 +779,11 @@ function initSettingsList(data) {
 						html += "<ul class='L3'>"; //*This is the list of individual classes
 					
 						for (var l = 0; l < feedArr2.length; l++) {
+						if (feedArr2[l].title!=""){
 							html += "<li class='bottom'><label for='cb" + cbCount + "'>" + feedArr2[l].title + "</label><input id='cb" + cbCount + "' type='checkbox' value='" + feedArr2[l].catId + "' /></li>"; //*Writes the checkbox
 							cbCount++;  //assigns classes their label and whether or not they should be checkbox'd
 						}
-					
+						}
 						html += "</ul>";
 					}
 				}
