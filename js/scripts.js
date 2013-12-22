@@ -894,7 +894,6 @@ var sWidth = $(document).width() - 20;                              //*How wide 
 var sHeight = $(document).height() - 20 - $(".top").outerHeight();  //*How high the survey shall be
 //
 var sIFrame = $('<div class="sIFrame" width="' + sWidth + '" height="' + sHeight + '"><iframe id="sIFrame" width="' + sWidth + '" scrolling="yes" height="' + sHeight + '" frameborder="0" src="' + feedData.surveyUrl + '" style="border-width: 0px;margin: 10px 0 0 10px;overflow-y:auto;"/></div>');
-
 //*This is part of fixing the problems in the UI where the dimensions weren't changing dynamically upon orientation changes. Don't worry about it.
 sIFrame.bind("orientationchange", //*This is for detecting orientation change in Survey. When it detects it, it runs the below function.
 	function(){
