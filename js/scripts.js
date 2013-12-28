@@ -79,11 +79,10 @@ var feedListItemsLoaded;
 //*These two urls are used with the ajaxFeed() function (see below) to get the information with all the announcements.
 //var annoListUrl= "http://www.fhsapp.com/host/feed/annolist/";   //*This Url goes to all the announcement lists.
 //var annoQueryUrl= "http://www.fhsapp.com/host/feed/annoquery/"; //*This Url works with the catIds. When appended with ?catids="#", "#", "#"... it goes an gets all those categories with those catId numbers.
-var annoListUrl= "http://localhost/fhsapp_v2/anno_list.php";
-var annoQueryUrl= "http://localhost/fhsapp_v2/anno_query.php";
-
-
-
+//var annoListUrl= "http://localhost/fhsapp_v2/anno_list.php";
+//var annoQueryUrl= "http://localhost/fhsapp_v2/anno_query.php";
+var annoListUrl= "http://www.fhsapp.com/admin/anno_list.php";
+var annoQueryUrl= "http://www.fhsapp.com/admin/anno_query.php";
 
 //*These are the loaders
 var LoadWB = $("<img class='loading' src='Images/LoadWB.gif' width='32' height='32' />"); 
@@ -164,8 +163,9 @@ var L3isSlid = false;
 var L2isSlid = false;
 
 $(document).ready( function() {
+	
 	//*For sliding right
-	 slideRight = function() {
+	slideRight = function() {
 		over.animate({
 		'left': ($(document).width()*.7) + 'px'
 		}, 250);
@@ -174,8 +174,9 @@ $(document).ready( function() {
 			e.preventDefault();
 		});
 	}
+	
 	//*For sliding left
-	 slideLeft = function() {
+	slideLeft = function() {
 		over.animate({
 		'left': '0px'
 		}, 250);
@@ -214,6 +215,7 @@ $(document).ready( function() {
 			}
 		}
 	);
+	
 	//*For the button
 	var btnSlide = $(".btnSlide");
 	btnSlide.click(
@@ -365,6 +367,7 @@ console.log("time="+time);
 $("#logo").append("<img src='"+x+"' class='timelogofull' /> ");
 
 }
+
 //*This is for dropdowns in the slideout menu
 function initializeSlideoutHide() {
 	//slideoutMenuDropDown
@@ -392,8 +395,7 @@ function initializeSlideoutHide() {
 }
 
 //*This function is so that you can click the title of a setting and it checks
-function initializeEasyCheck()
-{
+function initializeEasyCheck() {
 	$(".bottom").each( function() {
 		var cb = $(this).find("input");
 		
