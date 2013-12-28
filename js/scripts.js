@@ -77,12 +77,16 @@ var feedListItemsTotal;
 var feedListItemsLoaded;
 
 //*These two urls are used with the ajaxFeed() function (see below) to get the information with all the announcements.
-//var annoListUrl= "http://www.fhsapp.com/host/feed/annolist/";   //*This Url goes to all the announcement lists.
-//var annoQueryUrl= "http://www.fhsapp.com/host/feed/annoquery/"; //*This Url works with the catIds. When appended with ?catids="#", "#", "#"... it goes an gets all those categories with those catId numbers.
+var annoListUrl= "http://www.fhsapp.com/admin/anno_list.php";   //*This Url goes to all the announcement lists.
+var annoQueryUrl= "http://www.fhsapp.com/admin/anno_query.php"; //*This Url works with the catIds. When appended with ?catids="#", "#", "#"... it goes an gets all those categories with those catId numbers.
+
+//*Original WordPress Urls
+//var annoListUrl= "http://www.fhsapp.com/host/feed/annolist/";   
+//var annoQueryUrl= "http://www.fhsapp.com/host/feed/annoquery/"; 
+
+//*Test Server Urls
 //var annoListUrl= "http://localhost/fhsapp_v2/anno_list.php";
 //var annoQueryUrl= "http://localhost/fhsapp_v2/anno_query.php";
-var annoListUrl= "http://www.fhsapp.com/admin/anno_list.php";
-var annoQueryUrl= "http://www.fhsapp.com/admin/anno_query.php";
 
 //*These are the loaders
 var LoadWB = $("<img class='loading' src='Images/LoadWB.gif' width='32' height='32' />"); 
