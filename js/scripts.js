@@ -79,8 +79,8 @@ var feedListItemsLoaded;
 //*These two urls are used with the ajaxFeed() function (see below) to get the information with all the announcements.
 //var annoListUrl= "http://www.fhsapp.com/host/feed/annolist/";   //*This Url goes to all the announcement lists.
 //var annoQueryUrl= "http://www.fhsapp.com/host/feed/annoquery/"; //*This Url works with the catIds. When appended with ?catids="#", "#", "#"... it goes an gets all those categories with those catId numbers.
-var annoListUrl= "http://localhost/fhsapp_v2/anno_list.php";
-var annoQueryUrl= "http://localhost/fhsapp_v2/anno_query.php";
+var annoListUrl= "http://localhost:8888/FHS_APP/fhsapp_v2/anno_list.php";
+var annoQueryUrl= "http://localhost:8888/FHS_APP/fhsapp_v2/anno_query.php";
 
 
 
