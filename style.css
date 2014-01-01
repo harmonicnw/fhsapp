@@ -294,7 +294,7 @@ body {
 }
 
 .settingsWrapper {
-
+list-style:none;
 }
 
 .settingsWrapper h1{
@@ -303,6 +303,7 @@ body {
 	text-align: center;
 	font-size: 1.3em;
 	padding: .5em 0;
+	list-style: none;
 }
 
 .settingsWrapper h2{
@@ -315,6 +316,7 @@ body {
 	padding-top: .3em;
 	padding-bottom: .3em;
 	text-align: left;
+	list-style: none;
 }
 
 .settingsWrapper .bottom{
@@ -351,6 +353,7 @@ body {
 	
 .L1  li {
 	background: rgb(255,255,255) ;
+	list-style: none;
 
 }
 
@@ -361,7 +364,7 @@ body {
 }
 
 .L2 li {
-	;
+	list-style: none;
 }
 
 .L3 {
