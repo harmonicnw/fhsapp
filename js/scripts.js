@@ -77,10 +77,10 @@ var feedListItemsTotal;
 var feedListItemsLoaded;
 
 //*These two urls are used with the ajaxFeed() function (see below) to get the information with all the announcements.
-//var annoListUrl= "http://www.fhsapp.com/host/feed/annolist/";   //*This Url goes to all the announcement lists.
-//var annoQueryUrl= "http://www.fhsapp.com/host/feed/annoquery/"; //*This Url works with the catIds. When appended with ?catids="#", "#", "#"... it goes an gets all those categories with those catId numbers.
-var annoListUrl= "http://localhost:8888/FHS_APP/fhsapp_v2/anno_list.php";
-var annoQueryUrl= "http://localhost:8888/FHS_APP/fhsapp_v2/anno_query.php";
+var annoListUrl= "http://www.fhsapp.com/host/feed/annolist/";   //*This Url goes to all the announcement lists.
+var annoQueryUrl= "http://www.fhsapp.com/host/feed/annoquery/"; //*This Url works with the catIds. When appended with ?catids="#", "#", "#"... it goes an gets all those categories with those catId numbers.
+//var annoListUrl= "http://localhost:8888/FHS_APP/fhsapp_v2/anno_list.php";
+//var annoQueryUrl= "http://localhost:8888/FHS_APP/fhsapp_v2/anno_query.php";
 
 
 
@@ -100,8 +100,8 @@ function ajaxFeed(url,callback) {
 			callback(data);
 		},
 		error: function() {
-			console.log("something done broke yo ");
-			console.log(url);
+			//console.log("something done broke yo ");
+			//console.log(url);
 		}
 	} );
 }
@@ -112,7 +112,8 @@ var cookieOptions = {
 }
 
 function getUserData() {                    //*Retrieves the data from the cookie
-	var ud = $.cookie("userData");          //*grabs the cookie -- IF IT EXISTS
+	//var ud = $.cookie("userData");    	//*grabs the cookie -- IF IT EXISTS
+	var ud = JSON.parse(localStorage.getItem("userData"));
 	if (ud && ud.hasOwnProperty("feeds")) { //*double checks existence of the user data cookie
 		return ud;                          //*returns the cookie (user) data
 	} else {                                //*if not, sends you nothing
@@ -357,7 +358,7 @@ else
   x="Images/nighttime.png";
   }
   
-console.log("time="+time);
+//console.log("time="+time);
 $("#logo").append("<img src='"+x+"' class='timelogofull' /> ");
 
 }
@@ -425,7 +426,7 @@ function fhsIndex(){
 }
 
 function loadAnnouncements(feeds, title) {       //*The parameter "feeds" comes in as a string of catIds, which are passed to makeQueryUrlString (see below).
-	console.log("Loading Announcements");
+	//console.log("Loading Announcements");
 	showLoader();
 	slideLeft2();
 	//*feedData is an object that holds a ton of stuff (see line ~49)	
@@ -527,9 +528,9 @@ function sortAnnouncements(fd) {
 
 /** SLIDEOUT!MENU (aka FeedList) *********************************************************************************************************************/
 function addFeedsToList(data) {
-	console.log("now at addFeedsToList"); 
+	//console.log("now at addFeedsToList"); 
 	
-	console.dir(data);
+	//console.dir(data);
 	//data = JSON.parse(data); //?DA PROBLEM!!!!! //REALLY REALLY HERE!!!!
 	//console.log("This is where it says JSON.parse");
 	for(var i=0; i < data.feed.feeds.length; i++){
@@ -859,10 +860,13 @@ function updateUserDataFromSettings() {
 	feedData.feedList = feedsArr;
 	feedData.generalFeeds = generalFeedsArr;
 	
-	$.cookie( "userData", userData, cookieOptions ); //*makin' cookies or overwriting them 
+	//$.cookie( "userData", userData, cookieOptions ); //*makin' cookies or overwriting them 
+	localStorage.setItem("userData",JSON.stringify(userData));
+	console.log("userData = " + JSON.parse(localStorage.getItem("userData")));
+	console.dir(JSON.parse(localStorage.getItem("userData")));
 	loadFeedList(feedData.feedList);
-	console.dir(feedData);
-	console.dir(feedData.feedList);
+	//console.dir(feedData);
+	//console.dir(feedData.feedList);
 } 
 
 
@@ -941,7 +945,7 @@ else
   x="Images/nighttime.png";
   }
   
-console.log("time="+time);
+//console.log("time="+time);
 $("#logo").append("<img src='"+x+"' class='timelogo' /> ");
 
 }
