@@ -538,7 +538,8 @@ function addFeedsToList(data) {
 		feedData.feedList.push({
 			'feedTitle':data.feed.feeds[i].title,
 			'feedCategory':data.feed.feeds[i].topCategory,
-			'feedCatId':data.feed.feeds[i].catId
+			'feedCatId':data.feed.feeds[i].catId,
+			'feedPeriod':data.feed.feeds[i].period
 		});
 	}
 	displayFeedList();
@@ -579,7 +580,7 @@ function displayFeedList() {
 	html += "<li class=\"atypes dynamic\"><div class=\"atitle personal\"><a href='#' onclick=\"loadAnnouncements([" + allCatIds.join() + "], 'Your Announcements'); return false;\">Your Announcements</a></div></li>";
 	
 	for (var i = 0; i < feedData.allCats.length; i++) { //*This makes categories
-		var feedArr = [];   		//*Container for adding feeds that are in the category
+		var feedArr = [];   		//*Container for the categories
 		for (var j = 0; j < feedData.feedList.length; j++) { //*This loop runs for each top category
 			if (feedData.feedList[j].feedCategory == feedData.allCats[i]) { //*This checks if the feed falls under the categories listed in allCats. feedCategory is in the object from the feed.
 				feedArr.push( feedData.feedList[j] );        //*If true, pushes to array
@@ -596,8 +597,23 @@ function displayFeedList() {
 					} else {
 						return 0;
 					}
+					
+					
 				}
 			);
+			
+			feedArr.sort( //*This sorts everything
+				function(a,b){
+					if(a.feedPeriod < b.feedPeriod) {
+						return -1;
+					} else if (a.feedPeriod > b.feedPeriod) {
+						return 1;
+					} else {
+						return 0;
+					}
+				}
+			);
+			
 			
 			var iconClass = feedData.allCats[i].toLowerCase().replace(" ", "-"); //*contingency plan for titles with spaces and uppercases 
 			html += "<li class='atypes dynamic dd'>";
@@ -606,7 +622,11 @@ function displayFeedList() {
 			var allCatIdsArray = []; //*This holds all the names of the classes, clubs, etc. for the "All"
 			var liString = ""; //*This temporarily holds all the individual classes, clubs, etc.
 			for (var k = 0; k < feedArr.length; k++) { //Below here is again the onclick, except the loadAnnouncemets is only being passed 1 catId to load.
-				liString += "<li><a href='#'onclick=\"loadAnnouncements(['" + feedArr[k].feedCatId + "'], '" + feedArr[k].feedTitle + "'); return false;\">" + feedArr[k].feedTitle + "</a></li>"; //*This is the title of the category w/ the link
+				if(feedArr[k].feedPeriod != 0) {
+					liString += "<li><a href='#'onclick=\"loadAnnouncements(['" + feedArr[k].feedCatId + "'], '" + feedArr[k].feedTitle + "'); return false;\">" + feedArr[k].feedPeriod + " - " + feedArr[k].feedTitle + "</a></li>"; //*This is the title of the category w/ the link
+				} else {
+					liString += "<li><a href='#'onclick=\"loadAnnouncements(['" + feedArr[k].feedCatId + "'], '" + feedArr[k].feedTitle + "'); return false;\">" + feedArr[k].feedTitle + "</a></li>"; //*This is the title of the category w/ the link
+				}
 				allCatIdsArray.push(feedArr[k].feedCatId); //*This array is used to contain the catIds for one top category (like "Clubs") for the "all" option.
 			}
 			var allCatIdsString = allCatIdsArray.join(); //*This joins the array into a string for the "all" category
@@ -718,12 +738,24 @@ function initSettingsList(data) {
 	var cbCount= 0; //*The current number of checkboxes
 	feedData.allCats = data.allcats; //*allcats is the list of the big four "general, classes, clubs, and sports"
 	feedData.allTeachers = data.allteachers; //*All the teachers
+	feedData.allTeachers.sort( //*This sorts everything
+				function(a,b){
+					if(a < b) {
+						return -1;
+					} else if (a > b) {
+						return 1;
+					} else {
+						return 0;
+					}
+				}
+			);
+	
 	feedData.surveyUrl = data.surveyUrl;
 	for (var i = 0; i < feedData.allCats.length; i++) {//*This loop sifts through each of the big four categories in allcats and finds the categories that fit under it. Once it finds a category that fits under allcats, it pushes it into the feedArr.
 
 		var feedArr = [];
 		
-		for (var j = 0; j < data.feed.entries.length; j++) {
+		for (var j = 0; j < data.feed.entries.length; j++) { //*entries are the categories (periods)
 			if (data.feed.entries[j].category == feedData.allCats[i]) { //*This checks if the feed falls under the categories listed in allCats.feedCategory (the big four).
 				feedArr.push(data.feed.entries[j]); //*If true, pushes to array "feedArr" at top
 			}
@@ -752,31 +784,32 @@ function initSettingsList(data) {
 			html += "<h1>" + feedData.allCats[i] + "</h1>";
 			html += "<ul class='L2'>";
 			
-			if (feedData.allCats[i] == "Classes") { //*Checks to see if the category falls under "Classes". If it does, we start making L3s (the teachers).
+			if (feedData.allCats[i] == "Classes") { //*Checks to see if the category falls under "Classes". If it does, we start making L3s (the teacher's periods).
 				for (var k = 0; k < feedData.allTeachers.length; k++) { //*Loop runs to make each list for the teachers
-					var feedArr2 = []; //*Container for teachers
+					var feedArr2 = []; //*Container for teacher's periods
 					for (var l=0; l < feedArr.length; l++) {
-						if (feedArr[l].teacher == feedData.allTeachers[k]) { //*If the teacher matches, push it into the array
+						if (feedArr[l].teacher == feedData.allTeachers[k] && feedArr[l].title != "") { //*If the teacher matches, push it into the array
 							feedArr2.push( feedArr[l] );
 						}
 					}
 					
 					if (feedArr2.length > 0) { 
+					
+						html += "<h2>" + feedData.allTeachers[k] + "</h2>"; //*This makes the heading for each teacher
+						html += "<ul class='L3'>"; //*This is the list of individual classes
+						
 						feedArr2.sort(function(a,b){ //*This sorts the teachers.
-							if (a.title<b.title) {
+							if (a.period<b.period) {
 								return -1;
-							} else if(a.title>b.title) {
+							} else if(a.period>b.period) {
 								return 1;
 							} else {
 								return 0;
 							}
 						});
-					
-						html += "<h2>" + feedData.allTeachers[k] + "</h2>"; //*This makes the heading for each teacher
-						html += "<ul class='L3'>"; //*This is the list of individual classes
-					
+						
 						for (var l = 0; l < feedArr2.length; l++) {
-							html += "<li class='bottom'><label for='cb" + cbCount + "'>" + feedArr2[l].title + "</label><input id='cb" + cbCount + "' type='checkbox' value='" + feedArr2[l].catId + "' /></li>"; //*Writes the checkbox
+							html += "<li class='bottom'><label for='cb" + cbCount + "'>" + feedArr2[l].period + " - " + feedArr2[l].title + "</label><input id='cb" + cbCount + "' type='checkbox' value='" + feedArr2[l].catId + "' /></li>"; //*Writes the checkbox
 							cbCount++;  //assigns classes their label and whether or not they should be checkbox'd
 						}
 					
