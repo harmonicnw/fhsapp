@@ -473,6 +473,10 @@ function displayAnnouncements(data){ //*This WRITES the page
 			var content = feedData.entries[i]['content'];
 			var category = feedData.entries[i]['category'];
 			var topCategory = feedData.entries[i]['topCategory'];
+			//?NEW STUFF HERE FOR "topCategory" FOR THE MORE CUSTOM ICONS. Will need if statement and stuff.
+			//var period = feedData.entries[i]['period'];
+			//var classPeriod = [0, "Classes1", "Classes2", "Classes3", "Classes4", "Classes5", "Classes6", "Classes7", "Classes8"];
+			//?
 			var eventDate = feedData.entries[i]['eventDate'];
 			if (eventDate != ""){
 				eventDate = new Date(eventDate);
@@ -484,7 +488,11 @@ function displayAnnouncements(data){ //*This WRITES the page
 			var eventLocation = feedData.entries[i]['eventLocation'];
 		
 			//this is writing the html for each announcement using the objects from above
-			html += "<li class='" + topCategory + "'>";
+			//if (period == 0) { //new stuff
+				html += "<li class='" + topCategory + "'>"; 
+			//} else {
+			//	html += "<li class='" + classPeriod[period] + "'>"; 
+			//}
 				html += "<p class='title'>" + title + "</p>";
 				html += "<div class='content'>";
 					html += "<div class='details'>";
