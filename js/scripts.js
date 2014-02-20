@@ -478,7 +478,8 @@ function displayAnnouncements(data){ //*This WRITES the page
 			var classPeriod = [0, "Classes1", "Classes2", "Classes3", "Classes4", "Classes5", "Classes6", "Classes7", "Classes8"];
 			//?
 			var eventDate = feedData.entries[i]['eventDate'];
-			if (eventDate != ""){
+			
+			if (eventDate != "0000-00-00"){
 				eventDate = new Date(eventDate);
 				var d = eventDate.getUTCDate();
 				var m = m_names[eventDate.getMonth()];
@@ -501,7 +502,7 @@ function displayAnnouncements(data){ //*This WRITES the page
 					html += "<div class='specs'>";
 						html += "<p>";
 							html += "<span class='info'><span class='tspecs'>Category: </span>" + category + "</span>";
-							if (eventDate != "") html += "<span class='info'><span class='tspecs'>Date: </span>" + eventDate + "</span>";
+							if (eventDate != "0000-00-00") html += "<span class='info'><span class='tspecs'>Date: </span>" + eventDate + "</span>";
 							if (eventTime != "") html += "<span class='info'><span class='tspecs'>Time: </span>" + eventTime + "</span>";	
 							if (eventLocation != "") html += "<span class='info'><span class='tspecs'>Where: </span>" + eventLocation + "</span>"; 
 						html += "</p>";
