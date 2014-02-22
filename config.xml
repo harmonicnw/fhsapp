@@ -22,5 +22,5 @@
     
     <icon src="icon.png" />
     <gap:splash src="splash.png" />
-	<gap:plugin name="org.apache.cordova.core.inappbrowser" />
+	<gap:plugin name="org.apache.cordova.inappbrowser" />
 </widget>
