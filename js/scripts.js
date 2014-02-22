@@ -473,8 +473,13 @@ function displayAnnouncements(data){ //*This WRITES the page
 			var content = feedData.entries[i]['content'];
 			var category = feedData.entries[i]['category'];
 			var topCategory = feedData.entries[i]['topCategory'];
+			//?NEW STUFF HERE FOR "topCategory" FOR THE MORE CUSTOM ICONS. Will need if statement and stuff.
+			var period = feedData.entries[i]['period'];
+			var classPeriod = [0, "Classes1", "Classes2", "Classes3", "Classes4", "Classes5", "Classes6", "Classes7", "Classes8"];
+			//?
 			var eventDate = feedData.entries[i]['eventDate'];
-			if (eventDate != ""){
+			
+			if (eventDate != "0000-00-00"){
 				eventDate = new Date(eventDate);
 				var d = eventDate.getUTCDate();
 				var m = m_names[eventDate.getMonth()];
@@ -484,7 +489,11 @@ function displayAnnouncements(data){ //*This WRITES the page
 			var eventLocation = feedData.entries[i]['eventLocation'];
 		
 			//this is writing the html for each announcement using the objects from above
-			html += "<li class='" + topCategory + "'>";
+			if (period == 0) { //new stuff
+				html += "<li class='" + topCategory + "'>"; 
+			} else {
+				html += "<li class='" + classPeriod[period] + "'>"; 
+			}
 				html += "<p class='title'>" + title + "</p>";
 				html += "<div class='content'>";
 					html += "<div class='details'>";
@@ -493,7 +502,7 @@ function displayAnnouncements(data){ //*This WRITES the page
 					html += "<div class='specs'>";
 						html += "<p>";
 							html += "<span class='info'><span class='tspecs'>Category: </span>" + category + "</span>";
-							if (eventDate != "") html += "<span class='info'><span class='tspecs'>Date: </span>" + eventDate + "</span>";
+							if (eventDate != "0000-00-00") html += "<span class='info'><span class='tspecs'>Date: </span>" + eventDate + "</span>";
 							if (eventTime != "") html += "<span class='info'><span class='tspecs'>Time: </span>" + eventTime + "</span>";	
 							if (eventLocation != "") html += "<span class='info'><span class='tspecs'>Where: </span>" + eventLocation + "</span>"; 
 						html += "</p>";
