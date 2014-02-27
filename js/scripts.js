@@ -712,7 +712,7 @@ function displayFeedListGeneral() {
 			allCatIdsArray.push(feedArr[k].feedCatId);
 		}
 		var allCatIdsString = allCatIdsArray.join(); //This joins the array into a string
-		html += "<li><a href='#'onclick=\"loadAnnouncements([" + allCatIdsString + "], 'Today&#8217;s Announcements'); return false;\">All of Today&#8217;s Announcements</a></li>" //This is for "all general"
+		html += "<li><a href='#'onclick=\"loadAnnouncements([" + allCatIdsString + "], 'Daily Bulletin'); return false;\">All of Daily Bulletin</a></li>" //This is for "all general"
 		html += liString;
 		html += "</ul>";
 		html += "</li>";
