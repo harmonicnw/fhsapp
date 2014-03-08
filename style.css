@@ -28,19 +28,76 @@ body {
 	background: #fff;
 }
 
+
 .ans li.Classes .title {
+	margin-right: .5em;
 	background: url("Images/Applications.png") no-repeat right center;
 	background-size: 30px 30px
 }
+
+
+.ans li.Classes1 .title {
+	margin-right: .5em;
+	background: url("Images/Period Number 1.png") no-repeat right center;
+	background-size: 30px 30px
+}
+
+.ans li.Classes2 .title {
+	margin-right: .5em;
+	background: url("Images/Period Number 2.png") no-repeat right center;
+	background-size: 30px 30px
+}
+
+.ans li.Classes3 .title {
+	margin-right: .5em;
+	background: url("Images/Period Number 3.png") no-repeat right center;
+	background-size: 30px 30px
+}
+
+.ans li.Classes4 .title {
+	margin-right: .5em;
+	background: url("Images/Period Number 4.png") no-repeat right center;
+	background-size: 30px 30px
+}
+
+.ans li.Classes5 .title {
+	margin-right: .5em;
+	background: url("Images/Period Number 5.png") no-repeat right center;
+	background-size: 30px 30px
+}
+
+.ans li.Classes6 .title {
+	margin-right: .5em;
+	background: url("Images/Period Number 6.png") no-repeat right center;
+	background-size: 30px 30px
+}
+
+.ans li.Classes7 .title {
+	margin-right: .5em;
+	background: url("Images/Period Number 7.png") no-repeat right center;
+	background-size: 30px 30px
+}
+
+.ans li.Classes8 .title {
+	margin-right: .5em;
+	background: url("Images/Period Number 8.png") no-repeat right center;
+	background-size: 30px 30px
+}
+
+
+
 .ans li.General .title{
+	margin-right: .5em;
 	background: url("Images/News.png") no-repeat right center;
 	background-size: 30px 30px
 }
 .ans li.Clubs .title{
+	margin-right: .5em;
 	background: url("Images/Flag.png") no-repeat right center;
 	background-size: 30px 30px
 }
 .ans li.Sports .title{
+	margin-right: .5em;
 	background: url("Images/Basketball.png") no-repeat right center;
 	background-size: 30px 30px
 }
@@ -425,6 +482,7 @@ list-style:none;
 	width: 95%;
 	height: auto;
 	border-radius:4px;
+}
 
 .logobg {
 	background: white;
