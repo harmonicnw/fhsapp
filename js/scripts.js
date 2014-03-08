@@ -28,11 +28,13 @@ $(document).ready( function() {
 	});
 	
 	//*Adds link to the Survey
-	$("#surveyLink").click( function(e) {
-		e.preventDefault();
-		$(this).blur();
-		slideLeft();
-		embedSurvey();
+	$("#feedbackLink").click( function(e) {
+		e.preventDefault(); //*prevents loading page
+		$(this).blur();     //*subtle niceties
+		showLoader();
+		$("#dContent").load( $(this).attr("href") ); //*loads in the resources dynamically -- dContent = right side goodies
+		setTitle( $(this).text() );                  //*topTitle = header bar goodies
+		slideLeft2();
 	});
 	
 	//*Adds link to the HowTo
