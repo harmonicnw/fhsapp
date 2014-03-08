@@ -27,6 +27,23 @@ $(document).ready( function() {
 		slideLeft2();
 	});
 	
+	$(".resourcesLink").click( function(e) {
+		e.preventDefault(); //*prevents loading page
+		$(this).blur();     //*subtle niceties
+		showLoader();
+		$("#dContent").load( $(this).attr("href"), function() {
+			$("#dContent").find("a").each(function(){
+				console.log("loadedededed");
+				$(this).click(function(e){
+					window.open(encodeURI( $(this).attr('href') ) , '_system');
+					e.preventDefault();
+				});
+			});
+		});
+		setTitle( $(this).text() );                  //*topTitle = header bar goodies
+		slideLeft2();
+	});
+	
 	//*Adds link to the Survey
 	$("#surveyLink").click( function(e) {
 		e.preventDefault();
@@ -703,7 +720,7 @@ function displayFeedListGeneral() {
 
 		//var iconClass = feedData.allCats[i].toLowerCase().replace(" ", "-"); //contingency plan for titles with spaces and uppercases (left in in case we want to do Today's Announcements)
 		html += "<li class='atypes dynamic dd'>";
-		html += "<div class='atitle general closed'><a>Daily Bulletin</a></div>"; //this is the category title(-ish)
+		html += "<div class='atitle general closed'><a>Today's Announcements</a></div>"; //this is the category title(-ish)
 		html += "<ul class='acontent'>";
 		var allCatIdsArray = []; //This holds all the names of the classes, clubs, etc for the "All"
 		var liString = ""; //This temporarily holds all the individual classes, clubs, etc.
@@ -712,7 +729,7 @@ function displayFeedListGeneral() {
 			allCatIdsArray.push(feedArr[k].feedCatId);
 		}
 		var allCatIdsString = allCatIdsArray.join(); //This joins the array into a string
-		html += "<li><a href='#'onclick=\"loadAnnouncements([" + allCatIdsString + "], 'Daily Bulletin'); return false;\">All of Daily Bulletin</a></li>" //This is for "all general"
+		html += "<li><a href='#'onclick=\"loadAnnouncements([" + allCatIdsString + "], 'Today&#8217;s Announcements'); return false;\">All of Today&#8217;s Announcements</a></li>" //This is for "all general"
 		html += liString;
 		html += "</ul>";
 		html += "</li>";
@@ -797,7 +814,7 @@ function initSettingsList(data) {
 				for (var k = 0; k < feedData.allTeachers.length; k++) { //*Loop runs to make each list for the teachers
 					var feedArr2 = []; //*Container for teacher's periods
 					for (var l=0; l < feedArr.length; l++) {
-						if (feedArr[l].teacher == feedData.allTeachers[k] && feedArr[l].title != "" && feedData.allTeachers[k] != "Admin, Supreme") { //*If the teacher matches, push it into the array
+						if (feedArr[l].teacher == feedData.allTeachers[k] && feedArr[l].title != "") { //*If the teacher matches, push it into the array
 							feedArr2.push( feedArr[l] );
 						}
 					}
