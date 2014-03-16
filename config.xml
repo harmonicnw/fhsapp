@@ -12,13 +12,9 @@
 
     <name>FHS App</name>
 
-    <description>
-    FHS App 
-    </description>
+    <description>FHS App </description>
 
-    <author href="http://fhsapp.com" email="harmonicnw@gmail.com">
-    Dustin, Griffin, Julian, Josh
-    </author>
+    <author href="http://fhsapp.com" email="harmonicnw@gmail.com">Dustin, Griffin, Julian, Josh</author>
     
     <icon src="icon.png" />
     <gap:splash src="splash.png" />
