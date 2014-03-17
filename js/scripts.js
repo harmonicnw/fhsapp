@@ -33,7 +33,6 @@ $(document).ready( function() {
 		showLoader();
 		$("#dContent").load( $(this).attr("href"), function() {
 			$("#dContent").find("a").each(function(){
-				console.log("loadedededed");
 				$(this).click(function(e){
 					window.open(encodeURI( $(this).attr('href') ) , '_system');
 					e.preventDefault();
