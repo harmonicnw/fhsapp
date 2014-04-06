@@ -816,7 +816,7 @@ function initSettingsList(data) {
 				for (var k = 0; k < feedData.allTeachers.length; k++) { //*Loop runs to make each list for the teachers
 					var feedArr2 = []; //*Container for teacher's periods
 					for (var l=0; l < feedArr.length; l++) {
-						if (if (feedArr[l].teacher == feedData.allTeachers[k] && feedArr[l].title != "" && feedData.allTeachers[k] != "Tester, Beta" && feedData.allTeachers[k] != "Reviewer, Admin" && feedData.allTeachers[k] != "Admin, Supreme") { //*If the teacher matches, push it into the array) { //*If the teacher matches, push it into the array
+						if (feedArr[l].teacher == feedData.allTeachers[k] && feedArr[l].title != "" && feedData.allTeachers[k] != "Tester, Beta" && feedData.allTeachers[k] != "Reviewer, Admin" && feedData.allTeachers[k] != "Admin, Supreme") { //*If the teacher matches, push it into the array) { //*If the teacher matches, push it into the array
 							feedArr2.push( feedArr[l] );
 						}
 					}
