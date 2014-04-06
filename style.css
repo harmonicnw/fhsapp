@@ -492,27 +492,38 @@ list-style:none;
 .getting_started_wrapper {
 	background: white;
 	float: left;
+	width: 100%;
 }
 
 .getting_started_image{
-	width: 20%;
 	float: left;
-	padding: 20px;
+	padding: 2.5%;
 	display: block;
+	width: 94%;
 	
+}
+.getting_started_image img{
+	width: 100%;
+
 }
 .getting_started_text{
 	border: solid 3px black;
 	text-align: center;
-	float: right;
-	margin: 50px 100px 20px 20px;
+	float: left;
+	margin: 0 2.5%;
+	width: 94%;
 	
 }
 
 .FHS_APP_Banner{
-	float: right;
-	padding: 20px;
-
+	float: left;
+	padding: 2.5%;
+	width: 94%;
+	
 
 }
+.FHS_APP_Banner img{
+	width: 100%;
+}
+
 
