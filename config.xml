@@ -16,6 +16,11 @@
 
     <author href="http://fhsapp.com" email="harmonicnw@gmail.com">Dustin, Griffin, Julian, Josh</author>
     
+    <!-- hide status bar -->
+    <gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance" overwrite="true">
+    	<false/>
+	</gap:config-file>
+    
     <icon src="icon.png" />
     <gap:splash src="splash.png" />
 	<gap:plugin name="org.apache.cordova.inappbrowser" />
