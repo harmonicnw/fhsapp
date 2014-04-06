@@ -488,7 +488,13 @@ list-style:none;
 	background: white;
 	text-align: center;
 }
-.getting_started{
+
+.getting_started_wrapper {
+	background: white;
+	float: left;
+}
+
+.getting_started_image{
 	width: 20%;
 	float: left;
 	padding: 20px;
@@ -496,7 +502,7 @@ list-style:none;
 	
 }
 .getting_started_text{
-	border: solid 2px black;
+	border: solid 3px black;
 	text-align: center;
 	float: right;
 	margin: 50px 100px 20px 20px;
