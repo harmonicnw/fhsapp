@@ -48,9 +48,10 @@ $(document).ready( function() {
 		e.preventDefault(); //*prevents loading page
 		$(this).blur();     //*subtle niceties
 		showLoader();
-		$("#dContent").load( $(this).attr("href") ); //*loads in the resources dynamically -- dContent = right side goodies
-		setTitle( $(this).text() );                  //*topTitle = header bar goodies
-		slideLeft2();
+		//$("#dContent").load( $(this).attr("href") ); //*loads in the resources dynamically -- dContent = right side goodies
+		//setTitle( $(this).text() );                  //*topTitle = header bar goodies
+		slideLeft();
+		embedSurvey();
 	});
 	
 	//*Adds link to the HowTo
@@ -945,13 +946,16 @@ setTitle("Calendar");
 
 /** SURVEY ***********************************************************************************************************************************/
 function embedSurvey() {
-var sWidth = $(document).width() - 20;                              //*How wide the survey shall be
-var sHeight = $(document).height() - 20 - $(".top").outerHeight();  //*How high the survey shall be
+//*Embeds our new survey. The commented out stuff was for height and width adjustment for the previous iframe. This is... simpler.
+
+//var sWidth = $(document).width() - 20;                              //*How wide the survey shall be
+//var sHeight = $(document).height() - 20 - $(".top").outerHeight();  //*How high the survey shall be
 //
-var sIFrame = $('<div class="sIFrame" width="' + sWidth + '" height="' + sHeight + '"><iframe id="sIFrame" width="' + sWidth + '" scrolling="yes" height="' + sHeight + '" frameborder="0" src="' + feedData.surveyUrl + '" style="border-width: 0px;margin: 10px 0 0 10px;overflow-y:auto;"/></div>');
+//var sIFrame = $('<div class="sIFrame" width="' + sWidth + '" height="' + sHeight + '"><iframe id="sIFrame" width="' + sWidth + '" scrolling="yes" height="' + sHeight + '" frameborder="0" src="' + feedData.surveyUrl + '" style="border-width: 0px;margin: 10px 0 0 10px;overflow-y:auto;"/></div>');
+var sIFrame = $('<div class="sIFrame"><iframe id="sIFrame" scrolling="yes" frameborder="0" src="http://www.fhsapp.com/admin/feedbackForm.html" style="border-width: 0px;margin: 10px 0 0 10px;overflow-y:auto;"/></div>');
 
 //*This is part of fixing the problems in the UI where the dimensions weren't changing dynamically upon orientation changes. Don't worry about it.
-sIFrame.bind("orientationchange", //*This is for detecting orientation change in Survey. When it detects it, it runs the below function.
+/*sIFrame.bind("orientationchange", //*This is for detecting orientation change in Survey. When it detects it, it runs the below function.
 	function(){
 		setTimeout(
 			function() { 
@@ -964,7 +968,7 @@ sIFrame.bind("orientationchange", //*This is for detecting orientation change in
 			}, 
 		300)
 	}
-);
+);*/
 $(".over").addClass("SurveyBG");
 $("#dContent").empty().append(sIFrame);
 setTitle("Feedback"); //*Change to "feedback"
