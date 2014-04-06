@@ -488,4 +488,25 @@ list-style:none;
 	background: white;
 	text-align: center;
 }
+.getting_started{
+	width: 20%;
+	float: left;
+	padding: 20px;
+	display: block;
+	
+}
+.getting_started_text{
+	border: solid 2px black;
+	text-align: center;
+	float: right;
+	margin: 50px 100px 20px 20px;
+	
+}
+
+.FHS_APP_Banner{
+	float: right;
+	padding: 20px;
+
+
+}
 
