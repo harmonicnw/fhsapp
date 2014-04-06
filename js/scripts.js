@@ -720,9 +720,9 @@ function displayFeedListGeneral() {
 			}
 		);
 
-		//var iconClass = feedData.allCats[i].toLowerCase().replace(" ", "-"); //contingency plan for titles with spaces and uppercases (left in in case we want to do Today's Announcements)
+		//var iconClass = feedData.allCats[i].toLowerCase().replace(" ", "-"); //contingency plan for titles with spaces and uppercases (left in in case we want to do Daily Bulletin)
 		html += "<li class='atypes dynamic dd'>";
-		html += "<div class='atitle general closed'><a>Today's Announcements</a></div>"; //this is the category title(-ish)
+		html += "<div class='atitle general closed'><a>Daily Bulletin</a></div>"; //this is the category title(-ish)
 		html += "<ul class='acontent'>";
 		var allCatIdsArray = []; //This holds all the names of the classes, clubs, etc for the "All"
 		var liString = ""; //This temporarily holds all the individual classes, clubs, etc.
@@ -731,7 +731,7 @@ function displayFeedListGeneral() {
 			allCatIdsArray.push(feedArr[k].feedCatId);
 		}
 		var allCatIdsString = allCatIdsArray.join(); //This joins the array into a string
-		html += "<li><a href='#'onclick=\"loadAnnouncements([" + allCatIdsString + "], 'Today&#8217;s Announcements'); return false;\">All of Today&#8217;s Announcements</a></li>" //This is for "all general"
+		html += "<li><a href='#'onclick=\"loadAnnouncements([" + allCatIdsString + "], 'Daily Bulletin'); return false;\">All of Daily Bulletin</a></li>" //This is for "all general"
 		html += liString;
 		html += "</ul>";
 		html += "</li>";
@@ -948,18 +948,18 @@ setTitle("Calendar");
 function embedSurvey() {
 //*Embeds our new survey. The commented out stuff was for height and width adjustment for the previous iframe. This is... simpler.
 
-//var sWidth = $(document).width() - 20;                              //*How wide the survey shall be
-//var sHeight = $(document).height() - 20 - $(".top").outerHeight();  //*How high the survey shall be
+var sWidth = $(document).width();                              //*How wide the survey shall be
+var sHeight = $(document).height() - 20 - $(".top").outerHeight();  //*How high the survey shall be
 //
-//var sIFrame = $('<div class="sIFrame" width="' + sWidth + '" height="' + sHeight + '"><iframe id="sIFrame" width="' + sWidth + '" scrolling="yes" height="' + sHeight + '" frameborder="0" src="' + feedData.surveyUrl + '" style="border-width: 0px;margin: 10px 0 0 10px;overflow-y:auto;"/></div>');
-var sIFrame = $('<div class="sIFrame"><iframe id="sIFrame" scrolling="yes" frameborder="0" src="http://www.fhsapp.com/admin/feedbackForm.html" style="border-width: 0px;margin: 10px 0 0 10px;overflow-y:auto;"/></div>');
+var sIFrame = $('<div class="sIFrame" width="' + sWidth + '" height="' + sHeight + '"><iframe id="sIFrame" width="' + sWidth + '" scrolling="yes" height="' + sHeight + '" frameborder="0" src="http://www.fhsapp.com/admin/feedbackForm.html" style="border-width: 0px;margin: 0;overflow-y:auto;"/></div>');
+//var sIFrame = $('<div class="sIFrame"><iframe id="sIFrame" scrolling="yes" frameborder="0" src="http://www.fhsapp.com/admin/feedbackForm.html" style="border-width: 0px;margin: 10px 0 0 10px;overflow-y:auto;"/></div>');
 
 //*This is part of fixing the problems in the UI where the dimensions weren't changing dynamically upon orientation changes. Don't worry about it.
-/*sIFrame.bind("orientationchange", //*This is for detecting orientation change in Survey. When it detects it, it runs the below function.
+sIFrame.bind("orientationchange", //*This is for detecting orientation change in Survey. When it detects it, it runs the below function.
 	function(){
 		setTimeout(
 			function() { 
-				var sWidth2 = $(document).width() - 20;
+				var sWidth2 = $(document).width();
 				var sHeight2 = $(document).height() - 20 - $(".top").outerHeight();
 				$("#sIFrame").prop("width", sWidth2);   //*This makes the actual iframe's width change back
 				$("#sIFrame").prop("height", sHeight2); //*Changes height of actual iframe
@@ -968,7 +968,7 @@ var sIFrame = $('<div class="sIFrame"><iframe id="sIFrame" scrolling="yes" frame
 			}, 
 		300)
 	}
-);*/
+);
 $(".over").addClass("SurveyBG");
 $("#dContent").empty().append(sIFrame);
 setTitle("Feedback"); //*Change to "feedback"
