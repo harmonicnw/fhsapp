@@ -18,9 +18,14 @@
     
     <!-- hide status bar -->
     <preference name="fullscreen" value="true" />
+    <gap:config-file platform="ios" parent="UIStatusBarHidden" overwrite="true">
+        <true/>
+	</gap:config-file>
     
+    <!-- icon image -->
     <icon src="icon.png" />
     
+    <!- splash screens -->
     <gap:splash src="res/screen/android/screen-ldpi-portrait.png" gap:platform="android" gap:density="ldpi" />
     <gap:splash src="res/screen/android/screen-mdpi-portrait.png" gap:platform="android" gap:density="mdpi" />
     <gap:splash src="res/screen/android/screen-hdpi-portrait.png" gap:platform="android" gap:density="hdpi" />
