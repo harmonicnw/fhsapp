@@ -230,6 +230,7 @@ body {
 	z-index: 000;
 	background: rgb (235,235,241) ;
 	overflow-y: auto; /*auto*/
+	border-top: 20px solid #fff;
 	/* background: rgb (235,235,235); */
 
 }
