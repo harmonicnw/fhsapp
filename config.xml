@@ -19,7 +19,7 @@
     <!-- icon image -->
     <icon src="icon.png" />
     
-    <!- splash screens -->
+    <!-- splash screens -->
     <gap:splash src="res/screen/android/screen-ldpi-portrait.png" gap:platform="android" gap:density="ldpi" />
     <gap:splash src="res/screen/android/screen-mdpi-portrait.png" gap:platform="android" gap:density="mdpi" />
     <gap:splash src="res/screen/android/screen-hdpi-portrait.png" gap:platform="android" gap:density="hdpi" />
