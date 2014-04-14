@@ -16,12 +16,6 @@
 
     <author href="http://fhsapp.com" email="harmonicnw@gmail.com">Dustin, Griffin, Julian, Josh</author>
     
-    <!-- hide status bar -->
-    <preference name="fullscreen" value="true" />
-    <gap:config-file platform="ios" parent="UIStatusBarHidden" overwrite="true">
-        <true/>
-	</gap:config-file>
-    
     <!-- icon image -->
     <icon src="icon.png" />
     
