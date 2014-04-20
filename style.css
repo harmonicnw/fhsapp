@@ -118,7 +118,7 @@ body {
 	/*height: 400px;*/
 	/*background-color: #800;*/
 	position: relative;
-	overflow: auto;
+	overflow: hidden;
 	-webkit-overflow-scrolling: touch;
 }
 
