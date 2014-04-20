@@ -249,7 +249,7 @@ $(document).ready( function() {
 function setAppHeight() {
 	var timeout = setTimeout( //*There is a timeout here for it takes a little while for the orientation change to occur, thus this code must be delayed until after the orientation change, otherwise, the height isn't set properly.
 		function() {
-			var docHeight = window.innerHeight - 20;
+			var docHeight = window.innerHeight;
 			$(".wrapper").css("height", docHeight + "px"); //*dynamically makes the document bigger or smaller 
 			$(".under").css("height", docHeight + "px");
 			$(".over").css("height", docHeight + "px");
