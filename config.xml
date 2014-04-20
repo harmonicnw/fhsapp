@@ -16,8 +16,13 @@
 
     <author href="http://fhsapp.com" email="harmonicnw@gmail.com">Dustin, Griffin, Julian, Josh</author>
     
-    <!-- icon image -->
+    <!-- icon images -->
     <icon src="icon.png" />
+    
+    <icon src="res/icon/ios/icon-57.png" gap:platform="ios" width="57" height="57" />
+    <icon src="res/icon/ios/icon-72.png" gap:platform="ios" width="72" height="72" />
+    <icon src="res/icon/ios/icon-57-2x.png" gap:platform="ios" width="114" height="114" />
+    <icon src="res/icon/ios/icon-72-2x.png" gap:platform="ios" width="144" height="144" />
     
     <!-- splash screens -->
     <gap:splash src="res/screen/android/screen-ldpi-portrait.png" gap:platform="android" gap:density="ldpi" />
