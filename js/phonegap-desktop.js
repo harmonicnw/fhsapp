@@ -1329,3 +1329,9 @@ navigator.app = {
 		window.close();
 	}
 };
+
+var fileTransfer = {
+	download: function() { return false }
+}
+var uri;
+var filePath;

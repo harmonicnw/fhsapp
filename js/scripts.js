@@ -1,5 +1,22 @@
 //* All comments with "//*" next to them mean that they explain how the code works. Otherwise, it's probably just commented out code or something.
 
+var onSetMetadataWin = function() {
+    console.log("success setting metadata") 
+} 
+var onSetMetadataFail = function() { 
+    console.log("error setting metadata") 
+} 
+
+fileTransfer.download( 
+    uri, 
+    filePath, 
+    function(entry) { 
+        entry.setMetadata(onSetMetadataWin, onSetMetadataFail, {"com.apple.MobileBackup": 1});
+    }, 
+    function(error) {}, 
+    false 
+);
+
 $(document).ready( function() {
 	//*Adds link to the Calendar
 	$("#calLink").click( function(e) {
