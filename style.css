@@ -1,13 +1,18 @@
+@font-face {
+font-family: MyriadPro;
+src: url(fonts/MyriadPro-Regular.eot);
+}
+
 * {
 	margin: 0;
 	padding: 0;
 }
 
 body {
-	font-family: Helvetica, Arial, Lucieda Grande, Sans-Serif;
+	font-family: "MyriadPro", Helvetica, Arial, Lucieda Grande, Sans-Serif;
 	font-size: 14px;
-	background-color: rgb(64,64,64);
-	overflow-y: auto;
+	background-color:rgb(235,235,241) ;
+	overflow-y: hidden;
 }
 
 .ans {
@@ -17,32 +22,98 @@ body {
 }
 
 .ans li {
-	/*padding: 500px; dont change this, Dustin*/
-	border-bottom: 1px solid #000; 
+	/*padding: 50px;*/
+	border-bottom: 1px solid rgb(188,188,188); 
 	border-radius: 2px;
-	background-image: url(Images/gradient-lightgray.png);
+	background: #fff;
 }
 
+
 .ans li.Classes .title {
+	margin-right: .5em;
 	background: url("Images/Applications.png") no-repeat right center;
 	background-size: 30px 30px
 }
+
+
+.ans li.Classes1 .title {
+	margin-right: .5em;
+	background: url("Images/Period Number 1.png") no-repeat right center;
+	background-size: 30px 30px
+}
+
+.ans li.Classes2 .title {
+	margin-right: .5em;
+	background: url("Images/Period Number 2.png") no-repeat right center;
+	background-size: 30px 30px
+}
+
+.ans li.Classes3 .title {
+	margin-right: .5em;
+	background: url("Images/Period Number 3.png") no-repeat right center;
+	background-size: 30px 30px
+}
+
+.ans li.Classes4 .title {
+	margin-right: .5em;
+	background: url("Images/Period Number 4.png") no-repeat right center;
+	background-size: 30px 30px
+}
+
+.ans li.Classes5 .title {
+	margin-right: .5em;
+	background: url("Images/Period Number 5.png") no-repeat right center;
+	background-size: 30px 30px
+}
+
+.ans li.Classes6 .title {
+	margin-right: .5em;
+	background: url("Images/Period Number 6.png") no-repeat right center;
+	background-size: 30px 30px
+}
+
+.ans li.Classes7 .title {
+	margin-right: .5em;
+	background: url("Images/Period Number 7.png") no-repeat right center;
+	background-size: 30px 30px
+}
+
+.ans li.Classes8 .title {
+	margin-right: .5em;
+	background: url("Images/Period Number 8.png") no-repeat right center;
+	background-size: 30px 30px
+}
+
+
+
 .ans li.General .title{
+	margin-right: .5em;
 	background: url("Images/News.png") no-repeat right center;
 	background-size: 30px 30px
 }
 .ans li.Clubs .title{
+	margin-right: .5em;
 	background: url("Images/Flag.png") no-repeat right center;
 	background-size: 30px 30px
 }
 .ans li.Sports .title{
+	margin-right: .5em;
 	background: url("Images/Basketball.png") no-repeat right center;
 	background-size: 30px 30px
 }
 
+#statusBar {
+	width: 100%;
+	height: 20px;
+	background-color: white;
+	position: fixed;
+	top: 0;
+	/*margin-top: -20px;*/
+}
 
 .wrapper {
 	/*margin: 0 auto;*/
+	/*margin-top: 20px;*/
 	width: 100%;
 	/*height: 400px;*/
 	/*background-color: #800;*/
@@ -55,8 +126,9 @@ body {
 	/*background: url("Images/betterbeta.png") no-repeat right center; */
 	background-size: 50px 50px;
 	background-color: #880000;
+	/*border-top: 20px solid #880000;*/
 	position: relative;
-	padding: 10px
+	padding: 10px;
 	
 }
 
@@ -72,20 +144,22 @@ body {
 	text-align: center;
 	font-size: 1.5em;
 	color: rgb(230, 230, 230);
+	
 }
 
 .ans .title {
   cursor: pointer;
-	font-weight: bold;
-	text-transform: uppercase;
+  	
+	/* font-weight: bold;
+	text-transform: uppercase;*/
 	padding: 1em 2em 1em 1em;
 }
 
 .ans .content {
 	/* margin: 1em, 0;
 	text-indent: 1em;
-	padding: 1em;
-	background-color: white; */
+	padding: 1em; */
+	background-color: white; 
 	border-top: 1px solid #000;
 }
 
@@ -146,9 +220,9 @@ body {
 	left: 0;
 	width: 100%;
 	/*z-index: 999;*/
-	background-color: #EEEEEE;
+	background-color: rgb(235,235,241);
 	overflow-y: auto; /*auto*/
-	/*border-left: 1px solid rgb(255,255,255);*/
+	border-left: 1px solid rgb(188,188,188);
 
 }
 
@@ -163,27 +237,28 @@ body {
 	width: 100%;
 	height: auto;
 	z-index: 000;
-	background: #555 url(Images/BGround.png);
+	background: rgb (235,235,241) ;
 	overflow-y: auto; /*auto*/
-	/*background-color: black;*/
+	/*border-top: 20px solid #fff;
+	/* background: rgb (235,235,235); */
 
 }
 
 .under a {
-	color: white;
+	color: black;
 	text-decoration: none;
 	font-size: 1.25em;
-	font-weight: bold;
+	font-weight: none;
 }
 
 .under .atypes {
 	/*border: 1px solid rgb(32,32,32);*/
 	/*height: 1em;
 	padding: 1em;*/
-	background-color: rgb(64,64,64);
+	background-color: rgb(255,255,255);
 	width: 70%;
 }
-.under .atypes .resources a{
+/* .under .atypes .resources a{
 	background: url("Images/Orb-info.png") no-repeat right center;
 
 }
@@ -215,7 +290,7 @@ body {
 	background: url("Images/Flag.png") no-repeat right center;
 }
 .under .atypes .howTo a{
-	background: url("Images/float.png") no-repeat right center;
+	background: url("Images/float.png") no-repeat right center; */
 }
 
 .under .atypes >div>a {
@@ -227,10 +302,10 @@ body {
 
 .under .acontent {
 	list-style: none;
-	background-color: rgb(96,96,96);
+	background-color: rgb(235,235,241);
 	 
 	/*padding: .5em;*/
-	/*background: #555 url(Images/BGround.png);*/
+	/*background: #555 url("Images/BGround.png");*/
 }
 
 .acontent li {
@@ -244,21 +319,21 @@ body {
   cursor: pointer; 
 	list-style: none;
 	padding: .5em;
-	border-bottom: 1px solid rgb(0,0,0);
-	border-top: 1px solid rgb(80,80,80);
+	border-bottom: 1px solid rgb(222,221,226);
+	border-top: 1px solid rgb(222,221,226);
 }
 
 .under .antitle {
 	list-style: none;
 	padding: .5em;
-	border-bottom: 1px solid rgb(0,0,0);
-	border-top: 1px solid rgb(80,80,80);
+	border-bottom: 2px solid rgb(222,221,226);
+	border-top: 2px solid rgb(222,221,226);
 }
 
 .calendar {
 	margin: 0 auto;
 	padding: 10px;
-	background-color: rgb(224,224,224);
+	background-color: rgb(255,255,255);
 }
 
 /*.resources {
@@ -287,34 +362,36 @@ body {
 }
 
 .settingsWrapper {
-
+list-style:none;
 }
 
 .settingsWrapper h1{
-	border: 1px solid black;
-	font-weight: bold;
+	border: 1px solid rgb(213,213,213);
+	font-weight: none;
 	text-align: center;
 	font-size: 1.3em;
 	padding: .5em 0;
+	list-style: none;
 }
 
 .settingsWrapper h2{
-	border: 1px solid black;
+	border: 1px rgb(218,218,221);
 	padding-left: .5em;	
 	font-weight: 100;
-	color: white;
-	background: rgb(64,64,64);
+	color: black;
+	background: rgb(255,255,255);
 	font-size: 1.1em;
 	padding-top: .3em;
 	padding-bottom: .3em;
 	text-align: left;
+	list-style: none;
 }
 
 .settingsWrapper .bottom{
-	border: 1px solid black;	
+	border: 1px rgb(218,218,221);	
 	font-weight: 100;
-	font-style: italic;
-	background: rgb(150,150,150);
+	font-style: none;
+	background: rgb(255,255,255) ;
 	font-size: 1.0em;
 	padding-top: .25em; /*adjust these to make easier to click*/
 	padding-bottom: .25em;
@@ -339,17 +416,24 @@ body {
 
 .L1 {
 	width: 100%;
+	
 }
 	
 .L1  li {
-	background-image: url(Images/gradient-lightgray.png);
+	background: rgb(255,255,255) ;
+	list-style: none;
+
 }
 
+
 .L2 {
+	background: rgb(255,255,255) 
 	width: 100%;
 }
 
-.L2 li {}
+.L2 li {
+	list-style: none;
+}
 
 .L3 {
 	width: 100%;
@@ -399,4 +483,58 @@ body {
 .howTo li{
 	/*padding-left: .5em;*/
 }
+.timelogo {
+	width: 70%;
+	height: auto;
+	border-radius:3px;
+	
+}
+.timelogofull {
+	width: 95%;
+	height: auto;
+	border-radius:4px;
+}
+
+.logobg {
+	background: white;
+	text-align: center;
+}
+
+.getting_started_wrapper {
+	background: white;
+	float: left;
+	width: 100%;
+}
+
+.getting_started_image{
+	float: left;
+	padding: 2.5%;
+	display: block;
+	width: 94%;
+	
+}
+.getting_started_image img{
+	width: 100%;
+
+}
+.getting_started_text{
+	border: solid 3px black;
+	text-align: center;
+	float: left;
+	margin: 0 2.5%;
+	width: 94%;
+	
+}
+
+.FHS_APP_Banner{
+	float: left;
+	padding: 2.5%;
+	width: 94%;
+	
+
+}
+.FHS_APP_Banner img{
+	width: 100%;
+}
+
 

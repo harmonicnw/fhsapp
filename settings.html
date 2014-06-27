@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+	
+	<title>FHS App</title>
+	
+	<meta name="viewport" content="user-scalable=0, initial-scale=1.0, maxiumum-scale=1.0, width=device-width" />
+	<script type="type/javascript">setTimeout(function() {window.scrollTo(0, 1) }, 100)</script> <!--Makes top bar go away.-->
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.jsoncookie.js"></script>
+	<script type="text/javascript" src="js/jquery.mobile.custom.min.js"></script>
+	<script type="text/javascript" src="http://fhsapp.com/js/ui.js"></script>
+	<script type="text/javascript" src="http://fhsapp.com/js/settings.js"></script>
+	<script type="text/javascript">$(document).ready( function() {fhsSettings();})</script>
+	<link rel="stylesheet" href="style.css" />
+	
+</head>
+
+<body>
+	
+	<div class="wrapper">
+	
+	<!--The slideout menu-->
+	<div class="under">
+		<ul>
+			
+			<!-- <li class="atypes">
+				<div class="antitle">
+					<a href="index.html">General</a>
+				</div>
+			</li> -->
+			
+			<li class="atypes">
+				<div class="antitle">
+					<a href="index.html">Announcements</a>
+				</div>
+			</li>
+			
+			<li class="atypes">
+				<div class="antitle">
+					<a href="calendar.html">Calendar</a>
+				</div>
+			</li>
+
+			<li class="atypes">
+				<div class="antitle">
+					<a href="Resources.html">Resources</a>
+				</div>
+			</li>
+			
+			
+			
+			
+			<!--<li class="atypes">        <!--category (type)
+				<div class="antitle">   <!-- title 
+					<a href="#">Classes</a>
+				</div>
+				<ul class="acontent">  <!-- content 
+					<li><a href="#">content</a></li>
+					<li><a href="#">content</a></li>
+				</ul>
+			</li>
+			
+			<li class="atypes">
+				<div class="atitle">
+					<a href="#">Clubs</a>
+				</div>
+				<ul class="acontent">
+					<li><a href="#">content</a></li>
+				</ul>
+			</li>
+			
+			<li class="atypes">
+				<div class="atitle">
+					<a href="#">Sports</a>
+				</div>
+				<ul class="acontent">
+					<li><a href="#">content</a></li>
+				</ul>
+			</li>-->
+			
+		</ul>
+	</div>
+
+	<!--The Main Page-->	
+	<div class="over">
+	
+	<div class="top">
+		<img class="btnSlide" src="buttonslideout.png" />
+		<h1>Settings</h1>
+		
+		
+		
+	</div>
+	
+	<form id="feedSelections" class="feedSelections" action='#'>
+	
+	<!--<ul class="L1">
+	<li>Classes</li>
+	<li>
+	<div class="L2"> 
+	<div class="L3"> -->
+	<div class="settingsWrapper">
+	<ul class="L1">
+		<li><h1>Class</h1>
+			<ul class="L2">
+				<li><h2>Teacher</h2>
+					<ul class="L3">
+						<li><h3>Period 1<input id='cb' type='checkbox' value=''/></h3>
+						</li>
+						<li><h3>Period 2<input id='cb' type='checkbox' value=''/></h3>
+						</li>
+						<li><h3>Period 3<input id='cb' type='checkbox' value=''/></h3>
+						
+						</li>
+					</ul>
+				</li>
+				<li><h2>Teacher</h2>
+					<ul class="L3">
+						<li><h3>Period 1<input id='cb' type='checkbox' value=''/></h3>
+						</li>
+						<li><h3>Period 2<input id='cb' type='checkbox' value=''/></h3>
+						</li>
+						<li><h3>Period 3<input id='cb' type='checkbox' value=''/></h3>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		
+		<li><h1>Clubs</h1>
+		</li>
+		
+		<li><h1>Sports</h1>
+		</li>
+	</ul>
+	</div>
+	</div>
+	
+	
+	</div>
+	
+	
+	</ul>
+	
+	
+	</form>
+	<!--<p><a id="showCookie" href="settings.html#">Show Feeds in Cookie</a></p>
+	<script type="text/javascript">
+		$('#showCookie').click( function(e) {
+			e.preventDefault();
+			$(this).blur();
+			
+			var ud = $.cookie( "userData" );
+			var feeds = ud.feeds.join("\n");
+			
+			alert(feeds);
+		});
+	</script>--> <!-- makes a button to show cookies outside of console -->
+	
+	</div>
+	
+	</div>
+
+</body>
+
+</html>

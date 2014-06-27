@@ -27,10 +27,29 @@ $(document).ready( function() {
 		slideLeft2();
 	});
 	
+	$(".resourcesLink").click( function(e) {
+		e.preventDefault(); //*prevents loading page
+		$(this).blur();     //*subtle niceties
+		showLoader();
+		$("#dContent").load( $(this).attr("href"), function() {
+			$("#dContent").find("a").each(function(){
+				$(this).click(function(e){
+					window.open(encodeURI( $(this).attr('href') ) , '_system');
+					e.preventDefault();
+				});
+			});
+		});
+		setTitle( $(this).text() );                  //*topTitle = header bar goodies
+		slideLeft2();
+	});
+	
 	//*Adds link to the Survey
-	$("#surveyLink").click( function(e) {
-		e.preventDefault();
-		$(this).blur();
+	$("#feedbackLink").click( function(e) {
+		e.preventDefault(); //*prevents loading page
+		$(this).blur();     //*subtle niceties
+		showLoader();
+		//$("#dContent").load( $(this).attr("href") ); //*loads in the resources dynamically -- dContent = right side goodies
+		//setTitle( $(this).text() );                  //*topTitle = header bar goodies
 		slideLeft();
 		embedSurvey();
 	});
@@ -45,37 +64,6 @@ $(document).ready( function() {
 		slideLeft2();
 	});
 });
-
-
-/* INIT APP */
-var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicity call 'app.receivedEvent(...);'
-    onDeviceReady: fhsIndex
-};
-
-// test if string is valid JSON
-function IsJsonString(str) {
-    try {
-        JSON.parse(str);
-    } catch (e) {
-        return false;
-    }
-    return true;
-}
 
 /** SHARED ***************************************************************************************************************************************************/
 
@@ -108,8 +96,13 @@ var feedListItemsTotal;
 var feedListItemsLoaded;
 
 //*These two urls are used with the ajaxFeed() function (see below) to get the information with all the announcements.
-var annoListUrl= "http://www.fhsapp.com/host/feed/annolist/";   //*This Url goes to all the announcement lists.
-var annoQueryUrl= "http://www.fhsapp.com/host/feed/annoquery/"; //*This Url works with the catIds. When appended with ?catids="#", "#", "#"... it goes an gets all those categories with those catId numbers.
+var annoListUrl= "http://www.fhsapp.com/admin/anno_list.php";   //*This Url goes to all the announcement lists.
+var annoQueryUrl= "http://www.fhsapp.com/admin/anno_query.php"; //*This Url works with the catIds. When appended with ?catids="#", "#", "#"... it goes an gets all those categories with those catId numbers.
+//var annoListUrl= "http://localhost:8888/FHS_APP/fhsapp_v2/anno_list.php";
+//var annoQueryUrl= "http://localhost:8888/FHS_APP/fhsapp_v2/anno_query.php";
+
+
+
 
 //*These are the loaders
 var LoadWB = $("<img class='loading' src='Images/LoadWB.gif' width='32' height='32' />"); 
@@ -124,6 +117,10 @@ function ajaxFeed(url,callback) {
 		type: 'get',
 		success: function(data) {
 			callback(data);
+		},
+		error: function() {
+			//console.log("something done broke yo ");
+			//console.log(url);
 		}
 	} );
 }
@@ -134,24 +131,13 @@ var cookieOptions = {
 }
 
 function getUserData() {                    //*Retrieves the data from the cookie
-	/*//var ud = $.cookie("userData");          //*grabs the cookie -- IF IT EXISTS
+	//var ud = $.cookie("userData");    	//*grabs the cookie -- IF IT EXISTS
+	var ud = JSON.parse(localStorage.getItem("userData"));
 	if (ud && ud.hasOwnProperty("feeds")) { //*double checks existence of the user data cookie
 		return ud;                          //*returns the cookie (user) data
 	} else {                                //*if not, sends you nothing
 		return false;
-	}*/
-    var udString = localStorage.getItem( "userData" );
-    
-    if ( udString && IsJsonString( udString ) ) {
-        var ud = JSON.parse( udString );
-        if ( ud.hasOwnProperty("feeds") ) {
-            return ud;
-        } else {
-            return false;
-        }
-    } else {
-        return false;
-    }
+	}
 }
 
 function showLoader() {                    //*Shows the cool loader thingy
@@ -168,7 +154,7 @@ function setTitle(title) {
 	//MAKE DYNAMIC //**//
 	//Probably take width of screen and divide by a certain number to get max characters.
 	
-	var maxChars = 17; //*This is the max number of characters that shows up on top before cutting off
+	var maxChars = 20; //*This is the max number of characters that shows up on top before cutting off
 	
 	if (title.length > maxChars) {
 		title = title.slice(0, maxChars) + "&hellip;"; //*slices and adds a dot dot dot through dicing
@@ -258,7 +244,7 @@ $(document).ready( function() {
 		
 	setAppHeight(); //*sets the height (see below)
 	$(window).bind("orientationchange",setAppHeight);  //*This detects orientation changes and "reloads" the height with each change so the things doesn't get thrown off.
-} );
+} ); 
 
 function setAppHeight() {
 	var timeout = setTimeout( //*There is a timeout here for it takes a little while for the orientation change to occur, thus this code must be delayed until after the orientation change, otherwise, the height isn't set properly.
@@ -293,7 +279,7 @@ function initializeHide() {//*Function for announcement list items toggle
 					/*var body = $('body'); body.css('height', 'auto'); body.css('height', body.height());*/
 				$(this).next(".content").slideDown(750); //*Slides down the announcement you just clicked
 			}
-		},
+		}, 
 		
 		function() {
 			if (!isSlid) {
@@ -365,6 +351,36 @@ function initializeL3Hide() {
 	);
 } 
 
+var date = new Date();
+var time = date.getHours();
+
+function makelogoimage() {
+
+if (time<6)
+  {
+  x="Images/nighttime.png" ;
+  }
+else if (time<8)
+  {
+  x="Images/sunrise.png";
+  }
+else if (time<18)
+  {
+  x="Images/daytime.png";
+  }
+else if (time<20)
+  {
+  x="Images/sunset.png";
+  }
+else 
+  {
+  x="Images/nighttime.png";
+  }
+  
+//console.log("time="+time);
+$("#logo").append("<img src='"+x+"' class='timelogofull' /> ");
+
+}
 //*This is for dropdowns in the slideout menu
 function initializeSlideoutHide() {
 	//slideoutMenuDropDown
@@ -429,6 +445,7 @@ function fhsIndex(){
 }
 
 function loadAnnouncements(feeds, title) {       //*The parameter "feeds" comes in as a string of catIds, which are passed to makeQueryUrlString (see below).
+	//console.log("Loading Announcements");
 	showLoader();
 	slideLeft2();
 	//*feedData is an object that holds a ton of stuff (see line ~49)	
@@ -440,7 +457,8 @@ function loadAnnouncements(feeds, title) {       //*The parameter "feeds" comes 
 }
 
 //**// Confused about where "data" parameter comes in. I know it's in the ajax callback(data) parameter somewhere...
-function addAnnouncements(data) {
+function addAnnouncements(data) { 
+	//data = JSON.parse(data);
 	for (var i = 0; i < data.feed.entries.length; i++){
 		var  alreadyAdded = false //*checks for dupes by ID and refuses to add those that match 
 		for (var j=0; j < feedData.entries.length; j++) {
@@ -464,7 +482,8 @@ function displayAnnouncements(data){ //*This WRITES the page
 	var html = "<ul class='ans'>";
 	
 	if (feedData.entries.length == 0) { //If there are no entries (announcements), then it displays "No Current Announcements"
-		html += "<li><p class='title'>No Current Announcements</p></li>";
+		var ran = Math.floor((Math.random()*8));
+		html += "<li><p class='title'>You Have No Announcements Currently :(</p><div class='content' style='display: block'><div class='details'><img src='Images/ran"+ran+".gif'/></div></div></li>";
 	} else {
 		//*this loop generates each announcement
 		for(var i = 0; i < feedData.entries.length; i++) {
@@ -473,8 +492,13 @@ function displayAnnouncements(data){ //*This WRITES the page
 			var content = feedData.entries[i]['content'];
 			var category = feedData.entries[i]['category'];
 			var topCategory = feedData.entries[i]['topCategory'];
+			//?NEW STUFF HERE FOR "topCategory" FOR THE MORE CUSTOM ICONS. Will need if statement and stuff.
+			var period = feedData.entries[i]['period'];
+			var classPeriod = [0, "Classes1", "Classes2", "Classes3", "Classes4", "Classes5", "Classes6", "Classes7", "Classes8"];
+			//?
 			var eventDate = feedData.entries[i]['eventDate'];
-			if (eventDate != ""){
+			
+			if (eventDate != "0000-00-00"){
 				eventDate = new Date(eventDate);
 				var d = eventDate.getUTCDate();
 				var m = m_names[eventDate.getMonth()];
@@ -484,7 +508,11 @@ function displayAnnouncements(data){ //*This WRITES the page
 			var eventLocation = feedData.entries[i]['eventLocation'];
 		
 			//this is writing the html for each announcement using the objects from above
-			html += "<li class='" + topCategory + "'>";
+			if (period == 0) { //new stuff
+				html += "<li class='" + topCategory + "'>"; 
+			} else {
+				html += "<li class='" + classPeriod[period] + "'>"; 
+			}
 				html += "<p class='title'>" + title + "</p>";
 				html += "<div class='content'>";
 					html += "<div class='details'>";
@@ -493,7 +521,7 @@ function displayAnnouncements(data){ //*This WRITES the page
 					html += "<div class='specs'>";
 						html += "<p>";
 							html += "<span class='info'><span class='tspecs'>Category: </span>" + category + "</span>";
-							if (eventDate != "") html += "<span class='info'><span class='tspecs'>Date: </span>" + eventDate + "</span>";
+							if (eventDate != "0000-00-00") html += "<span class='info'><span class='tspecs'>Date: </span>" + eventDate + "</span>";
 							if (eventTime != "") html += "<span class='info'><span class='tspecs'>Time: </span>" + eventTime + "</span>";	
 							if (eventLocation != "") html += "<span class='info'><span class='tspecs'>Where: </span>" + eventLocation + "</span>"; 
 						html += "</p>";
@@ -528,18 +556,25 @@ function sortAnnouncements(fd) {
 
 /** SLIDEOUT!MENU (aka FeedList) *********************************************************************************************************************/
 function addFeedsToList(data) {
+	//console.log("now at addFeedsToList"); 
+	
+	//console.dir(data);
+	//data = JSON.parse(data); //?DA PROBLEM!!!!! //REALLY REALLY HERE!!!!
+	//console.log("This is where it says JSON.parse");
 	for(var i=0; i < data.feed.feeds.length; i++){
 		//*feedData.feedList is up in the feeds array (line ~67)
 		feedData.feedList.push({
 			'feedTitle':data.feed.feeds[i].title,
 			'feedCategory':data.feed.feeds[i].topCategory,
-			'feedCatId':data.feed.feeds[i].catId
+			'feedCatId':data.feed.feeds[i].catId,
+			'feedPeriod':data.feed.feeds[i].period
 		});
 	}
 	displayFeedList();
 }
 
 function loadFeedList(feeds){   //*this runs everytime a setting is changed or the app is initially loaded.
+	//console.log("calling loadfeedlist"); //works up to this point
 	feedData.feedList = []; 	//*location of all your categories. Clears everytime.
 	var queryString = makeQueryUrlString(feeds); //*makes the string (the lump). The "makeQueryUrlString" returns a string of catIds, which the variable gets set to.
 	ajaxFeed(annoQueryUrl + queryString, addFeedsToList); //*Purges the old feeds in a ritualistic culling. (Translation: Everytime a setting is changed (checked), the ajaxFeed function runs and the "feedData.feedList" array is filled up with a new set of data.
@@ -573,7 +608,7 @@ function displayFeedList() {
 	html += "<li class=\"atypes dynamic\"><div class=\"atitle personal\"><a href='#' onclick=\"loadAnnouncements([" + allCatIds.join() + "], 'Your Announcements'); return false;\">Your Announcements</a></div></li>";
 	
 	for (var i = 0; i < feedData.allCats.length; i++) { //*This makes categories
-		var feedArr = [];   		//*Container for adding feeds that are in the category
+		var feedArr = [];   		//*Container for the categories
 		for (var j = 0; j < feedData.feedList.length; j++) { //*This loop runs for each top category
 			if (feedData.feedList[j].feedCategory == feedData.allCats[i]) { //*This checks if the feed falls under the categories listed in allCats. feedCategory is in the object from the feed.
 				feedArr.push( feedData.feedList[j] );        //*If true, pushes to array
@@ -590,8 +625,23 @@ function displayFeedList() {
 					} else {
 						return 0;
 					}
+					
+					
 				}
 			);
+			
+			feedArr.sort( //*This sorts everything
+				function(a,b){
+					if(a.feedPeriod < b.feedPeriod) {
+						return -1;
+					} else if (a.feedPeriod > b.feedPeriod) {
+						return 1;
+					} else {
+						return 0;
+					}
+				}
+			);
+			
 			
 			var iconClass = feedData.allCats[i].toLowerCase().replace(" ", "-"); //*contingency plan for titles with spaces and uppercases 
 			html += "<li class='atypes dynamic dd'>";
@@ -600,7 +650,11 @@ function displayFeedList() {
 			var allCatIdsArray = []; //*This holds all the names of the classes, clubs, etc. for the "All"
 			var liString = ""; //*This temporarily holds all the individual classes, clubs, etc.
 			for (var k = 0; k < feedArr.length; k++) { //Below here is again the onclick, except the loadAnnouncemets is only being passed 1 catId to load.
-				liString += "<li><a href='#'onclick=\"loadAnnouncements(['" + feedArr[k].feedCatId + "'], '" + feedArr[k].feedTitle + "'); return false;\">" + feedArr[k].feedTitle + "</a></li>"; //*This is the title of the category w/ the link
+				if(feedArr[k].feedPeriod != 0) {
+					liString += "<li><a href='#'onclick=\"loadAnnouncements(['" + feedArr[k].feedCatId + "'], '" + feedArr[k].feedTitle + "'); return false;\">" + feedArr[k].feedPeriod + " - " + feedArr[k].feedTitle + "</a></li>"; //*This is the title of the category w/ the link
+				} else {
+					liString += "<li><a href='#'onclick=\"loadAnnouncements(['" + feedArr[k].feedCatId + "'], '" + feedArr[k].feedTitle + "'); return false;\">" + feedArr[k].feedTitle + "</a></li>"; //*This is the title of the category w/ the link
+				}
 				allCatIdsArray.push(feedArr[k].feedCatId); //*This array is used to contain the catIds for one top category (like "Clubs") for the "all" option.
 			}
 			var allCatIdsString = allCatIdsArray.join(); //*This joins the array into a string for the "all" category
@@ -621,6 +675,7 @@ function displayFeedList() {
 //////////////////////FIX FIX FIX FIX////////////////////////////////////
 //Maybe make a master function for all this so it may all be passed in?//
 function addFeedsToListGeneral(data) {
+	//data = JSON.parse(data);
 	for(var i=0; i < data.feed.feeds.length; i++){
 		feedData.generalFeedList.push({
 			'feedTitle':data.feed.feeds[i].title,
@@ -665,9 +720,9 @@ function displayFeedListGeneral() {
 			}
 		);
 
-		//var iconClass = feedData.allCats[i].toLowerCase().replace(" ", "-"); //contingency plan for titles with spaces and uppercases (left in in case we want to do Today's Announcements)
+		//var iconClass = feedData.allCats[i].toLowerCase().replace(" ", "-"); //contingency plan for titles with spaces and uppercases (left in in case we want to do Daily Bulletin)
 		html += "<li class='atypes dynamic dd'>";
-		html += "<div class='atitle general closed'><a>Today's Announcements</a></div>"; //this is the category title(-ish)
+		html += "<div class='atitle general closed'><a>Daily Bulletin</a></div>"; //this is the category title(-ish)
 		html += "<ul class='acontent'>";
 		var allCatIdsArray = []; //This holds all the names of the classes, clubs, etc for the "All"
 		var liString = ""; //This temporarily holds all the individual classes, clubs, etc.
@@ -676,7 +731,7 @@ function displayFeedListGeneral() {
 			allCatIdsArray.push(feedArr[k].feedCatId);
 		}
 		var allCatIdsString = allCatIdsArray.join(); //This joins the array into a string
-		html += "<li><a href='#'onclick=\"loadAnnouncements([" + allCatIdsString + "], 'Today&#8217;s Announcements'); return false;\">All of Today&#8217;s Announcements</a></li>" //This is for "all general"
+		html += "<li><a href='#'onclick=\"loadAnnouncements([" + allCatIdsString + "], 'Daily Bulletin'); return false;\">All of Daily Bulletin</a></li>" //This is for "all general"
 		html += liString;
 		html += "</ul>";
 		html += "</li>";
@@ -704,24 +759,36 @@ function fhsSettings() {
 
 //*writes out all the checkboxes on the settings page
 //*Note: "cb" stands for checkbox
-function initSettingsList(data) {
+function initSettingsList(data) {	
 	var wrapper = $("<form id='feedSelections' class='settingsWrapper' />");
 	var container = $("<ul class='L1' />"); //*Container for adding feeds that are in the category
 	var html = '<div style="margin:.25em;"><p style="text-align:center;padding:.5em;font-style:italic;font-weight:bold;border:3px solid rgb(200,200,200);">Set your announcements here!</p></div>'; //*A nice little box that says "Set your announcements here!"
 	var cbCount= 0; //*The current number of checkboxes
 	feedData.allCats = data.allcats; //*allcats is the list of the big four "general, classes, clubs, and sports"
 	feedData.allTeachers = data.allteachers; //*All the teachers
-	feedData.surveyUrl = data.surveyUrl;
+	feedData.allTeachers.sort( //*This sorts everything
+				function(a,b){
+					if(a < b) {
+						return -1;
+					} else if (a > b) {
+						return 1;
+					} else {
+						return 0;
+					}
+				}
+			);
 	
+	feedData.surveyUrl = data.surveyUrl;
 	for (var i = 0; i < feedData.allCats.length; i++) {//*This loop sifts through each of the big four categories in allcats and finds the categories that fit under it. Once it finds a category that fits under allcats, it pushes it into the feedArr.
+
 		var feedArr = [];
 		
-		for (var j = 0; j < data.feed.entries.length; j++) {
+		for (var j = 0; j < data.feed.entries.length; j++) { //*entries are the categories (periods)
 			if (data.feed.entries[j].category == feedData.allCats[i]) { //*This checks if the feed falls under the categories listed in allCats.feedCategory (the big four).
 				feedArr.push(data.feed.entries[j]); //*If true, pushes to array "feedArr" at top
 			}
 		}
-		
+		//console.dir(feedArr);
 		if (feedArr.length > 0) { //*This checks if there's something in the category
 			feedArr.sort( //*This sorts everything
 				function(a,b){
@@ -745,31 +812,32 @@ function initSettingsList(data) {
 			html += "<h1>" + feedData.allCats[i] + "</h1>";
 			html += "<ul class='L2'>";
 			
-			if (feedData.allCats[i] == "Classes") { //*Checks to see if the category falls under "Classes". If it does, we start making L3s (the teachers).
+			if (feedData.allCats[i] == "Classes") { //*Checks to see if the category falls under "Classes". If it does, we start making L3s (the teacher's periods).
 				for (var k = 0; k < feedData.allTeachers.length; k++) { //*Loop runs to make each list for the teachers
-					var feedArr2 = []; //*Container for teachers
+					var feedArr2 = []; //*Container for teacher's periods
 					for (var l=0; l < feedArr.length; l++) {
-						if (feedArr[l].teacher == feedData.allTeachers[k]) { //*If the teacher matches, push it into the array
+						if (feedArr[l].teacher == feedData.allTeachers[k] && feedArr[l].title != "" && feedData.allTeachers[k] != "Tester, Beta" && feedData.allTeachers[k] != "Reviewer, Admin" && feedData.allTeachers[k] != "Admin, Supreme") { //*If the teacher matches, push it into the array) { //*If the teacher matches, push it into the array
 							feedArr2.push( feedArr[l] );
 						}
 					}
 					
 					if (feedArr2.length > 0) { 
+					
+						html += "<h2>" + feedData.allTeachers[k] + "</h2>"; //*This makes the heading for each teacher
+						html += "<ul class='L3'>"; //*This is the list of individual classes
+						
 						feedArr2.sort(function(a,b){ //*This sorts the teachers.
-							if (a.title<b.title) {
+							if (a.period<b.period) {
 								return -1;
-							} else if(a.title>b.title) {
+							} else if(a.period>b.period) {
 								return 1;
 							} else {
 								return 0;
 							}
 						});
-					
-						html += "<h2>" + feedData.allTeachers[k] + "</h2>"; //*This makes the heading for each teacher
-						html += "<ul class='L3'>"; //*This is the list of individual classes
-					
+						
 						for (var l = 0; l < feedArr2.length; l++) {
-							html += "<li class='bottom'><label for='cb" + cbCount + "'>" + feedArr2[l].title + "</label><input id='cb" + cbCount + "' type='checkbox' value='" + feedArr2[l].catId + "' /></li>"; //*Writes the checkbox
+							html += "<li class='bottom'><label for='cb" + cbCount + "'>" + feedArr2[l].period + " - " + feedArr2[l].title + "</label><input id='cb" + cbCount + "' type='checkbox' value='" + feedArr2[l].catId + "' /></li>"; //*Writes the checkbox
 							cbCount++;  //assigns classes their label and whether or not they should be checkbox'd
 						}
 					
@@ -795,7 +863,7 @@ function initSettingsList(data) {
 	feedCbs = container.find('input[type=checkbox]');
 	
 	updateSettingsFromUserData();  //*Rechecks checkboxes based on data in the cookie
-    
+	
 	feedCbs.change( function(e) {  //*Runs the cookie updating function whenever a box is clicked/unclicked
 		updateUserDataFromSettings(); //*Updates the cookie
 	});
@@ -817,7 +885,7 @@ function initSettingsList(data) {
 
 //*Rechecks the checkboxes
 function updateSettingsFromUserData() { //*this cycles through the cookie to figure out which things were checked and rechecks thems on the page.
-    userData = getUserData();
+	userData = getUserData();
 	
 	if (userData) {
 		for (var i = 0; i < userData.feeds.length; i++) {
@@ -835,7 +903,7 @@ function updateSettingsFromUserData() { //*this cycles through the cookie to fig
 function updateUserDataFromSettings() {
 	var feedsArr =[];
 	var generalFeedsArr = [];
-	
+	//console.log("updatingUserDataFromSettings");
 	//if a feed is checked, add it to the cookie
 	feedCbs.each( function(i) {
 		if ( $(this).is(":checked") && $(this).parents("li.general").length > 0 ) { //checks if it does have a ancestor called General
@@ -844,18 +912,22 @@ function updateUserDataFromSettings() {
 			feedsArr.push( $(this).val() ); //pushes it into the porthole """porthole = feeds""" list if it's checked!
 		}
 	});
-	
+	//console.dir(generalFeedsArr);
+	//console.dir(feedsArr);
 	userData = { 
 		'feeds' : feedsArr,
 		'generalFeeds' : generalFeedsArr
 	};
-	feedData.feedList = feedsArr
+	feedData.feedList = feedsArr;
 	feedData.generalFeeds = generalFeedsArr;
 	
-	//$.cookie( "userData", userData, cookieOptions ); //*makin' cookies or overwriting them
-	localStorage.setItem( "userData", JSON.stringify(userData) );
-    
+	//$.cookie( "userData", userData, cookieOptions ); //*makin' cookies or overwriting them 
+	localStorage.setItem("userData",JSON.stringify(userData));
+	console.log("userData = " + JSON.parse(localStorage.getItem("userData")));
+	console.dir(JSON.parse(localStorage.getItem("userData")));
 	loadFeedList(feedData.feedList);
+	//console.dir(feedData);
+	//console.dir(feedData.feedList);
 } 
 
 
@@ -874,17 +946,20 @@ setTitle("Calendar");
 
 /** SURVEY ***********************************************************************************************************************************/
 function embedSurvey() {
-var sWidth = $(document).width() - 20;                              //*How wide the survey shall be
+//*Embeds our new survey. The commented out stuff was for height and width adjustment for the previous iframe. This is... simpler.
+
+var sWidth = $(document).width();                              //*How wide the survey shall be
 var sHeight = $(document).height() - 20 - $(".top").outerHeight();  //*How high the survey shall be
 //
-var sIFrame = $('<div class="sIFrame" width="' + sWidth + '" height="' + sHeight + '"><iframe id="sIFrame" width="' + sWidth + '" scrolling="yes" height="' + sHeight + '" frameborder="0" src="' + feedData.surveyUrl + '" style="border-width: 0px;margin: 10px 0 0 10px;overflow-y:auto;"/></div>');
+var sIFrame = $('<div class="sIFrame" width="' + sWidth + '" height="' + sHeight + '"><iframe id="sIFrame" width="' + sWidth + '" scrolling="yes" height="' + sHeight + '" frameborder="0" src="http://www.fhsapp.com/admin/feedbackForm.html" style="border-width: 0px;margin: 0;overflow-y:auto;"/></div>');
+//var sIFrame = $('<div class="sIFrame"><iframe id="sIFrame" scrolling="yes" frameborder="0" src="http://www.fhsapp.com/admin/feedbackForm.html" style="border-width: 0px;margin: 10px 0 0 10px;overflow-y:auto;"/></div>');
 
 //*This is part of fixing the problems in the UI where the dimensions weren't changing dynamically upon orientation changes. Don't worry about it.
 sIFrame.bind("orientationchange", //*This is for detecting orientation change in Survey. When it detects it, it runs the below function.
 	function(){
 		setTimeout(
 			function() { 
-				var sWidth2 = $(document).width() - 20;
+				var sWidth2 = $(document).width();
 				var sHeight2 = $(document).height() - 20 - $(".top").outerHeight();
 				$("#sIFrame").prop("width", sWidth2);   //*This makes the actual iframe's width change back
 				$("#sIFrame").prop("height", sHeight2); //*Changes height of actual iframe
@@ -902,7 +977,39 @@ setTitle("Feedback"); //*Change to "feedback"
 /** HOW-TO ***********/
 
 function loadHowTo() {
-	$("#dContent").load("howTo.html");
+	$("#dContent").load("howTo.html",function(){makelogoimage()});
 	setTitle("Getting Started");  
 	slideLeft2();
+	
+}
+
+var date = new Date();
+var time = date.getHours();
+
+function makelogoimage() {
+
+if (time<6)
+  {
+  x="Images/nighttime.png" ;
+  }
+else if (time<8)
+  {
+  x="Images/sunrise.png";
+  }
+else if (time<18)
+  {
+  x="Images/daytime.png";
+  }
+else if (time<20)
+  {
+  x="Images/sunset.png";
+  }
+else 
+  {
+  x="Images/nighttime.png";
+  }
+  
+//console.log("time="+time);
+$("#logo").append("<img src='"+x+"' class='timelogo' /> ");
+
 }
