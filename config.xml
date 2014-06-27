@@ -13,7 +13,7 @@
     <preference name="fullscreen" value="true" />
     <preference name="webviewbounce" value="true" />
     
-    
+	<!-- custom preferences -->
     <preference name="phonegap-version" value="3.3.0" />
     <preference name="BackupWebStorage" value="none" />
 
@@ -49,6 +49,11 @@
     <gap:splash src="res/screen/ios/screen-ipad-portrait.png" gap:platform="ios" width="768" height="1024" />
     <gap:splash src="res/screen/ios/screen-ipad-landscape.png" gap:platform="ios" width="1024" height="768" />
     
+    <!-- plugins -->
 	<gap:plugin name="org.apache.cordova.inappbrowser" />
-	<gap:plugin name="com.phonegap.plugin.statusbar" /> 
+	<gap:plugin name="com.phonegap.plugin.statusbar" />
+	
+	<!-- platforms -->
+	<gap:platform name="ios" />
+    <gap:platform name="android" />
 </widget>
