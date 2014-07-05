@@ -90,7 +90,7 @@ function checkDay() {
 		schoolDay="B";
 	}
 	
-	$(".dayticker").html("Today's Day is "+schoolDay+" Day");
+	$(".dayticker").html(schoolDay);
 	
 	//console.log("school day ="+schoolDay);
 	//consoling logs are for testing purposes ONLY HANDS OFF PAL
