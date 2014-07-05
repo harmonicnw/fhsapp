@@ -67,6 +67,37 @@ $(document).ready( function() {
 
 /** SHARED ***************************************************************************************************************************************************/
 
+
+function checkDay() {
+	//pops out today's date as #, 0= sunday, to 6 = saturday
+	var d = new Date();
+	var toDay = d.getDay();
+	
+	//console.log("the day ="+toDay);
+	//the school day is A, B, AB (skinny) or N (none)
+	var schoolDay = "null";
+	//matches # with correct school day
+	if (toDay == "0"|| toDay=="6"){
+		schoolDay ="N";
+	}
+	else if (toDay =="1"){
+		schoolDay = "AB";
+	}
+	else if (toDay =="2"|| toDay=="4"){
+		schoolDay = "A";
+	}
+	else if (toDay =="3"|| toDay=="5"){
+		schoolDay="B";
+	}
+	
+	$(".dayticker").html("Today's Day is "+schoolDay+" Day");
+	
+	//console.log("school day ="+schoolDay);
+	//consoling logs are for testing purposes ONLY HANDS OFF PAL
+	
+	
+}
+
 var userData;
 //*feedData is an array for more arrays
 var feedData = {

@@ -336,11 +336,20 @@ body {
 	background-color: rgb(255,255,255);
 }
 
-/*.resources {
-	background-color: rgb(224,224,224);
-	height: 100%; 
+#dContent .resources {
+	width:70%;
+	float:left;
 	
-} */
+} 
+
+.dayticker{
+padding: 5px 5px 5px 0px;
+box-sizing:border-box;
+font-size:50px;
+float:right;
+width:30%;
+text-align:justify;
+}
 
 .rlist {
 	list-style: none;
