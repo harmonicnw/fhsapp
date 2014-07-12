@@ -454,6 +454,12 @@ function loadAnnouncements(feeds, title) {       //*The parameter "feeds" comes 
 	var queryUrl = annoQueryUrl + queryString;   //*This makes that URL with the catIds
 	ajaxFeed(queryUrl, addAnnouncements);        //*Ajaxes the url, then runs addAnnouncements (below).
 	setTitle(title);
+	$("#dContent").find("a").each(function(){
+		$(this).click(function(e){
+			window.open(encodeURI( $(this).attr('href') ) , '_system');
+			e.preventDefault();
+		});
+	});
 }
 
 //**// Confused about where "data" parameter comes in. I know it's in the ajax callback(data) parameter somewhere...
