@@ -4,8 +4,8 @@
 	xmlns:cdv	= "http://cordova.apache.org/ns/1.0"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
     id          = "com.fhsapp.client"
-    version     = "0.0.1"
-    versionCode = "10" ><!-- versionCode is optional and Android only -->
+    version     = "1.0.4"
+    versionCode = "14" ><!-- versionCode is optional and Android only -->
     
     
     <!-- from cordova project default -->
