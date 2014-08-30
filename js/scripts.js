@@ -569,7 +569,14 @@ function displayAnnouncements(data){ //*This WRITES the page
 	}
 	html += "</ul>";
 	$("#dContent").html(html); //Puts the stuff on the page
-    $("#dContent").fitVids();  //fits videos 
+    $("#dContent").fitVids();  //fits videos
+    // open links in new window
+    $("#dContent").find(".content a").each(function(){
+		$(this).click(function(e){
+			window.open(encodeURI( $(this).attr('href') ) , '_system');
+			e.preventDefault();
+		});
+	});
 	initializeHide();          //activates the toggle ability (see line ~233)	
 }
 
