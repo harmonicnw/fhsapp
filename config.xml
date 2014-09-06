@@ -4,8 +4,8 @@
 	xmlns:cdv	= "http://cordova.apache.org/ns/1.0"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
     id          = "com.fhsapp.client"
-    version     = "1.0.4"
-    versionCode = "14" ><!-- versionCode is optional and Android only -->
+    version     = "0.0.1"
+    versionCode = "10" ><!-- versionCode is optional and Android only -->
     
     
     <!-- from cordova project default -->
@@ -29,13 +29,13 @@
     <!-- icon images -->
     <icon src="icon.png" />
     
-    <icon src="res/icon/ios/icon-57.png" gap:platform="ios" width="57" height="57" />
+    <icon src="res/icon/ios/icon.png" gap:platform="ios" width="57" height="57" />
+    <icon src="res/icon/ios/icon@2x.png" gap:platform="ios" width="114" height="114" />
+    <icon src="res/icon/ios/icon-60@2x.png" gap:platform="ios" width="120" height="120" />
     <icon src="res/icon/ios/icon-72.png" gap:platform="ios" width="72" height="72" />
-    <icon src="res/icon/ios/icon-57-2x.png" gap:platform="ios" width="114" height="114" />
-    <icon src="res/icon/ios/icon-72-2x.png" gap:platform="ios" width="144" height="144" />
+    <icon src="res/icon/ios/icon-72@2x.png" gap:platform="ios" width="144" height="144" />
     <icon src="res/icon/ios/icon-76.png" gap:platform="ios" width="76" height="76" />
-    <icon src="res/icon/ios/icon-76-2x.png" gap:platform="ios" width="152" height="152" />
-    <icon src="res/icon/ios/icon-120.png" gap:platform="ios" width="120" height="120" />
+    <icon src="res/icon/ios/icon-76@2x.png" gap:platform="ios" width="152" height="152" />
     
     <!-- splash screens -->
     <gap:splash src="res/screen/android/screen-ldpi-portrait.png" gap:platform="android" gap:density="ldpi" />
@@ -43,11 +43,13 @@
     <gap:splash src="res/screen/android/screen-hdpi-portrait.png" gap:platform="android" gap:density="hdpi" />
     <gap:splash src="res/screen/android/screen-xhdpi-portrait.png" gap:platform="android" gap:density="xhdpi" />
     
-    <gap:splash src="res/screen/ios/screen-iphone-portrait.png" gap:platform="ios" width="320" height="480" />
-    <gap:splash src="res/screen/ios/screen-iphone-portrait-2x.png" gap:platform="ios" width="640" height="960" />
-    <gap:splash src="res/screen/ios/screen-iphone-portrait-568h-2x.png" gap:platform="ios" width="640" height="1136" />
-    <gap:splash src="res/screen/ios/screen-ipad-portrait.png" gap:platform="ios" width="768" height="1024" />
-    <gap:splash src="res/screen/ios/screen-ipad-landscape.png" gap:platform="ios" width="1024" height="768" />
+    <gap:splash src="res/screen/ios/Default~iphone.png" gap:platform="ios" width="320" height="480" />
+    <gap:splash src="res/screen/ios/Default@2x~iphone.png" gap:platform="ios" width="640" height="960" />
+    <gap:splash src="res/screen/ios/Default-568h@2x~iphone.png" gap:platform="ios" width="640" height="1136" />
+    <gap:splash src="res/screen/ios/Default-Portrait~ipad.png" gap:platform="ios" width="768" height="1024" />
+    <gap:splash src="res/screen/ios/Default-Portrait@2x~ipad.png" gap:platform="ios" width="1536" height="2048" />
+    <gap:splash src="res/screen/ios/Default-Landscape~ipad.png" gap:platform="ios" width="1024" height="768" />
+    <gap:splash src="res/screen/ios/Default-Landscape@2x~ipad.png" gap:platform="ios" width="2048" height="1536" />
     
     <!-- plugins -->
 	<gap:plugin name="org.apache.cordova.inappbrowser" />

@@ -9,24 +9,41 @@
 	<link rel="apple-touch-icon-precomposed" href="Images/FranklinAppPic.jpg"/>
 	<link rel="icon" href="franklin_logo.gif">
 	<meta name="viewport" content="user-scalable=0, initial-scale=1.00, maxiumum-scale=1.00, width=device-width" /> <!--maxiumum-scale=1.01,-->
+	
+	<script type="text/javascript" src="phonegap.js"></script>
+	
+	<script type="text/javascript">
+		function isWebPage() {
+			if ( document.location.toString().indexOf('192.168.1.100') != -1 || document.location.indexOf('localhost') != -1 || document.location.toString().indexOf('fhsapp.com') != -1 || document.location.toString().indexOf('66.206.84.132') != -1 ) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	
+		// include phonegap desktop javascript if on local dev server
+		if ( isWebPage() ) {
+			document.write('<script type="text/javascript" src="js/phonegap-desktop.js"><\/script>');
+		}
+	</script>
+	
+	<!-- build:js js/vendor.js -->
 	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
-	<script type="text/javascript" src="phonegap.js"></script><!-- needed for phonegap build -->
-	<!--<script type="text/javascript" src="js/phonegap-desktop.js"></script>--><!-- use this to test phonegap functionality on desktop -->
 	<script type="text/javascript" src="js/jquery.jsoncookie.js"></script>
     <script type="text/javascript" src="js/jquery.fitvids.min.js"></script>
-	<!--<script type="text/javascript" src="js/bookmark_bubble.js"></script>-->
 	<script type="text/javascript" src="js/jquery.mobile.custom.min.js"></script>
+	<!-- endbuild -->
+	
+	<!-- build:js js/scripts.js -->
 	<script type="text/javascript" src="js/scripts.js"></script>
-	<script type="text/javascript" >
-		$(document).ready(
-			function() {
-				fhsIndex();
-			}	
-		);
-	</script>
+	<!-- endbuild -->
+	
 	<!--*****Icon Credit: http://emey87.deviantart.com/#/d36v4*****-->
 	<meta name="apple-mobile-web-app-capable" content="yes" />
+	
+	<!-- build:css style.css -->
 	<link rel="stylesheet" href="style.css" />
+	<!-- endbuild -->
 
 </head>
 
@@ -139,6 +156,12 @@
 	</div>
 	
 	</div>
+	
+	
+
+<script type="text/javascript">
+    app.initialize();
+</script>
 
 </body>
 
