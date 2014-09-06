@@ -73,7 +73,10 @@ function checkDay() {
 	var d = new Date();
 	var toDay = d.getDay();
 	
-	//console.log("the day ="+toDay);
+	var schoolDay = ["no school", "an A/B day", "an A day", "a B day", "an A day", "a B day", "no school"];
+	$(".dayticker").html("Today is: " + schoolDay[toDay]);
+	
+/*	//console.log("the day ="+toDay);
 	//the school day is A, B, AB (skinny) or N (none)
 	var schoolDay = "null";
 	//matches # with correct school day
@@ -89,13 +92,19 @@ function checkDay() {
 	else if (toDay =="3"|| toDay=="5"){
 		schoolDay="B";
 	}
-	
-	$(".dayticker").html(schoolDay);
-	
 	//console.log("school day ="+schoolDay);
 	//consoling logs are for testing purposes ONLY HANDS OFF PAL
+	*/
+}
+
+function setSchedule() {
+	var d = new Date();
+	var toDay = d.getDay();
 	
-	
+	var schedDay = ["bsmonAB.png", "bsmonAB.png", "bstueA.png", "bswedB.png", "bsthuA.png", "bsfriB.png", "bsmonAB.png"];
+	$(".scheduleholder").html("<img src='Images/" + schedDay[toDay] + "' class='schedulepicture'>");
+
+
 }
 
 var userData;
