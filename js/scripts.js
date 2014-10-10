@@ -63,6 +63,9 @@ $(document).ready( function() {
 		setTitle( $(this).text() );                  //*topTitle = header bar goodies 
 		slideLeft2();
 	});
+	
+	// hide splashscreen (Android)
+	navigator.splashscreen.hide();
 });
 
 /** SHARED ***************************************************************************************************************************************************/
