@@ -214,6 +214,7 @@ function makeQueryUrlString(feeds) { //*This makes the "lump" of catIds that the
 /** UI *******************************************************************************************************************************************************/
 
 var slideLeft;
+var slideLeft2;
 var slideRight;
 var isSlid = false;
 var L3isSlid = false;
@@ -284,6 +285,8 @@ $(document).ready( function() {
 		
 	setAppHeight(); //*sets the height (see below)
 	$(window).bind("orientationchange",setAppHeight);  //*This detects orientation changes and "reloads" the height with each change so the things doesn't get thrown off.
+	
+	fhsIndex();
 } ); 
 
 function setAppHeight() {
@@ -470,6 +473,7 @@ var feedListExists = false;
 //*//
 //*This function runs at the very beginning. It's found in the index html file. It starts up everything.
 function fhsIndex(){
+	console.log('fhsIndex: check it?');
 	userData = getUserData();
 	if (userData && userData.hasOwnProperty("feeds")) { //*checks if the userData cookie has been set
 		if(userData.feeds.length > 0) {           //*this makes sure that there are feeds the user is subscribed to
