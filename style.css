@@ -337,18 +337,35 @@ body {
 }
 
 #dContent .resources {
-	width:70%;
+	width:100%;
 	float:left;
 	
 } 
 
-.dayticker{
-padding: 5px 5px 5px 0px;
-box-sizing:border-box;
-font-size:25px;
-float:right;
-width:30%;
-text-align:justify;
+.dayticker {
+	padding: 5px 5px 5px 0px;
+	box-sizing:border-box;
+	font-size:25px;
+	float:left;
+	width:100%;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	text-align:center;
+}
+
+.scheduleholder {
+	width: 100%;
+	float: left;
+	box-sizing: border-box;
+}
+
+.scheduleholder img{
+	width: 75%;
+	margin-left: 12.5%;
+	margin-right: 12.5%;
+	box-sizing: border-box;
+	float: left;
 }
 
 .rlist {

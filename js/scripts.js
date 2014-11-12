@@ -74,7 +74,7 @@ function checkDay() {
 	var toDay = d.getDay();
 	
 	var schoolDay = ["no school", "an A/B day", "an A day", "a B day", "an A day", "a B day", "no school"];
-	$(".dayticker").html("Today is: " + schoolDay[toDay]);
+	$(".dayticker").html("Today is " + schoolDay[toDay]);
 	
 /*	//console.log("the day ="+toDay);
 	//the school day is A, B, AB (skinny) or N (none)
