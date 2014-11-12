@@ -2,9 +2,10 @@
 	<ul class="rlist">
 		<li><a href="http://www.pps.k12.or.us/schools/franklin/">Franklin Web Page</a></li> 
 		<li><a href="http://franklintoolbox.wordpress.com/">Student Toolbox</a></li>
-		<li><a href="https://parent.cascadetech.org/pps1j/">Studentvue/Parentvue</a></li>
-		<li>Contact Us: fhsapp.contact@gmail.com </li>
-		
+		<li><a href="https://parent.cascadetech.org/pps1j/">Studentvue/Parentvue</a></li>		
+		<li><a href="https://www.fhsapp.com/admin/help.php">Admin/Student Help Page</a></li>
+		<!--<li><a>Contact Us: fhsapp.contact@gmail.com </a></li>-->
+		<li><a id="contactLink"></a></li>
 		<!--<li> <a href="#" onclick="window.open(encodeURI('http://www.pps.k12.or.us/schools/franklin/') , '_system' , 'location=yes');">Franklin Website</a>
 		<li><a href="#" onclick="window.open(encodeURI('http://franklintoolbox.wordpress.com/') , '_system' , 'location=yes');">Student Toolbox</a>-->
     
@@ -18,3 +19,12 @@
 
 <!-- pops up the script for the day thing -->
 <script> checkDay(); setSchedule(); </script>
+
+<script>
+document.getElementById("contactLink").innerHTML = "Reach Us: " + "fhs"+"app"+".contact"+"@gmail.com";
+document.getElementById("contactLink").href = "mailto:"+"fhs"+"app"+".contact"+"@gmail.com";
+</script>
+
+
+<!--WE NEED TO FIX THESE. THE TARGET AND WHATNOTS NEED TO BE CHANGED TO WORK WITH PHONEGAP-->
+
