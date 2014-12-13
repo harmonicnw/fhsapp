@@ -1,5 +1,5 @@
 //* All comments with "//*" next to them mean that they explain how the code works. Otherwise, it's probably just commented out code or something.
-
+//* All comments with "VV" next to them mean that it is terrible, broken works in progress, usually written by griffin. sorry.
 $(document).ready( function() {
 	//*Adds link to the Calendar
 	$("#calLink").click( function(e) {
@@ -16,7 +16,7 @@ $(document).ready( function() {
 		loadSettings(); //*See near bottom
 		slideLeft2();
 	});
-	
+
 	//*Adds link to the Resources
 	$(".pageLink").click( function(e) {
 		e.preventDefault(); //*prevents loading page
@@ -141,7 +141,9 @@ var annoQueryUrl= "http://www.fhsapp.com/admin/anno_query.php"; //*This Url work
 //var annoListUrl= "http://localhost/fhsapp_admin/anno_list.php";
 //var annoQueryUrl= "http://localhost/fhsapp_admin/anno_query.php";
 
-
+//*this url is used for grabbing all the profiles. appendages come later.
+//var profileListUrl= "http://localhost/fhsapp_admin/profile_selector.php"; //*the local one
+var profileListUrl="http://www.fhsapp.com/admin/profile_selector.php"; //*the LIVE one
 
 
 //*These are the loaders
@@ -797,6 +799,24 @@ function displayFeedListGeneral() {
 	$('.under ul li:first').after(html);     //adds in the new
 	initializeSlideoutHide();
 }
+
+/*VV*PROFILES -- DON'T HIT ME ******************************************************************************************************************************/
+
+function loadProfiles(){
+	showLoader();
+	setTitle("Teacher Profiles");
+	getProfiles(); //VV does not work yet, but the function should ajax a list of anno's.. w/e that means
+};
+
+function getProfiles(){ //VV this is what I was talking about above
+	ajaxFeed(profileListUrl, necessaryProfiles);
+};
+
+function necessaryProfiles(data){
+	$profileData= data //VV seriously borked, forgive me
+	console.log($profileData);
+}
+
 
 /** SETTINGS *************************************************************************************************************************************************/
 
