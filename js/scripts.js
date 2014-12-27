@@ -29,7 +29,7 @@ $(document).ready( function() {
 	
 	$(".resourcesLink").click( function(e) {
 		e.preventDefault(); //*prevents loading page
-		$(this).blur();     //*subtle niceties
+		$(this).blur();     //*subtle n
 		showLoader();
 		$("#dContent").load( $(this).attr("href"), function() {
 			$("#dContent").find("a").each(function(){
@@ -143,7 +143,9 @@ var annoQueryUrl= "http://www.fhsapp.com/admin/anno_query.php"; //*This Url work
 
 //*this url is used for grabbing all the profiles. appendages come later.
 //var profileListUrl= "http://localhost/fhsapp_admin/profile_selector.php"; //*the local one
+//var profileListQueryUrl = "http://localhost/fhsapp_admin/profile_selector_query.php";
 var profileListUrl="http://www.fhsapp.com/admin/profile_selector.php"; //*the LIVE one
+var profileListQuery="http://www.fhsapp.com/admin/profile_selector_query.php";
 
 
 //*These are the loaders
@@ -213,6 +215,19 @@ function makeQueryUrlString(feeds) { //*This makes the "lump" of catIds that the
 	////console.log(q);
 	return q; //*returns the string of catids
 }
+//a fractured core of the profile section excised and placed into the shared section. 
+function makeProfileQueryString(feeds) { //*lumps together all the necessary feeds
+	var q = "?profiles="; //*like w/ anno query, appends this to a url to call specific teaches'
+	for (var i=0; i < feeds.length; i++) {
+		if (i>0) q += ",";
+		q += feeds[i];
+	}
+	//console.log(q);
+	return q; //*returns the string of catids
+
+}
+
+
 /** UI *******************************************************************************************************************************************************/
 
 var slideLeft;
@@ -490,6 +505,7 @@ function fhsIndex(){
 	}
 }
 
+
 function loadAnnouncements(feeds, title) {       //*The parameter "feeds" comes in as a string of catIds, which are passed to makeQueryUrlString (see below).
 	//console.log("Loading Announcements");
 	showLoader();
@@ -500,6 +516,9 @@ function loadAnnouncements(feeds, title) {       //*The parameter "feeds" comes 
 	var queryUrl = annoQueryUrl + queryString;   //*This makes that URL with the catIds
 	ajaxFeed(queryUrl, addAnnouncements);        //*Ajaxes the url, then runs addAnnouncements (below).
 	setTitle(title);
+	var profileAddedString = makeProfileQueryString(feeds);  //these should replicate the same deal in the annolist/query 'cept for profiles
+	var profileUrlCaller = profileListQueryUrl + profileAddedString;			//here is where the two datacallers diverge
+	console.log(profileUrlCaller);
 	$("#dContent").find("a").each(function(){
 		$(this).click(function(e){
 			window.open(encodeURI( $(this).attr('href') ) , '_system');
@@ -813,7 +832,7 @@ function getProfiles(){ //VV this is what I was talking about above
 };
 
 function necessaryProfiles(data){
-	$profileData= data //VV seriously borked, forgive me
+	$profileData=data //VV seriously borked, forgive me
 	console.log($profileData);
 }
 
@@ -990,9 +1009,9 @@ function updateUserDataFromSettings() {
 		}
 	});
 	//console.dir(generalFeedsArr);
-	//console.dir(feedsArr);
-	userData = { 
-		'feeds' : feedsArr,
+	//console.log(feedsArr);
+	userData = {  //feeds is a big list of numbers. this is useful for the annoquery and the profile query
+		'feeds' : feedsArr, //this is where the feeds parameter is established, I'm pretty sure
 		'generalFeeds' : generalFeedsArr
 	};
 	feedData.feedList = feedsArr;
