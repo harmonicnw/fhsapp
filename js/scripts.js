@@ -138,15 +138,15 @@ var feedListItemsLoaded;
 //*These two urls are used with the ajaxFeed() function (see below) to get the information with all the announcements.
 var annoListUrl= "http://www.fhsapp.com/admin/anno_list.php";   //*This Url goes to all the announcement lists.
 var annoQueryUrl= "http://www.fhsapp.com/admin/anno_query.php"; //*This Url works with the catIds. When appended with ?catids="#", "#", "#"... it goes an gets all those categories with those catId numbers.
-//var annoListUrl= "http://localhost/fhsapp_admin/anno_list.php";
+//var annoListUrl= "http://localhost/fhsapp_admin/anno_list.php"; //local testorz
 //var annoQueryUrl= "http://localhost/fhsapp_admin/anno_query.php";
 
 //*this url is used for grabbing all the profiles. appendages come later.
-//var profileListUrl= "http://localhost/fhsapp_admin/profile_selector.php"; //*the local one
+//var profileListUrl= "http://localhost/fhsapp_admin/profile_selector.php"; //*the local one //profile List pulls all profile, Just in case
 //var profileListQueryUrl = "http://localhost/fhsapp_admin/profile_selector_query.php";
 var profileListUrl="http://www.fhsapp.com/admin/profile_selector.php"; //*the LIVE one
 var profileListQuery="http://www.fhsapp.com/admin/profile_selector_query.php";
-
+//var teacherJson ="http://www.fhsapp.com/general_testing/appendix_pt.php"; //the static profile testor
 
 //*These are the loaders
 var LoadWB = $("<img class='loading' src='Images/LoadWB.gif' width='32' height='32' />"); 
@@ -217,10 +217,12 @@ function makeQueryUrlString(feeds) { //*This makes the "lump" of catIds that the
 }
 //a fractured core of the profile section excised and placed into the shared section. 
 function makeProfileQueryString(feeds) { //*lumps together all the necessary feeds
-	var q = "?profiles="; //*like w/ anno query, appends this to a url to call specific teaches'
-	for (var i=0; i < feeds.length; i++) {
+	var q = "?pSubtypes="; //*like w/ anno query, appends this to a url to call specific teaches'
+	for (var i=0; i < feeds.length; i++) { 
 		if (i>0) q += ",";
-		q += feeds[i];
+		if (feeds[i].period!=0){
+			q += feeds[i];
+		};
 	}
 	//console.log(q);
 	return q; //*returns the string of catids
@@ -490,7 +492,7 @@ var feedListExists = false;
 //*//
 //*This function runs at the very beginning. It's found in the index html file. It starts up everything.
 function fhsIndex(){
-	console.log('fhsIndex: check it?');
+	//console.log('fhsIndex: check it?');
 	userData = getUserData();
 	if (userData && userData.hasOwnProperty("feeds")) { //*checks if the userData cookie has been set
 		if(userData.feeds.length > 0) {           //*this makes sure that there are feeds the user is subscribed to
@@ -515,10 +517,7 @@ function loadAnnouncements(feeds, title) {       //*The parameter "feeds" comes 
 	var queryString = makeQueryUrlString(feeds); //*See the function (line ~132)
 	var queryUrl = annoQueryUrl + queryString;   //*This makes that URL with the catIds
 	ajaxFeed(queryUrl, addAnnouncements);        //*Ajaxes the url, then runs addAnnouncements (below).
-	setTitle(title);
-	var profileAddedString = makeProfileQueryString(feeds);  //these should replicate the same deal in the annolist/query 'cept for profiles
-	var profileUrlCaller = profileListQueryUrl + profileAddedString;			//here is where the two datacallers diverge
-	console.log(profileUrlCaller);
+	setTitle(title); 
 	$("#dContent").find("a").each(function(){
 		$(this).click(function(e){
 			window.open(encodeURI( $(this).attr('href') ) , '_system');
@@ -649,14 +648,28 @@ function addFeedsToList(data) {
 		});
 	}
 	displayFeedList();
+	displayProfileList();
 }
+
+var teacherData;
 
 function loadFeedList(feeds){   //*this runs everytime a setting is changed or the app is initially loaded.
 	//console.log("calling loadfeedlist"); //works up to this point
 	feedData.feedList = []; 	//*location of all your categories. Clears everytime.
+	feedData.profileList= [];
 	var queryString = makeQueryUrlString(feeds); //*makes the string (the lump). The "makeQueryUrlString" returns a string of catIds, which the variable gets set to.
 	ajaxFeed(annoQueryUrl + queryString, addFeedsToList); //*Purges the old feeds in a ritualistic culling. (Translation: Everytime a setting is changed (checked), the ajaxFeed function runs and the "feedData.feedList" array is filled up with a new set of data.
 	//console.dir(feedData.feedList);
+	var profileAddedString = makeProfileQueryString(feeds);  //these should replicate the same deal in the annolist/query 'cept for profiles
+	var profileUrlCaller = profileListQueryUrl + profileAddedString;	//here is where the two datacallers diverge
+	//console.log("profileUrlCaller="+	profileUrlCaller);
+	//ajaxFeed(teacherJson, setTeacherData); //static
+	ajaxFeed( profileUrlCaller, setTeacherData); //dynamic
+}
+
+function setTeacherData(data) {
+	feedData.profileList = data;
+	console.dir(feedData.profileList);
 }
 
 //*This is for the SLIDEOUT MENU (the feedList). It generates the lists so you can select from them.
@@ -672,7 +685,6 @@ function displayFeedList() {
 	}
 	
 	$(".getStart").hide(); //*Hides the getting started page.
-	
 	var allCatIds = [];
 	var html ="";
 	
@@ -682,7 +694,7 @@ function displayFeedList() {
 		}
 	}
 	
-	//*This writes the big "Your Announcements".                         // Here in "onclick", it takes allCatIds, joins them into a string, and passes them to "loadAnnouncements", which then writes the page with these catIds.
+	//*This writes the big "Your Announcements". Here in "onclick", it takes allCatIds, joins them into a string, and passes them to "loadAnnouncements", which then writes the page with these catIds.
 	html += "<li class=\"atypes dynamic\"><div class=\"atitle personal\"><a href='#' onclick=\"loadAnnouncements([" + allCatIds.join() + "], 'Your Announcements'); return false;\">Your Announcements</a></div></li>";
 	
 	for (var i = 0; i < feedData.allCats.length; i++) { //*This makes categories
@@ -729,7 +741,7 @@ function displayFeedList() {
 			var liString = ""; //*This temporarily holds all the individual classes, clubs, etc.
 			for (var k = 0; k < feedArr.length; k++) { //Below here is again the onclick, except the loadAnnouncemets is only being passed 1 catId to load.
 				if(feedArr[k].feedPeriod != 0) {
-					liString += "<li><a href='#'onclick=\"loadAnnouncements(['" + feedArr[k].feedCatId + "'], '" + feedArr[k].feedTitle + "'); return false;\">" + feedArr[k].feedPeriod + " - " + feedArr[k].feedTitle + "</a></li>"; //*This is the title of the category w/ the link
+					liString += "<li><a href='#'onclick=\"loadAnnouncements(['" + feedArr[k].feedCatId + "'], '" + feedArr[k].feedTitle + "'); return false;\">" + feedArr[k].feedPeriod + " - " + feedArr[k].feedTitle + "</a></li>"; 
 				} else {
 					liString += "<li><a href='#'onclick=\"loadAnnouncements(['" + feedArr[k].feedCatId + "'], '" + feedArr[k].feedTitle + "'); return false;\">" + feedArr[k].feedTitle + "</a></li>"; //*This is the title of the category w/ the link
 				}
@@ -741,13 +753,26 @@ function displayFeedList() {
 			html += "</ul>";
 			html += "</li>";
 		}
-		
 	}
+	
 	$('.under ul .dynamic').remove(); //clears out the old
-	$('.under ul').prepend(html);     //adds in the new
+	$('.under ul:first').prepend(html);     //adds in the new
 	loadFeedListGeneral();
 	initializeSlideoutHide();
 }	
+
+function displayProfileList(){
+	var profileHtml = ""; 
+	for (var i=0;i<feedData.profileList.length;i++){
+		//console.log(feedData.profileList[i].first_name);
+		profileHtml += "<li>"+feedData.profileList[i].first_name+" "+feedData.profileList[i].last_name+"</li>";
+	
+	}
+
+	//console.log(profileHtml);
+	$('.teacherProfiles ul').append(profileHtml); //adds in the crazy
+	initializeSlideoutHide();
+}
 
 ////////////This is everything above, but for General////////////////////
 //////////////////////FIX FIX FIX FIX////////////////////////////////////
@@ -833,7 +858,7 @@ function getProfiles(){ //VV this is what I was talking about above
 
 function necessaryProfiles(data){
 	$profileData=data //VV seriously borked, forgive me
-	console.log($profileData);
+	//console.log($profileData);
 }
 
 
