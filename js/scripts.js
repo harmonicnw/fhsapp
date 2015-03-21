@@ -1,5 +1,6 @@
 //* All comments with "//*" next to them mean that they explain how the code works. Otherwise, it's probably just commented out code or something.
 //* All comments with "VV" next to them mean that it is terrible, broken works in progress, usually written by griffin. sorry.
+
 $(document).ready( function() {
 	//*Adds link to the Calendar
 	$("#calLink").click( function(e) {
@@ -142,10 +143,10 @@ var annoQueryUrl= "http://www.fhsapp.com/admin/anno_query.php"; //*This Url work
 //var annoQueryUrl= "http://localhost/fhsapp_admin/anno_query.php";
 
 //*this url is used for grabbing all the profiles. appendages come later.
-//var profileListUrl= "http://localhost/fhsapp_admin/profile_selector.php"; //*the local one //profile List pulls all profile, Just in case
-//var profileListQueryUrl = "http://localhost/fhsapp_admin/profile_selector_query.php";
-var profileListUrl="http://www.fhsapp.com/admin/profile_selector.php"; //*the LIVE one
-var profileListQuery="http://www.fhsapp.com/admin/profile_selector_query.php";
+var profileListUrl= "http://localhost/fhsapp_admin/profile_selector.php"; //*the local one //profile List pulls all profile, Just in case
+var profileListQueryUrl = "http://localhost/fhsapp_admin/profile_selector_query.php";
+//var profileListUrl="http://www.fhsapp.com/admin/profile_selector.php"; //*the LIVE one
+//var profileListQuery="http://www.fhsapp.com/admin/profile_selector_query.php";
 //var teacherJson ="http://www.fhsapp.com/general_testing/appendix_pt.php"; //the static profile testor
 
 //*These are the loaders
@@ -185,8 +186,9 @@ function getUserData() {                    //*Retrieves the data from the cooki
 }
 
 function showLoader() {                    //*Shows the cool loader thingy
-	$('#dContent').empty().append(LoadWB); //*This clears out the list on top each time so it doesn't double up
-	
+	$('#dContent').empty().append(LoadWB);
+	$('.teacherProfiles ul').empty()//*This clears out the list on top each time so it doesn't double up
+	$('.teacherProfiles .atitle').removeClass('open').addClass('closed');
 	//*This centers the loader
 	LoadWB.css({ 
 		'margin-top' : "50px",
@@ -405,6 +407,7 @@ function initializeL3Hide() {
 					annHide = $(this).next(".L3");
 					setTimeout(
 						function() {
+							alert("Soviets");
 							annHide.stop(true,true).hide();
 						}, 740
 					);
@@ -446,8 +449,8 @@ $("#logo").append("<img src='"+x+"' class='timelogofull' /> ");
 //*This is for dropdowns in the slideout menu
 function initializeSlideoutHide() {
 	//slideoutMenuDropDown
-	$(".under .acontent").hide();
-	$(".under .atitle").toggle(
+	$(".under .acontent").not(".teacherProfiles .acontent").hide();
+	$(".under .atitle").not("teacherProfiles . atitle").toggle(
 		function() {
 			$(this).next(".acontent").slideDown(750);
 			$(this).removeClass("closed");
@@ -459,14 +462,14 @@ function initializeSlideoutHide() {
 				annHide = $(this).next(".acontent");
 				setTimeout(
 					function() {
-						annHide.stop(true,true).hide();
+						//annHide.stop(true,true).hide();  //this causes the "won't open after settings is click with profs open" bug.
 					}, 740
 				);
 			$(this).removeClass("open");
 			$(this).addClass("closed");
 		}
 	);
-	$(".under .dd .atitle").addClass("closed");
+	$(".under .dd .atitle").not(".teacherProfiles .atitle").addClass("closed");
 }
 
 //*This function is so that you can click the title of a setting and it checks
@@ -669,7 +672,7 @@ function loadFeedList(feeds){   //*this runs everytime a setting is changed or t
 
 function setTeacherData(data) {
 	feedData.profileList = data;
-	console.dir(feedData.profileList);
+	//console.dir(feedData.profileList);
 }
 
 //*This is for the SLIDEOUT MENU (the feedList). It generates the lists so you can select from them.
@@ -677,7 +680,7 @@ function displayFeedList() {
 	if (feedData.allCats.length == 0) { //*Safeguard. Manually gets all the categories.
 		ajaxFeed(annoListUrl, function(data) {
 			feedData.allCats = data.allcats;
-			feedData.allTeachers = data.allteachers;
+			feedData.allTeachers = dat	a.allteachers;
 			feedData.surveyUrl = data.surveyUrl;
 			displayFeedList();
 		});
@@ -762,16 +765,18 @@ function displayFeedList() {
 }	
 
 function displayProfileList(){
-	var profileHtml = ""; 
+	var profileHtml = "<div class=\"atitle profiles closed\"> <a>Teacher Profiles</a> </div> <ul class=\"acontent\" style=\"display:none\">";
 	for (var i=0;i<feedData.profileList.length;i++){
 		//console.log(feedData.profileList[i].first_name);
 		profileHtml += "<li>"+feedData.profileList[i].first_name+" "+feedData.profileList[i].last_name+"</li>";
 	
 	}
-
-	//console.log(profileHtml);
-	$('.teacherProfiles ul').append(profileHtml); //adds in the crazy
+	profileHtml += "</ul>";
+	/*console.log(profileHtml);
+	console.log(feedData);*/ //hey, why aren't other people showing up?
+	$('.teacherProfiles').empty().append(profileHtml); //adds in the crazy
 	initializeSlideoutHide();
+	console.log("bip");
 }
 
 ////////////This is everything above, but for General////////////////////
@@ -997,7 +1002,7 @@ function initSettingsList(data) {
 		$(this).hide() //*hides the general -- to prevent unchecking
 	});
 	
-	updateUserDataFromSettings();
+	updateUserDataFromSettings(); 
 	
 	//*Activates dropdowns
 	initializeL3Hide(); 
@@ -1044,8 +1049,8 @@ function updateUserDataFromSettings() {
 	
 	//$.cookie( "userData", userData, cookieOptions ); //*makin' cookies or overwriting them 
 	localStorage.setItem("userData",JSON.stringify(userData));
-	console.log("userData = " + JSON.parse(localStorage.getItem("userData")));
-	console.dir(JSON.parse(localStorage.getItem("userData")));
+	//console.log("userData = " + JSON.parse(localStorage.getItem("userData")));
+	//	console.dir(JSON.parse(localStorage.getItem("userData")));
 	loadFeedList(feedData.feedList);
 	//console.dir(feedData);
 	//console.dir(feedData.feedList);
