@@ -137,16 +137,16 @@ var feedListItemsTotal;
 var feedListItemsLoaded;
 
 //*These two urls are used with the ajaxFeed() function (see below) to get the information with all the announcements.
-var annoListUrl= "http://www.fhsapp.com/admin/anno_list.php";   //*This Url goes to all the announcement lists.
-var annoQueryUrl= "http://www.fhsapp.com/admin/anno_query.php"; //*This Url works with the catIds. When appended with ?catids="#", "#", "#"... it goes an gets all those categories with those catId numbers.
-//var annoListUrl= "http://localhost/fhsapp_admin/anno_list.php"; //local testorz
-//var annoQueryUrl= "http://localhost/fhsapp_admin/anno_query.php";
+//var annoListUrl= "http://www.fhsapp.com/admin/anno_list.php";   //*This Url goes to all the announcement lists.
+//var annoQueryUrl= "http://www.fhsapp.com/admin/anno_query.php"; //*This Url works with the catIds. When appended with ?catids="#", "#", "#"... it goes an gets all those categories with those catId numbers.
+var annoListUrl= "http://localhost/fhsapp_admin/anno_list.php"; //local testorz
+var annoQueryUrl= "http://localhost/fhsapp_admin/anno_query.php";
 
 //*this url is used for grabbing all the profiles. appendages come later.
-var profileListUrl= "http://localhost/fhsapp_admin/profile_selector.php"; //*the local one //profile List pulls all profile, Just in case
-var profileListQueryUrl = "http://localhost/fhsapp_admin/profile_selector_query.php";
-//var profileListUrl="http://www.fhsapp.com/admin/profile_selector.php"; //*the LIVE one
-//var profileListQuery="http://www.fhsapp.com/admin/profile_selector_query.php";
+//var profileListUrl= "http://localhost/fhsapp_admin/profile_selector.php"; //*the local one //profile List pulls all profile, Just in case
+//var profileListQueryUrl = "http://localhost/fhsapp_admin/profile_selector_query.php";
+var profileListUrl="http://www.fhsapp.com/admin/profile_selector.php"; //*the LIVE one
+var profileListQuery="http://www.fhsapp.com/admin/profile_selector_query.php";
 //var teacherJson ="http://www.fhsapp.com/general_testing/appendix_pt.php"; //the static profile testor
 
 //*These are the loaders
@@ -407,7 +407,6 @@ function initializeL3Hide() {
 					annHide = $(this).next(".L3");
 					setTimeout(
 						function() {
-							alert("Soviets");
 							annHide.stop(true,true).hide();
 						}, 740
 					);
@@ -680,7 +679,7 @@ function displayFeedList() {
 	if (feedData.allCats.length == 0) { //*Safeguard. Manually gets all the categories.
 		ajaxFeed(annoListUrl, function(data) {
 			feedData.allCats = data.allcats;
-			feedData.allTeachers = dat	a.allteachers;
+			feedData.allTeachers = data.allteachers;
 			feedData.surveyUrl = data.surveyUrl;
 			displayFeedList();
 		});
@@ -768,7 +767,7 @@ function displayProfileList(){
 	var profileHtml = "<div class=\"atitle profiles closed\"> <a>Teacher Profiles</a> </div> <ul class=\"acontent\" style=\"display:none\">";
 	for (var i=0;i<feedData.profileList.length;i++){
 		//console.log(feedData.profileList[i].first_name);
-		profileHtml += "<li>"+feedData.profileList[i].first_name+" "+feedData.profileList[i].last_name+"</li>";
+		profileHtml += "<li><a href='#' onclick='specificProfileDisplay("+i+")'>"+feedData.profileList[i].first_name+" "+feedData.profileList[i].last_name+"</a></li>";
 	
 	}
 	profileHtml += "</ul>";
@@ -776,8 +775,48 @@ function displayProfileList(){
 	console.log(feedData);*/ //hey, why aren't other people showing up?
 	$('.teacherProfiles').empty().append(profileHtml); //adds in the crazy
 	initializeSlideoutHide();
-	console.log("bip");
 }
+
+function specificProfileDisplay(tP){ //stands for teacherPlacement, is the same as the "i" value from displayProfileList
+	//showLoader(); //this is breaking our dropdown!!!
+	$(".teacherProfiles .profiles a").trigger("click"); //simulates a click
+	slideLeft();
+	var specificProfileHtml = "";
+	var profileFilled = false;
+	specificProfileHtml +="<p>Name: "+feedData.profileList[tP].first_name+" "+feedData.profileList[tP].last_name+"</p>";
+	if (feedData.profileList[tP].hasOwnProperty("image_link") && feedData.profileList[tP].image_link != ""){
+		specificProfileHtml +="<p>Profile Picture: <img style=\"width:50px;height:auto;\" class=\"profilePic\" src=\""+feedData.profileList[tP].image_link+"\"/></p>"; 
+		profileFilled = true;}
+	if (feedData.profileList[tP].hasOwnProperty("room_number") && feedData.profileList[tP].room_number != ""){
+		specificProfileHtml +="<p>Room Number: "+feedData.profileList[tP].room_number+"</p>";
+		profileFilled = true;} 
+	if (feedData.profileList[tP].hasOwnProperty("bio") && feedData.profileList[tP].bio != ""){
+		specificProfileHtml +="<p>Bio: "+feedData.profileList[tP].bio+"</p>";
+		profileFilled = true;}
+	if (feedData.profileList[tP].hasOwnProperty("other_roles") && feedData.profileList[tP].other_roles != ""){
+		specificProfileHtml +="<p>Other Roles: "+feedData.profileList[tP].other_roles+"</p>"; 
+		profileFilled = true;}
+	if (feedData.profileList[tP].hasOwnProperty("other_info") && feedData.profileList[tP].other_info != ""){
+		specificProfileHtml +="<p>Other Info: "+feedData.profileList[tP].other_info+"</p>"; 
+		profileFilled = true;}
+	if (feedData.profileList[tP].hasOwnProperty("website_link") && feedData.profileList[tP].website_link != "" ){
+		specificProfileHtml +="<p>Website Link: <a href=\""+feedData.profileList[tP].website_link+"\">"+feedData.profileList[tP].website_link+"</a></p>";
+		profileFilled = true;}
+	if (feedData.profileList[tP].hasOwnProperty("facebook") && feedData.profileList[tP].facebook != ""){
+		specificProfileHtml +="<p>Facebook: <a  href=\""+feedData.profileList[tP].facebook+"\">"+feedData.profileList[tP].facebook+"</a></p>";
+		profileFilled = true;}
+	if (feedData.profileList[tP].hasOwnProperty("image_link") && feedData.profileList[tP].image_link != "" ){
+		specificProfileHtml +="<p>Blog: <a href=\""+feedData.profileList[tP].wordpress_blog+"\">"+feedData.profileList[tP].wordpress_blog+"</a></p>"; 
+		profileFilled = true;}
+	if (profileFilled === false){
+		specificProfileHtml += "<p> This teacher has not filled out a profile on the FHS APP admin system. Their information is currently unavailable. </p>";
+	}
+	$("#dContent").empty().append(specificProfileHtml);
+	setTitle(feedData.profileList[tP].first_name+" "+feedData.profileList[tP].last_name); //pop's the fir'st per'sons's name in the title
+	
+
+}
+
 
 ////////////This is everything above, but for General////////////////////
 //////////////////////FIX FIX FIX FIX////////////////////////////////////
@@ -850,7 +889,7 @@ function displayFeedListGeneral() {
 }
 
 /*VV*PROFILES -- DON'T HIT ME ******************************************************************************************************************************/
-
+/*
 function loadProfiles(){
 	showLoader();
 	setTitle("Teacher Profiles");
@@ -865,7 +904,7 @@ function necessaryProfiles(data){
 	$profileData=data //VV seriously borked, forgive me
 	//console.log($profileData);
 }
-
+*/
 
 /** SETTINGS *************************************************************************************************************************************************/
 
