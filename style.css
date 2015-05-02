@@ -565,4 +565,23 @@ list-style:none;
 	width: 100%;
 }
 
+.profilePage .profilePicture{
+	width: 100px;
+	height: auto;
+	float: left;
+}
+
+.teacherSocialWebsites img{
+	width:30px;
+	height:auto;
+	margin-right:10px;
+}
+
+.profilePage p{
+	clear:both;
+}
+
+.profilePage{
+	padding:1em;
+}
 
