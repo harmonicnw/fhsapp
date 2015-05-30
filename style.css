@@ -566,22 +566,26 @@ list-style:none;
 }
 
 .profilePage .profilePicture{
-	width: 100px;
+	width: 200px;
 	height: auto;
 	float: left;
 }
 
 .teacherSocialWebsites img{
-	width:30px;
+	width:50px;
 	height:auto;
 	margin-right:10px;
 }
 
 .profilePage p{
 	clear:both;
+	font-size:14px;
 }
 
 .profilePage{
 	padding:1em;
+	width:350px;
+	margin-left:auto;
+	margin-right:auto
 }
 

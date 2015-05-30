@@ -1,5 +1,6 @@
 //* All comments with "//*" next to them mean that they explain how the code works. Otherwise, it's probably just commented out code or something.
 //* All comments with "VV" next to them mean that it is terrible, broken works in progress, usually written by griffin. sorry.
+//the urls that continually need to be changed between local and live are marked with ZZZZ
 
 $(document).ready( function() {
 	//*Adds link to the Calendar
@@ -135,7 +136,7 @@ var feedData = {
 
 var feedListItemsTotal;
 var feedListItemsLoaded;
-
+//ZZZZZZZZZZZ
 //*These two urls are used with the ajaxFeed() function (see below) to get the information with all the announcements.
 var annoListUrl= "http://www.fhsapp.com/admin/anno_list.php";   //*This Url goes to all the announcement lists.
 var annoQueryUrl= "http://www.fhsapp.com/admin/anno_query.php"; //*This Url works with the catIds. When appended with ?catids="#", "#", "#"... it goes an gets all those categories with those catId numbers.
@@ -147,7 +148,6 @@ var annoQueryUrl= "http://www.fhsapp.com/admin/anno_query.php"; //*This Url work
 //var profileListQueryUrl = "http://localhost/fhsapp_admin/profile_selector_query.php";
 var profileListUrl="http://www.fhsapp.com/admin/profile_selector.php"; //*the LIVE one
 var profileListQueryUrl="http://www.fhsapp.com/admin/profile_selector_query.php";
-//var teacherJson ="http://www.fhsapp.com/general_testing/appendix_pt.php"; //the static profile testor
 
 //*These are the loaders
 var LoadWB = $("<img class='loading' src='Images/LoadWB.gif' width='32' height='32' />"); 
@@ -164,7 +164,7 @@ function ajaxFeed(url,callback) {
 			callback(data);
 		},
 		error: function() {
-			//console.log("something done broke yo ");
+			console.log("something done broke yo ");
 			//console.log(url);
 		}
 	} );
@@ -666,7 +666,7 @@ function loadFeedList(feeds){   //*this runs everytime a setting is changed or t
 	var profileUrlCaller = profileListQueryUrl + profileAddedString;	//here is where the two datacallers diverge
 	//console.log("profileUrlCaller="+	profileUrlCaller);
 	//ajaxFeed(teacherJson, setTeacherData); //static
-	ajaxFeed( profileUrlCaller, setTeacherData); //dynamic
+	ajaxFeed(profileUrlCaller, setTeacherData); //dynamic
 }
 
 function setTeacherData(data) {
@@ -779,54 +779,46 @@ function displayProfileList(){
 }
 
 function specificProfileDisplay(tP){ //stands for teacherPlacement, is the same as the "i" value from displayProfileList
-	//showLoader(); //this is breaking our dropdown!!!
-	var staticHtml ="";
-	staticHtml += "<div class='profilePage'>";
-	staticHtml += "<img class='profilePicture' src='http://marlboroschools.schoolwires.com/cms/lib/NY24000063/Centricity/Domain/538/Science.gif'>";
-	staticHtml += "<h1>Beth Biagini</h1>";
-	staticHtml += "<h3>Room 236</h3>";
-	staticHtml += "<div class= 'teacherSocialWebsites'>";
-	staticHtml += "<a href='#'><img src='Images/facebook.png'></a>";
-	staticHtml += "<a href='#'><img src='Images/twitter.png'></a>";
-	staticHtml += "<a href='#'><img src='Images/wordpress.png'></a>";
-	staticHtml += "</div>";
-	staticHtml += "<p><a href='#'>My website</a></p>";
-	staticHtml += "<p>I am a teacher at the school who teaches book learnings. I also play sport. its very much fun to teach and have students who like to learn!</p>";
-	staticHtml += "</div>";
-	
+	//showLoader(); //this is breaking our dropdown!!!	
 	$(".teacherProfiles .profiles a").trigger("click"); //simulates a click
 	slideLeft();
-	var specificProfileHtml = "";
+	var specificProfileHtml = "<div class='profilePage'>";
 	var profileFilled = false;
-	specificProfileHtml +="<p>Name: "+feedData.profileList[tP].first_name+" "+feedData.profileList[tP].last_name+"</p>";
-	if (feedData.profileList[tP].hasOwnProperty("image_link") && feedData.profileList[tP].image_link != ""){
-		specificProfileHtml +="<p>Profile Picture: <img style=\"width:50px;height:auto;\" class=\"profilePic\" src=\""+feedData.profileList[tP].image_link+"\"/></p>"; 
-		profileFilled = true;}
+	specificProfileHtml +="<h1>"+feedData.profileList[tP].first_name+" "+feedData.profileList[tP].last_name+"</h1>";
 	if (feedData.profileList[tP].hasOwnProperty("room_number") && feedData.profileList[tP].room_number != ""){
-		specificProfileHtml +="<p>Room Number: "+feedData.profileList[tP].room_number+"</p>";
-		profileFilled = true;} 
+		specificProfileHtml +="<h3>Rm "+feedData.profileList[tP].room_number+"</h3>";
+		profileFilled = true;}
+	if (feedData.profileList[tP].hasOwnProperty("image_link") && feedData.profileList[tP].image_link != ""){
+		specificProfileHtml +="<img class=\"profilePicture\" src=\""+feedData.profileList[tP].image_link+"\"/>"; 
+		profileFilled = true;}
+	specificProfileHtml +="<div class=\"teacherSocialWebsites\">";
+	if (feedData.profileList[tP].hasOwnProperty("facebook") && feedData.profileList[tP].facebook != ""){
+		specificProfileHtml +="<a href='"+feedData.profileList[tP].facebook+"'><img src='Images/facebook.png'></a><br>";
+		profileFilled = true;}
+	if(feedData.profileList[tP].hasOwnProperty("twitter") && feedData.profileList[tP].twitter != ""){
+		specificProfileHtml +="<a href='"+feedData.profileList[tP].twitter+"'><img src='Images/twitter.png'></a><br>";
+		profileFilled = true;}
+	if(feedData.profileList[tP].hasOwnProperty("wordpress_blog") && feedData.profileList[tP].wordpress_blog !=" "){
+		specificProfileHtml +="<a href='"+feedData.profileList[tP].wordpress_blog+"'><img src='Images/wordpress.png'></a><br>";
+		profileFilled= true;}
+	specificProfileHtml +="</div>"
 	if (feedData.profileList[tP].hasOwnProperty("bio") && feedData.profileList[tP].bio != ""){
-		specificProfileHtml +="<p>Bio: "+feedData.profileList[tP].bio+"</p>";
+		specificProfileHtml +="<p><b>Bio:</b> "+feedData.profileList[tP].bio+"</p>";
 		profileFilled = true;}
 	if (feedData.profileList[tP].hasOwnProperty("other_roles") && feedData.profileList[tP].other_roles != ""){
-		specificProfileHtml +="<p>Other Roles: "+feedData.profileList[tP].other_roles+"</p>"; 
+		specificProfileHtml +="<p><b>Other Roles:</b> "+feedData.profileList[tP].other_roles+"</p>"; 
 		profileFilled = true;}
 	if (feedData.profileList[tP].hasOwnProperty("other_info") && feedData.profileList[tP].other_info != ""){
-		specificProfileHtml +="<p>Other Info: "+feedData.profileList[tP].other_info+"</p>"; 
+		specificProfileHtml +="<p><b>Other Info:</b> "+feedData.profileList[tP].other_info+"</p>"; 
 		profileFilled = true;}
 	if (feedData.profileList[tP].hasOwnProperty("website_link") && feedData.profileList[tP].website_link != "" ){
-		specificProfileHtml +="<p>Website Link: <a href=\""+feedData.profileList[tP].website_link+"\">"+feedData.profileList[tP].website_link+"</a></p>";
-		profileFilled = true;}
-	if (feedData.profileList[tP].hasOwnProperty("facebook") && feedData.profileList[tP].facebook != ""){
-		specificProfileHtml +="<p>Facebook: <a  href=\""+feedData.profileList[tP].facebook+"\">"+feedData.profileList[tP].facebook+"</a></p>";
-		profileFilled = true;}
-	if (feedData.profileList[tP].hasOwnProperty("image_link") && feedData.profileList[tP].image_link != "" ){
-		specificProfileHtml +="<p>Blog: <a href=\""+feedData.profileList[tP].wordpress_blog+"\">"+feedData.profileList[tP].wordpress_blog+"</a></p>"; 
+		specificProfileHtml +="<p><b>Website Link:</b> <a href=\""+feedData.profileList[tP].website_link+"\">"+feedData.profileList[tP].website_link+"</a></p>";
 		profileFilled = true;}
 	if (profileFilled === false){
 		specificProfileHtml += "<p> This teacher has not filled out a profile on the FHS APP admin system. Their information is currently unavailable. </p>";
+	specificProfileHtml+="</div>";
 	}
-	$("#dContent").empty()/*append(specificProfileHtml)*/.append(staticHtml);
+	$("#dContent").empty().append(specificProfileHtml);
 	setTitle(feedData.profileList[tP].first_name+" "+feedData.profileList[tP].last_name); //pop's the fir'st per'sons's name in the title
 	
 
@@ -903,25 +895,7 @@ function displayFeedListGeneral() {
 	initializeSlideoutHide();
 }
 
-/*VV*PROFILES -- DON'T HIT ME ******************************************************************************************************************************/
-/*
-function loadProfiles(){
-	showLoader();
-	setTitle("Teacher Profiles");
-	getProfiles(); //VV does not work yet, but the function should ajax a list of anno's.. w/e that means
-};
-
-function getProfiles(){ //VV this is what I was talking about above
-	ajaxFeed(profileListUrl, necessaryProfiles);
-};
-
-function necessaryProfiles(data){
-	$profileData=data //VV seriously borked, forgive me
-	//console.log($profileData);
-}
-*/
-
-/** SETTINGS *************************************************************************************************************************************************/
+/** SETTINGS **************************************************/
 
 var feedCbs;
 
