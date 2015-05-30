@@ -156,16 +156,17 @@ var LoadBB = $("<img class='loading' src='Images/LoadBB.gif' width='32' height='
 //*Ajax stands for asynchronous javascript and XML. This ajax is what is getting all the stuff from the site. 
 //*The feeds are in a system called "json," thus the "dataType."
 function ajaxFeed(url,callback) {
+	//console.log("AJAX RUNNING");
 	$.ajax( {
 		url: url,
 		dataType: 'jsonp',
 		type: 'get',
 		success: function(data) {
+			//console.log("AJAX SUCCESS");
 			callback(data);
 		},
 		error: function() {
-			console.log("something done broke yo ");
-			//console.log(url);
+			//console.log("AJAX ERROR");
 		}
 	} );
 }
@@ -226,7 +227,7 @@ function makeProfileQueryString(feeds) { //*lumps together all the necessary fee
 			q += feeds[i];
 		};
 	}
-	//console.log(q);
+	//console.log("PQS SUCCESS");
 	return q; //*returns the string of catids
 
 }
@@ -665,11 +666,10 @@ function loadFeedList(feeds){   //*this runs everytime a setting is changed or t
 	var profileAddedString = makeProfileQueryString(feeds);  //these should replicate the same deal in the annolist/query 'cept for profiles
 	var profileUrlCaller = profileListQueryUrl + profileAddedString;	//here is where the two datacallers diverge
 	//console.log("profileUrlCaller="+	profileUrlCaller);
-	//ajaxFeed(teacherJson, setTeacherData); //static
-	ajaxFeed(profileUrlCaller, setTeacherData); //dynamic
+	ajaxFeed(profileUrlCaller, setProfileData); //dynamic
 }
 
-function setTeacherData(data) {
+function setProfileData(data) {
 	feedData.profileList = data;
 	//console.dir(feedData.profileList);
 }
@@ -766,14 +766,15 @@ function displayFeedList() {
 function displayProfileList(){
 	$('.teacherProfiles ul').empty()//*This clears out the list on top each time so it doesn't double up
 	var profileHtml = "<div class=\"atitle profiles closed\"> <a>Teacher Profiles</a> </div> <ul class=\"acontent\" style=\"display:none\">";
-	for (var i=0;i<feedData.profileList.length;i++){
-		//console.log(feedData.profileList[i].first_name);
-		profileHtml += "<li><a href='#' onclick='specificProfileDisplay("+i+")'>"+feedData.profileList[i].first_name+" "+feedData.profileList[i].last_name+"</a></li>";
-	
+	if(feedData.profileList.length == 0){
+		profileHtml += "<li>No profiles available.</li>";
+	}else{
+		for (var i=0;i<feedData.profileList.length;i++){
+			//console.log(feedData.profileList[i].first_name);
+			profileHtml += "<li><a href='#' onclick='specificProfileDisplay("+i+")'>"+feedData.profileList[i].first_name+" "+feedData.profileList[i].last_name+"</a></li>";
+		}
 	}
 	profileHtml += "</ul>";
-	/*console.log(profileHtml);
-	console.log(feedData);*/ //hey, why aren't other people showing up?
 	$('.teacherProfiles').empty().append(profileHtml); //adds in the crazy
 	initializeSlideoutHide();
 }
