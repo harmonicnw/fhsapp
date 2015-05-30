@@ -137,16 +137,16 @@ var feedListItemsTotal;
 var feedListItemsLoaded;
 
 //*These two urls are used with the ajaxFeed() function (see below) to get the information with all the announcements.
-//var annoListUrl= "http://www.fhsapp.com/admin/anno_list.php";   //*This Url goes to all the announcement lists.
-//var annoQueryUrl= "http://www.fhsapp.com/admin/anno_query.php"; //*This Url works with the catIds. When appended with ?catids="#", "#", "#"... it goes an gets all those categories with those catId numbers.
-var annoListUrl= "http://localhost/fhsapp_admin/anno_list.php"; //local testorz
-var annoQueryUrl= "http://localhost/fhsapp_admin/anno_query.php";
+var annoListUrl= "http://www.fhsapp.com/admin/anno_list.php";   //*This Url goes to all the announcement lists.
+var annoQueryUrl= "http://www.fhsapp.com/admin/anno_query.php"; //*This Url works with the catIds. When appended with ?catids="#", "#", "#"... it goes an gets all those categories with those catId numbers.
+//var annoListUrl= "http://localhost/fhsapp_admin/anno_list.php"; //local testorz
+//var annoQueryUrl= "http://localhost/fhsapp_admin/anno_query.php";
 
 //*this url is used for grabbing all the profiles. appendages come later.
 //var profileListUrl= "http://localhost/fhsapp_admin/profile_selector.php"; //*the local one //profile List pulls all profile, Just in case
 //var profileListQueryUrl = "http://localhost/fhsapp_admin/profile_selector_query.php";
 var profileListUrl="http://www.fhsapp.com/admin/profile_selector.php"; //*the LIVE one
-var profileListQuery="http://www.fhsapp.com/admin/profile_selector_query.php";
+var profileListQueryUrl="http://www.fhsapp.com/admin/profile_selector_query.php";
 //var teacherJson ="http://www.fhsapp.com/general_testing/appendix_pt.php"; //the static profile testor
 
 //*These are the loaders
@@ -187,7 +187,7 @@ function getUserData() {                    //*Retrieves the data from the cooki
 
 function showLoader() {                    //*Shows the cool loader thingy
 	$('#dContent').empty().append(LoadWB);
-	$('.teacherProfiles ul').empty()//*This clears out the list on top each time so it doesn't double up
+	//$('.teacherProfiles ul').empty()//*This clears out the list on top each time so it doesn't double up
 	$('.teacherProfiles .atitle').removeClass('open').addClass('closed');
 	//*This centers the loader
 	LoadWB.css({ 
@@ -764,6 +764,7 @@ function displayFeedList() {
 }	
 
 function displayProfileList(){
+	$('.teacherProfiles ul').empty()//*This clears out the list on top each time so it doesn't double up
 	var profileHtml = "<div class=\"atitle profiles closed\"> <a>Teacher Profiles</a> </div> <ul class=\"acontent\" style=\"display:none\">";
 	for (var i=0;i<feedData.profileList.length;i++){
 		//console.log(feedData.profileList[i].first_name);
@@ -779,6 +780,20 @@ function displayProfileList(){
 
 function specificProfileDisplay(tP){ //stands for teacherPlacement, is the same as the "i" value from displayProfileList
 	//showLoader(); //this is breaking our dropdown!!!
+	var staticHtml ="";
+	staticHtml += "<div class='profilePage'>";
+	staticHtml += "<img class='profilePicture' src='http://marlboroschools.schoolwires.com/cms/lib/NY24000063/Centricity/Domain/538/Science.gif'>";
+	staticHtml += "<h1>Beth Biagini</h1>";
+	staticHtml += "<h3>Room 236</h3>";
+	staticHtml += "<div class= 'teacherSocialWebsites'>";
+	staticHtml += "<a href='#'><img src='Images/facebook.png'></a>";
+	staticHtml += "<a href='#'><img src='Images/twitter.png'></a>";
+	staticHtml += "<a href='#'><img src='Images/wordpress.png'></a>";
+	staticHtml += "</div>";
+	staticHtml += "<p><a href='#'>My website</a></p>";
+	staticHtml += "<p>I am a teacher at the school who teaches book learnings. I also play sport. its very much fun to teach and have students who like to learn!</p>";
+	staticHtml += "</div>";
+	
 	$(".teacherProfiles .profiles a").trigger("click"); //simulates a click
 	slideLeft();
 	var specificProfileHtml = "";
@@ -811,7 +826,7 @@ function specificProfileDisplay(tP){ //stands for teacherPlacement, is the same 
 	if (profileFilled === false){
 		specificProfileHtml += "<p> This teacher has not filled out a profile on the FHS APP admin system. Their information is currently unavailable. </p>";
 	}
-	$("#dContent").empty().append(specificProfileHtml);
+	$("#dContent").empty()/*append(specificProfileHtml)*/.append(staticHtml);
 	setTitle(feedData.profileList[tP].first_name+" "+feedData.profileList[tP].last_name); //pop's the fir'st per'sons's name in the title
 	
 
