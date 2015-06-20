@@ -1,5 +1,4 @@
 //* All comments with "//*" next to them mean that they explain how the code works. Otherwise, it's probably just commented out code or something.
-//* All comments with "VV" next to them mean that it is terrible, broken works in progress, usually written by griffin. sorry.
 //the urls that continually need to be changed between local and live are marked with ZZZZ
 
 $(document).ready( function() {
@@ -41,7 +40,7 @@ $(document).ready( function() {
 				});
 			});
 		});
-		setTitle( $(this).text() );                  //*topTitle = header bar goodies
+		setTitle( $(this).text() );
 		slideLeft2();
 	});
 	
@@ -50,8 +49,6 @@ $(document).ready( function() {
 		e.preventDefault(); //*prevents loading page
 		$(this).blur();     //*subtle niceties
 		showLoader();
-		//$("#dContent").load( $(this).attr("href") ); //*loads in the resources dynamically -- dContent = right side goodies
-		//setTitle( $(this).text() );                  //*topTitle = header bar goodies
 		slideLeft();
 		embedSurvey();
 	});
@@ -62,7 +59,7 @@ $(document).ready( function() {
 		$(this).blur();     //*subtle niceties
 		showLoader();
 		$("#dContent").load( $(this).attr("href") ); //*loads in the howTo dynamically -- dContent = right side goodies
-		setTitle( $(this).text() );                  //*topTitle = header bar goodies 
+		setTitle( $(this).text() );                  
 		slideLeft2();
 	});
 });
@@ -77,26 +74,6 @@ function checkDay() {
 	
 	var schoolDay = ["no school", "an A/B day", "an A day", "a B day", "an A day", "a B day", "no school"];
 	$(".dayticker").html("Today is " + schoolDay[toDay]);
-	
-/*	//console.log("the day ="+toDay);
-	//the school day is A, B, AB (skinny) or N (none)
-	var schoolDay = "null";
-	//matches # with correct school day
-	if (toDay == "0"|| toDay=="6"){
-		schoolDay ="N";
-	}
-	else if (toDay =="1"){
-		schoolDay = "AB";
-	}
-	else if (toDay =="2"|| toDay=="4"){
-		schoolDay = "A";
-	}
-	else if (toDay =="3"|| toDay=="5"){
-		schoolDay="B";
-	}
-	//console.log("school day ="+schoolDay);
-	//consoling logs are for testing purposes ONLY HANDS OFF PAL
-	*/
 }
 
 function setSchedule() {
@@ -105,8 +82,6 @@ function setSchedule() {
 	
 	var schedDay = ["bsmonAB.png", "bsmonAB.png", "bstueA.png", "bswedB.png", "bsthuA.png", "bsfriB.png", "bsmonAB.png"];
 	$(".scheduleholder").html("<img src='Images/" + schedDay[toDay] + "' class='schedulepicture'>");
-
-
 }
 
 var userData;
@@ -127,8 +102,7 @@ var feedData = {
 		"eventLocation" : "",        //*Optional stuff, part of ".specs" Self-explanatory
 		"author" : {"name" : "",}	 //*Who made it	(not used (but may be used soon???))		
 		},
-		This is all used in the displayAnnouncements function (see line ~403)
-		*/
+		This is all used in the displayAnnouncements function (see line ~403) */
 	'feedList': [],      //*Becomes the location of all your selected categories. Used with "addFeedsToList" function.
 	'allCats': [],       //*Lists all the top categories (the big four): General, Classes, Clubs, and Sports
 	'allTeachers': [],   //*Lists all the teachers
@@ -156,28 +130,24 @@ var LoadBB = $("<img class='loading' src='Images/LoadBB.gif' width='32' height='
 //*Ajax stands for asynchronous javascript and XML. This ajax is what is getting all the stuff from the site. 
 //*The feeds are in a system called "json," thus the "dataType."
 function ajaxFeed(url,callback) {
-	//console.log("AJAX RUNNING");
 	$.ajax( {
 		url: url,
 		dataType: 'jsonp',
 		type: 'get',
 		success: function(data) {
-			//console.log("AJAX SUCCESS");
 			callback(data);
 		},
 		error: function() {
-			//console.log("AJAX ERROR");
 		}
 	} );
 }
 
 var cookieOptions = {
 	'expires' : 999999999,              //* This is when the cookie ends (basically never)
-	'domain' : window.location.hostname //* This means the cookie's only useable in FHS app
+	'domain' : window.location.hostname //* This means the cookie's only usable in FHS app
 }
 
 function getUserData() {                    //*Retrieves the data from the cookie
-	//var ud = $.cookie("userData");    	//*grabs the cookie -- IF IT EXISTS
 	var ud = JSON.parse(localStorage.getItem("userData"));
 	if (ud && ud.hasOwnProperty("feeds")) { //*double checks existence of the user data cookie
 		return ud;                          //*returns the cookie (user) data
@@ -188,19 +158,14 @@ function getUserData() {                    //*Retrieves the data from the cooki
 
 function showLoader() {                    //*Shows the cool loader thingy
 	$('#dContent').empty().append(LoadWB);
-	//$('.teacherProfiles ul').empty()//*This clears out the list on top each time so it doesn't double up
 	$('.teacherProfiles .atitle').removeClass('open').addClass('closed');
-	//*This centers the loader
-	LoadWB.css({ 
+	LoadWB.css({  //centers the loader
 		'margin-top' : "50px",
 		'margin-left' : ( ($(".over").width() - LoadWB.width() ) / 2) +"px"
 	});
 }
 
 function setTitle(title) {
-	//MAKE DYNAMIC //**//
-	//Probably take width of screen and divide by a certain number to get max characters.
-	
 	var maxChars = 20; //*This is the max number of characters that shows up on top before cutting off
 	
 	if (title.length > maxChars) {
@@ -215,10 +180,9 @@ function makeQueryUrlString(feeds) { //*This makes the "lump" of catIds that the
 		if (i>0) q += ",";
 		q += feeds[i];
 	}
-	////console.log(q);
 	return q; //*returns the string of catids
 }
-//a fractured core of the profile section excised and placed into the shared section. 
+//part of the profile section uses the main feeds engine to fuel itself 
 function makeProfileQueryString(feeds) { //*lumps together all the necessary feeds
 	var q = "?pSubtypes="; //*like w/ anno query, appends this to a url to call specific teaches'
 	for (var i=0; i < feeds.length; i++) { 
@@ -227,13 +191,10 @@ function makeProfileQueryString(feeds) { //*lumps together all the necessary fee
 			q += feeds[i];
 		};
 	}
-	//console.log("PQS SUCCESS");
 	return q; //*returns the string of catids
-
 }
 
-
-/** UI *******************************************************************************************************************************************************/
+/** UI **************************************************************************************************/
 
 var slideLeft;
 var slideLeft2;
@@ -243,8 +204,7 @@ var L3isSlid = false;
 var L2isSlid = false;
 
 $(document).ready( function() {
-	//*For sliding right
-	 slideRight = function() {
+	 slideRight = function() { //*For sliding right
 		over.animate({
 		'left': ($(document).width()*.7) + 'px'
 		}, 250);
@@ -253,15 +213,13 @@ $(document).ready( function() {
 			e.preventDefault();
 		});
 	}
-	//*For sliding left
-	 slideLeft = function() {
+	 slideLeft = function() { //*For sliding left
 		over.animate({
 		'left': '0px'
 		}, 250);
 		isSlid = false;
 		over.unbind('touchmove');
 	}
-	
 	slideLeft2 = function() { //*A hideous hack that prevents the background from changing back to grey everytime you slide back over from the survey. Don't worry about it.
 		over.animate({
 		'left': '0px'
@@ -270,14 +228,12 @@ $(document).ready( function() {
 		over.unbind('touchmove');
 		$(".over").removeClass("SurveyBG");
 	}
-	
 	$(".under .acontent").hide();
 	
 	var over = $(".over");
 	var body = $("body");
-
-	//*This is for sliding right
-	over.swiperight(
+	
+	over.swiperight( //*This is for sliding right
 		function() {
 		if (isSlid === false) {
 				slideRight(); //*Calls above functions
@@ -285,16 +241,15 @@ $(document).ready( function() {
 		}
 	);
 		
-	//*This is for sliding left
-	over.swipeleft(	
+	over.swipeleft(	//*This is for sliding left
 		function() {
 		if (isSlid === true) {
 				slideLeft(); //*Calls above functions
 			}
 		}
 	);
-	//*For the button
-	var btnSlide = $(".btnSlide");
+	
+	var btnSlide = $(".btnSlide"); //*enables slideout button to work
 	btnSlide.click(
 		function(e) {
 			if (isSlid === true) {
@@ -303,8 +258,7 @@ $(document).ready( function() {
 				slideRight();
 			}
 		}
-	) 
-		
+	) 		
 	setAppHeight(); //*sets the height (see below)
 	$(window).bind("orientationchange",setAppHeight);  //*This detects orientation changes and "reloads" the height with each change so the things doesn't get thrown off.
 	
@@ -312,7 +266,7 @@ $(document).ready( function() {
 } ); 
 
 function setAppHeight() {
-	var timeout = setTimeout( //*There is a timeout here for it takes a little while for the orientation change to occur, thus this code must be delayed until after the orientation change, otherwise, the height isn't set properly.
+	var timeout = setTimeout( //*There is a timeout here. it takes a little while for the orientation change to occur, so this code must be delayed until after the orientation change, otherwise, the height isn't set properly.
 		function() {
 			var docHeight = window.innerHeight;
 			$(".wrapper").css("height", docHeight + "px"); //*dynamically makes the document bigger or smaller 
@@ -330,18 +284,10 @@ function setAppHeight() {
 var annHide;
 function initializeHide() {//*Function for announcement list items toggle
 	$(".ans .content").hide(); //*Starts out by hiding everything
-
-	$(".ans .title").toggle(   //*on clicking the title, fun the below function
+	$(".ans .title").toggle(   //*on clicking the title, run the below function
 		function() {
 			if (!isSlid) {
-				$(".ans .content:visible").slideUp(750); // May need Fixing //*Slides up the previous announcement
-					/*annHide = $(this).next(".content");
-					setTimeout(
-						function() {
-							annHide.stop(true,true).hide();
-						}, 740
-					);*/
-					/*var body = $('body'); body.css('height', 'auto'); body.css('height', body.height());*/
+				$(".ans .content:visible").slideUp(750); //*Slides up the previous announcement
 				$(this).next(".content").slideDown(750); //*Slides down the announcement you just clicked
 			}
 		}, 
@@ -363,7 +309,6 @@ function initializeHide() {//*Function for announcement list items toggle
 //*L2 is the first list dropdown in the settings for Classes, Clubs, and Sports.
 function initializeL2Hide() {
 	$(".L2").hide();
-	
 	$(".L1 h1").toggle(
 		function() {
 			if(!L2isSlid) {
@@ -393,12 +338,6 @@ function initializeL3Hide() {
 		function() {
 			if(!L3isSlid) {
 				$(this).next(".L3").slideDown(750);
-					/*annHide = $(this).next(".L3");
-					setTimeout(
-						function() {
-							annHide.stop(true,true).show();
-						}, 400
-					); */
 			}
 		},
 		
@@ -419,36 +358,9 @@ function initializeL3Hide() {
 var date = new Date();
 var time = date.getHours();
 
-function makelogoimage() {
 
-if (time<6)
-  {
-  x="Images/nighttime.png" ;
-  }
-else if (time<8)
-  {
-  x="Images/sunrise.png";
-  }
-else if (time<18)
-  {
-  x="Images/daytime.png";
-  }
-else if (time<20)
-  {
-  x="Images/sunset.png";
-  }
-else 
-  {
-  x="Images/nighttime.png";
-  }
-  
-//console.log("time="+time);
-$("#logo").append("<img src='"+x+"' class='timelogofull' /> ");
-
-}
 //*This is for dropdowns in the slideout menu
 function initializeSlideoutHide() {
-	//slideoutMenuDropDown
 	$(".under .acontent").not(".teacherProfiles .acontent").hide();
 	$(".under .atitle").not("teacherProfiles . atitle").toggle(
 		function() {
@@ -459,12 +371,7 @@ function initializeSlideoutHide() {
 		
 		function() {
 			$(this).next(".acontent").slideUp(750);
-				annHide = $(this).next(".acontent");
-				setTimeout(
-					function() {
-						//annHide.stop(true,true).hide();  //this causes the "won't open after settings is click with profs open" bug.
-					}, 740
-				);
+			annHide = $(this).next(".acontent");
 			$(this).removeClass("open");
 			$(this).addClass("closed");
 		}
@@ -477,7 +384,6 @@ function initializeEasyCheck()
 {
 	$(".bottom").each( function() {
 		var cb = $(this).find("input");
-		
 		$(this).click(function(){
 			if (cb.is(":checked")){
 				cb.prop("checked",false);  //*turns the bottom into a button!
@@ -489,17 +395,14 @@ function initializeEasyCheck()
 	});
 }
 
-/** ANNOUNCEMENTS ********************************************************************************************************************************************/
+/** ANNOUNCEMENTS ******************************************************************************************************************/
 
 var feedListExists = false;
-//*//
 //*This function runs at the very beginning. It's found in the index html file. It starts up everything.
 function fhsIndex(){
-	//console.log('fhsIndex: check it?');
 	userData = getUserData();
 	if (userData && userData.hasOwnProperty("feeds")) { //*checks if the userData cookie has been set
 		if(userData.feeds.length > 0) {           //*this makes sure that there are feeds the user is subscribed to
-			////console.log("side is loaded");
 			loadFeedList(userData.feeds);         //*loads the slideout menu
 			loadAnnouncements(userData.feeds, "Your Announcements"); //*loads the "over", all the announcements
 		} else {
@@ -512,7 +415,6 @@ function fhsIndex(){
 
 
 function loadAnnouncements(feeds, title) {       //*The parameter "feeds" comes in as a string of catIds, which are passed to makeQueryUrlString (see below).
-	//console.log("Loading Announcements");
 	showLoader();
 	slideLeft2();
 	//*feedData is an object that holds a ton of stuff (see line ~49)	
@@ -520,7 +422,7 @@ function loadAnnouncements(feeds, title) {       //*The parameter "feeds" comes 
 	var queryString = makeQueryUrlString(feeds); //*See the function (line ~132)
 	var queryUrl = annoQueryUrl + queryString;   //*This makes that URL with the catIds
 	ajaxFeed(queryUrl, addAnnouncements);        //*Ajaxes the url, then runs addAnnouncements (below).
-	setTitle(title); 
+	setTitle(title); //sets the topbar's words
 	$("#dContent").find("a").each(function(){
 		$(this).click(function(e){
 			window.open(encodeURI( $(this).attr('href') ) , '_system');
@@ -568,7 +470,6 @@ function displayAnnouncements(data){ //*This WRITES the page
 			//?NEW STUFF HERE FOR "topCategory" FOR THE MORE CUSTOM ICONS. Will need if statement and stuff.
 			var period = feedData.entries[i]['period'];
 			var classPeriod = [0, "Classes1", "Classes2", "Classes3", "Classes4", "Classes5", "Classes6", "Classes7", "Classes8"];
-			//?
 			var eventDate = feedData.entries[i]['eventDate'];
 			
 			if (eventDate != "0000-00-00"){
@@ -636,11 +537,6 @@ function sortAnnouncements(fd) {
 
 /** SLIDEOUT!MENU (aka FeedList) *********************************************************************************************************************/
 function addFeedsToList(data) {
-	//console.log("now at addFeedsToList"); 
-	
-	//console.dir(data);
-	//data = JSON.parse(data); //?DA PROBLEM!!!!! //REALLY REALLY HERE!!!!
-	//console.log("This is where it says JSON.parse");
 	for(var i=0; i < data.feed.feeds.length; i++){
 		//*feedData.feedList is up in the feeds array (line ~67)
 		feedData.feedList.push({
@@ -656,22 +552,18 @@ function addFeedsToList(data) {
 
 var teacherData;
 
-function loadFeedList(feeds){   //*this runs everytime a setting is changed or the app is initially loaded.
-	//console.log("calling loadfeedlist"); //works up to this point
+function loadFeedList(feeds){   //*this runs everytime a setting is changed or the app is initially loaded. 
 	feedData.feedList = []; 	//*location of all your categories. Clears everytime.
 	feedData.profileList= [];
 	var queryString = makeQueryUrlString(feeds); //*makes the string (the lump). The "makeQueryUrlString" returns a string of catIds, which the variable gets set to.
 	ajaxFeed(annoQueryUrl + queryString, addFeedsToList); //*Purges the old feeds in a ritualistic culling. (Translation: Everytime a setting is changed (checked), the ajaxFeed function runs and the "feedData.feedList" array is filled up with a new set of data.
-	//console.dir(feedData.feedList);
 	var profileAddedString = makeProfileQueryString(feeds);  //these should replicate the same deal in the annolist/query 'cept for profiles
 	var profileUrlCaller = profileListQueryUrl + profileAddedString;	//here is where the two datacallers diverge
-	//console.log("profileUrlCaller="+	profileUrlCaller);
 	ajaxFeed(profileUrlCaller, setProfileData); //dynamic
 }
 
 function setProfileData(data) {
 	feedData.profileList = data;
-	//console.dir(feedData.profileList);
 }
 
 //*This is for the SLIDEOUT MENU (the feedList). It generates the lists so you can select from them.
@@ -770,7 +662,6 @@ function displayProfileList(){
 		profileHtml += "<li>No profiles available.</li>";
 	}else{
 		for (var i=0;i<feedData.profileList.length;i++){
-			//console.log(feedData.profileList[i].first_name);
 			profileHtml += "<li><a href='#' onclick='specificProfileDisplay("+i+")'>"+feedData.profileList[i].first_name+" "+feedData.profileList[i].last_name+"</a></li>";
 		}
 	}
@@ -780,7 +671,6 @@ function displayProfileList(){
 }
 
 function specificProfileDisplay(tP){ //stands for teacherPlacement, is the same as the "i" value from displayProfileList
-	//showLoader(); //this is breaking our dropdown!!!	
 	$(".teacherProfiles .profiles a").trigger("click"); //simulates a click
 	slideLeft();
 	var specificProfileHtml = "<div class='profilePage'>";
@@ -830,7 +720,6 @@ function specificProfileDisplay(tP){ //stands for teacherPlacement, is the same 
 //////////////////////FIX FIX FIX FIX////////////////////////////////////
 //Maybe make a master function for all this so it may all be passed in?//
 function addFeedsToListGeneral(data) {
-	//data = JSON.parse(data);
 	for(var i=0; i < data.feed.feeds.length; i++){
 		feedData.generalFeedList.push({
 			'feedTitle':data.feed.feeds[i].title,
@@ -842,8 +731,6 @@ function addFeedsToListGeneral(data) {
 }
 
 function loadFeedListGeneral(){ //this runs everytime a setting is changed or the app is initially loaded.
-	////console.log("This is Loopy.");
-	////console.dir(userData);
 	feedData.generalFeedList = []; 	//location of all general categories. Clears everytime.
 	var queryString = makeQueryUrlString(userData.generalFeeds); //makes the string(the lump)
 	ajaxFeed(annoQueryUrl + queryString, addFeedsToListGeneral); //purges the old feeds in a ritualistic culling -- whenever a setting is changed
@@ -853,9 +740,7 @@ function displayFeedListGeneral() {
 	var allCatIds = [];
 	var html ="";
 	
-	////console.dir(feedData.generalFeedList);
 	
-	//for (var i = 0; i < feedData.allCats.length; i++) { //This was the old loop that is not necessary for General. All the things with i iterators should be out, like feedData.allCats[i], and replaced with "General". 
 	var feedArr = [];   		//Container for adding feeds that are in the category	
 	for (var j = 0; j < feedData.generalFeedList.length; j++) { 
 		if(feedData.generalFeedList[j].feedCategory == "General") { 		
@@ -943,7 +828,6 @@ function initSettingsList(data) {
 				feedArr.push(data.feed.entries[j]); //*If true, pushes to array "feedArr" at top
 			}
 		}
-		//console.dir(feedArr);
 		if (feedArr.length > 0) { //*This checks if there's something in the category
 			feedArr.sort( //*This sorts everything
 				function(a,b){
@@ -1058,7 +942,6 @@ function updateSettingsFromUserData() { //*this cycles through the cookie to fig
 function updateUserDataFromSettings() {
 	var feedsArr =[];
 	var generalFeedsArr = [];
-	//console.log("updatingUserDataFromSettings");
 	//if a feed is checked, add it to the cookie
 	feedCbs.each( function(i) {
 		if ( $(this).is(":checked") && $(this).parents("li.general").length > 0 ) { //checks if it does have a ancestor called General
@@ -1067,8 +950,6 @@ function updateUserDataFromSettings() {
 			feedsArr.push( $(this).val() ); //pushes it into the porthole """porthole = feeds""" list if it's checked!
 		}
 	});
-	//console.dir(generalFeedsArr);
-	//console.log(feedsArr);
 	userData = {  //feeds is a big list of numbers. this is useful for the annoquery and the profile query
 		'feeds' : feedsArr, //this is where the feeds parameter is established, I'm pretty sure
 		'generalFeeds' : generalFeedsArr
@@ -1076,13 +957,8 @@ function updateUserDataFromSettings() {
 	feedData.feedList = feedsArr;
 	feedData.generalFeeds = generalFeedsArr;
 	
-	//$.cookie( "userData", userData, cookieOptions ); //*makin' cookies or overwriting them 
 	localStorage.setItem("userData",JSON.stringify(userData));
-	//console.log("userData = " + JSON.parse(localStorage.getItem("userData")));
-	//	console.dir(JSON.parse(localStorage.getItem("userData")));
 	loadFeedList(feedData.feedList);
-	//console.dir(feedData);
-	//console.dir(feedData.feedList);
 } 
 
 
@@ -1105,9 +981,7 @@ function embedSurvey() {
 
 var sWidth = $(document).width();                              //*How wide the survey shall be
 var sHeight = $(document).height() - 20 - $(".top").outerHeight();  //*How high the survey shall be
-//
 var sIFrame = $('<div class="sIFrame" width="' + sWidth + '" height="' + sHeight + '"><iframe id="sIFrame" width="' + sWidth + '" scrolling="yes" height="' + sHeight + '" frameborder="0" src="http://www.fhsapp.com/admin/feedbackForm.html" style="border-width: 0px;margin: 0;overflow-y:auto;"/></div>');
-//var sIFrame = $('<div class="sIFrame"><iframe id="sIFrame" scrolling="yes" frameborder="0" src="http://www.fhsapp.com/admin/feedbackForm.html" style="border-width: 0px;margin: 10px 0 0 10px;overflow-y:auto;"/></div>');
 
 //*This is part of fixing the problems in the UI where the dimensions weren't changing dynamically upon orientation changes. Don't worry about it.
 sIFrame.bind("orientationchange", //*This is for detecting orientation change in Survey. When it detects it, it runs the below function.
@@ -1163,8 +1037,6 @@ else
   {
   x="Images/nighttime.png";
   }
-  
-//console.log("time="+time);
 $("#logo").append("<img src='"+x+"' class='timelogo' /> ");
 
 }
